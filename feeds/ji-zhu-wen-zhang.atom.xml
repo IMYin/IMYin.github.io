@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Yin's Blog</title><link href="https://IMYin.github.io/" rel="alternate"></link><link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" rel="self"></link><id>https://IMYin.github.io/</id><updated>2016-09-02T21:25:00+08:00</updated><entry><title>决策树－非线性分类与回归</title><link href="https://IMYin.github.io/2016/09/02/%E5%86%B3%E7%AD%96%E6%A0%91%EF%BC%8D%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E4%B8%8E%E5%9B%9E%E5%BD%92.html" rel="alternate"></link><published>2016-09-02T21:25:00+08:00</published><updated>2016-09-02T21:25:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-02:2016/09/02/决策树－非线性分类与回归.html</id><summary type="html">&lt;h1&gt;决策树简介&lt;/h1&gt;
 &lt;p&gt;决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。　　
-&lt;img alt="解释图" src="'../images/em_tree.png'" /&gt;&lt;br /&gt;
-训练集的样本由决策结果分成不同的子集。&lt;/p&gt;</summary><category term="Machine Learning"></category></entry></feed>
+&lt;center&gt;&lt;a  target="_blank"&gt;&lt;img src="icons/em_tree.jpg" width = "300" height = "300"/&gt;&lt;/a&gt;&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;训练集的样本由决策结果分成不同的子集。&lt;/p&gt;
+&lt;p&gt;这是一个正常的
+    这是代码的&lt;/p&gt;</summary><category term="Machine Learning"></category></entry></feed>
