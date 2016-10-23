@@ -149,7 +149,16 @@ $$</div>
 现在我们根据上表把其它的节点加进去，其中一个子节点只有猫，另一个节点中有2只猫６只狗。可以得到一下结果：
 <center><img alt="result5" src="https://IMYin.github.io/2016/09/28/icons/info_gain_leftsub.jpg" /></center> 
 所有的测试都会产生熵为０的情况，但是可以看到<em>脾气是否暴躁</em>和<em>是否爱打闹</em>所得到的信息增益要大。ID3算法会任意选择一个节点作为测试，下面来看看<em>脾气是否暴躁</em>这个解释变量，可以看出，它的右节点有４只猫，左节点有２只猫和２只狗。
-<center><img alt="result6" src="https://IMYin.github.io/2016/09/28/icons/info_gain_grumpy.jpg" /></center></p>
+<center><img alt="result6" src="https://IMYin.github.io/2016/09/28/icons/info_gain_grumpy.jpg" /></center>
+现在我们对剩下的解释变量计算信息增益，包括<em>脾气是否暴躁</em>，<em>最喜欢狗粮</em>，<em>最喜欢培根</em>，这些解释变量都会产生一个叶节点中包含１只猫和１只狗，另一个叶节点中包含剩下的动物，计算的信息增益结果如下图：
+<center><img alt="result6" src="https://IMYin.github.io/2016/09/28/icons/info_gain_anothers.jpg" /></center>
+现在我们随便挑选一个解释变量(<em>脾气是否暴躁</em>)来看，发现其左节点包含了１只猫和１只狗，另一个节点中包含了２只猫和１只狗。正下的解释变量(<em>最喜欢培根；最喜欢狗粮</em>)产生了同样的结果——一个节点中包含了１只猫和１只狗，另一个节点中包含了２只猫。之后，我们对<em>最喜欢狗粮</em>这个变量进行测试，结果如下：
+<center><img alt="result6" src="https://IMYin.github.io/2016/09/28/icons/info_gain_dog_food.jpg" /></center>
+下面根据上面的测试数据来进行一些分类：
+<center><img alt="result6" src="https://IMYin.github.io/2016/09/28/icons/info_gain_classified.jpg" /></center>
+我们看到，第一类动物，喜欢打闹，脾气不暴躁，喜欢培根，通过上面计算的流程规则，我们把这种动物归类为狗。以此类推。</p>
+<p>好了，以上我们用ID3算法实现了一个决策树，当然还有其他的方法，C4.5就是ID3的改进版，可以用来处理连续的解释变量并考虑特征之丢失的情况。C4.5算法可以对树进行<em>修剪(prune)</em>,以减小决策树的规模。在scikit-learn中决策树是用的是CART算法，它也支持树的修剪。</p>
+<h3>基尼不纯度</h3>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
