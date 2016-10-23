@@ -145,11 +145,11 @@ $$</div>
 <div class="math">$$IG(T,a)=H(T)-\sum_{v\epsilon vals(a)} \frac{\mid \{x\epsilon T \mid x_a=v\} \mid }{\mid T \mid }H(\{x\epsilon T\mid x_a=v\})$$</div>
 <p>
 下表是总体信息增益的计算结果，可以看到，猫粮测试是最佳选择，因为其信息增益最大。
-<center><img alt="" src="https://IMYin.github.io/2016/09/28/icons/info_gain_all.jpg" /></center> 
+<center><img alt="result4" src="https://IMYin.github.io/2016/09/28/icons/info_gain_all.jpg" /></center> 
 现在我们根据上表把其它的节点加进去，其中一个子节点只有猫，另一个节点中有2只猫６只狗。可以得到一下结果：
-<center><img alt="" src="https://IMYin.github.io/2016/09/28/icons/info_gain_leftsub.jpg" /></center> 
+<center><img alt="result5" src="https://IMYin.github.io/2016/09/28/icons/info_gain_leftsub.jpg" /></center> 
 所有的测试都会产生熵为０的情况，但是可以看到<em>脾气是否暴躁</em>和<em>是否爱打闹</em>所得到的信息增益要大。ID3算法会任意选择一个节点作为测试，下面来看看<em>脾气是否暴躁</em>这个解释变量，可以看出，它的右节点有４只猫，左节点有２只猫和２只狗。
-<center><img alt="" src="https://IMYin.github.io/2016/09/28/icons/info_gain_grumpy.jpg" /></center></p>
+<center><img alt="result6" src="https://IMYin.github.io/2016/09/28/icons/info_gain_grumpy.jpg" /></center></p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
