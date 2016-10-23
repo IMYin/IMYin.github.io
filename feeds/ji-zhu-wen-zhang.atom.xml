@@ -6,8 +6,8 @@
 &lt;/center&gt;  &lt;/p&gt;
 &lt;h3&gt;训练决策树&lt;/h3&gt;
 &lt;p&gt;我们开始先用&lt;a href="https://en.wikipedia.org/wiki/ID3_algorithm"&gt;ID３(Iterative Dichotomiser 3)&lt;/a&gt;算法来构建决策树。&lt;br /&gt;
-假如现在我们需要把一些猫和狗进行分类。但是你不可以通过肉眼观察，而是通过一些它们的行为特征来分类。这些变量也就是所说的解释变量，比如是否喜欢打闹，脾气是否暴躁，三类食物中那类是最喜欢的。
-为了对其分类，决策树需要把解释变量作为树节点来测试。这些节点的下一节点在于它们这次的测试结果是什么。直到最到抵达叶子节点，也就测试出是猫是狗。　　
+假如现在我们需要把一些猫和狗进行分类。但是你不可以通过肉眼观察，而是通过一些它们的行为特征来分类。这些变量也就是所说的解释变量，比如是否喜欢打闹，脾气是否暴躁，三类食物中那类是最喜欢的。&lt;/p&gt;
+&lt;p&gt;为了对其分类，决策树需要把解释变量作为树节点来测试。这些节点的下一节点在于它们这次的测试结果是什么。直到最到抵达叶子节点，也就测试出是猫是狗。　　
 &lt;center&gt;&lt;img alt="2" src="https://IMYin.github.io/2016/09/28/icons/train_table_dog_cat.jpg" /&gt;
 &lt;/center&gt;&lt;br /&gt;
 观察这些数据可以看到，猫比狗更容易发脾气。大多数狗玩球，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用&lt;a href="https://en.wikipedia.org/wiki/One-hot"&gt;独热编码(One-hot)&lt;/a&gt;来表示([1,0,0]，[0,1,0]，[0,0,1])。&lt;/p&gt;</summary><category term="Machine Learning"></category></entry></feed>
