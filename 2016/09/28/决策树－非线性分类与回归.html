@@ -114,7 +114,7 @@ Yin's Blog            </a>
 观察这些数据可以看到，猫比狗更容易发脾气。大多数狗爱打闹，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码(One-hot)</a>来表示([1,0,0]，[0,1,0]，[0,0,1])。</p>
 <p>到此，我们可以手动得去构建一个分类规则，比如说喜欢打闹并且喜欢吃培根那就是只狗，以此类推。但是手动构建这些规则比较麻烦，我们可以通过构建决策树来制定规则。</p>
 <h3>问题选择</h3>
-<p>在决策树中，我们通常先得对解释变量进行测试，然后通过测试得到的值去预测出响应变量。但是哪些解释变量放在前面会产生更好的输出，以形成好的model？我们的思路是通过测试得到的子集中包含所有的猫或者所有的狗，这样比得到的子集中既有猫又有狗要好很多。我们还需要避免创建那种测试，把单独的一只猫或一条狗分离出去。换句话说，也就是通过测试要最大程度的降低我们的不确定性。这里就涉及到一个用来度量信息不确定性的概念：<a href="https://zh.wikipedia.org/wiki/%E7%86%B5">熵(entropy)</a>。</p>
+<p>在决策树中，我们通常先得对解释变量进行测试，然后通过测试得到的值去预测出响应变量。但是哪些解释变量放在前面会产生更好的输出，以形成好的model？我们的思路是通过测试得到的子集中包含所有的猫或者所有的狗，这样比得到的子集中既有猫又有狗要好很多。我们还需要避免创建那种测试，把单独的一只猫或一条狗分离出去。换句话说，也就是通过测试要最大程度的降低我们的不确定性。这里就涉及到一个用来度量信息不确定性的概念：<a href="https://en.wikipedia.org/wiki/Entropy">熵(entropy)</a>。</p>
 <p>熵的单位是<span class="math">\(bit\)</span>，它量化了一个变量的不确定性。它的方程表示如下，其中<span class="math">\(n\)</span>代表会有多少个输出，<span class="math">\(P(x_i)\)</span>代表第<span class="math">\(i\)</span>个输出的概率。<span class="math">\(b\)</span>一般取<span class="math">\(２\)</span>，<span class="math">\(e\)</span>一般取<span class="math">\(10\)</span>。由于<span class="math">\(P\)</span>会小于<span class="math">\(1\)</span>，那么取得对数为负数，所以前面加个负号让其变为正。</p>
 <div class="math">$$H(X) = -\sum_{i=1}^nP(x_i)log_bP(x_i)$$</div>
 <p>
@@ -129,7 +129,7 @@ $$</div>
 <div class="math">$$H(X) = -(\frac{6}{14}log_2\frac{6}{14}log_2+\frac{8}{14}log\frac{8}{14}) = 0.985228136.342516
 $$</div>
 <p>由于猫的数量相对要多，所以事件的不确定性要少一些。接下来我们就在这些解释变量中用这种方法找出不确定性最小的。我们可以测试是<em>否喜欢打闹</em>这个解释变量，将它们分成两组，<em>喜欢</em>和<em>不喜欢</em>，结果如下图所示：
-<center><img alt="result1" src="{attach}icons/fetch_or_no_fetch.jpg" /></center>
+<center><img alt="result1" src="https://IMYin.github.io/2016/09/28/icons/fetch_or_nofetch.jpg" /></center>
 决策树经常会用类流程图来展示它的决策过程。在图中可以看到，上面的节点是根节点，包含了所有将要测试的解释变量。在根节点中还没有开始测试，只根据<em>是否爱打闹</em>得到的熵为0.985。前面我们说将解释变量<em>是否爱打闹</em>转换为二元变量，左边的子节点为０，右边的为１。由于在左边有７只猫和２只狗，所以得到的熵为</p>
 <div class="math">$$H(X) = -(\frac{2}{9}log_2\frac{2}{9}+\frac{7}{9}log_2\frac{7}{9}) = 0.7642045065086203$$</div>
 <p>
@@ -141,7 +141,15 @@ $$</div>
 我们还可以按照这种思路测试剩下的解释变量，比如最喜欢的食物是猫食：
 <center><img alt="result３" src="https://IMYin.github.io/2016/09/28/icons/cat_food.jpg" /></center></p>
 <h3>信息增益</h3>
-<p>对解释变量<em>最喜欢的食物</em>是猫食的测试结果为，右节点中喜欢猫食的只有猫，没有狗，熵为０；而左节点中有２只猫６只狗，熵为0.811<span class="math">\(bit\)</span>。那么至此，应该如何哪一个变量最大程度得降低了分类的不确定性呢？子集的熵的均值看起来是个合理的度量指标。在刚刚测试过程中，发现猫食的子集熵均值最小。直观上看确实是这样的，因为它可以识别出将近一半的样本。但是这么做的话其实只是得到局部最优。比方说测试出的一个子集中有２只狗没有猫，另一个子集中有４只狗８只猫。得到它们的熵一个是<span class="math">\(０\)</span>，一个是<span class="math">\(0.9182958340544896\)</span>，取平均数为 0.459，但是会发现其中一个子集的熵将近<span class="math">\(1bit\)</span>，这就好比说我们其实并没有消除多少信息的不确定性。因此，接下来我们将用<a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">信息增益(information gain)</a>(如今改名为<em>相对熵</em>)来合理度量熵的降幅。</p>
+<p>对解释变量<em>最喜欢的食物</em>是猫食的测试结果为，右节点中喜欢猫食的只有猫，没有狗，熵为０；而左节点中有２只猫６只狗，熵为0.811<span class="math">\(bit\)</span>。那么至此，应该如何哪一个变量最大程度得降低了分类的不确定性呢？子集的熵的均值看起来是个合理的度量指标。在刚刚测试过程中，发现猫食的子集熵均值最小。直观上看确实是这样的，因为它可以识别出将近一半的样本。但是这么做的话其实只是得到局部最优。比方说测试出的一个子集中有２只狗没有猫，另一个子集中有４只狗８只猫。得到它们的熵一个是<span class="math">\(０\)</span>，一个是<span class="math">\(0.9182958340544896\)</span>，取平数为 0.459，但是会发现其中一个子集的熵将近<span class="math">\(1bit\)</span>，这就好比说我们其实并没有消除多少信息的不确定性。因此，接下来我们将用<a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">信息增益(information gain)</a>(如今改名为<em>相对熵</em>)来合理度量熵的降幅。信息增益的表达式如下，表示的是父节点的熵<span class="math">\(H(T)\)</span>与其子节点熵的加权平均值的差。其中<span class="math">\(T\)</span>表示目前的实例，<span class="math">\(a\)</span>表示需要测试的解释变量。<span class="math">\(\{x\epsilon vals(a)\}\)</span>表示实例<span class="math">\(x\)</span>属性是解释变量<span class="math">\(a\)</span>的值。<span class="math">\(\{x\epsilon T\mid x_a=v\}\)</span>表示解释变量<span class="math">\(a\)</span>的值等于<span class="math">\(v\)</span>的数量。<span class="math">\(H({x\epsilon T\mid x_a=v})\)</span>表示解释变量<span class="math">\(a\)</span>的值为<span class="math">\(ｖ\)</span>的实例子集的熵。</p>
+<div class="math">$$IG(T,a)=H(T)-\sum_{v\epsilon vals(a)} \frac{\mid \{x\epsilon T \mid x_a=v\} \mid }{\mid T \mid }H(\{x\epsilon T\mid x_a=v\})$$</div>
+<p>
+下表是总体信息增益的计算结果，可以看到，猫粮测试是最佳选择，因为其信息增益最大。
+<center><img alt="" src="https://IMYin.github.io/2016/09/28/icons/info_gain_all.jpg" /></center> 
+现在我们根据上表把其它的节点加进去，其中一个子节点只有猫，另一个节点中有2只猫６只狗。可以得到一下结果：
+<center><img alt="" src="https://IMYin.github.io/2016/09/28/icons/info_gain_leftsub.jpg" /></center> 
+所有的测试都会产生熵为０的情况，但是可以看到<em>脾气是否暴躁</em>和<em>是否爱打闹</em>所得到的信息增益要大。ID3算法会任意选择一个节点作为测试，下面来看看<em>脾气是否暴躁</em>这个解释变量，可以看出，它的右节点有４只猫，左节点有２只猫和２只狗。
+<center><img alt="" src="https://IMYin.github.io/2016/09/28/icons/info_gain_grumpy.jpg" /></center></p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
