@@ -13,13 +13,13 @@
 
         <meta name="author" content="Yin" />
         <meta name="keywords" content="Machine Learning" />
-        <meta name="description" content="决策树简介 决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。 这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。 训练决策树 我们开始先用 ..." />
+        <meta name="description" content="决策树简介 决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。 这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点 ..." />
 
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="决策树－非线性分类与回归"/>
         <meta property="og:url" content="https://IMYin.github.io/2016/09/28/决策树－非线性分类与回归.html"/>
-        <meta property="og:description" content="决策树简介 决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。 这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。 训练决策树 我们开始先用 ..."/>
+        <meta property="og:description" content="决策树简介 决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。 这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点 ..."/>
         <meta property="article:published_time" content="2016-09-28" />
             <meta property="article:section" content="技术文章" />
             <meta property="article:tag" content="Machine Learning" />
@@ -105,27 +105,43 @@ Yin's Blog            </a>
                 <h3>决策树简介</h3>
 <p>决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。</p>
 <p>这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。　　
-<center><img alt="1" src="https://IMYin.github.io/2016/09/28/icons/em_tree.jpg" />
-</center>  </p>
+<center><img alt="1" src="https://IMYin.github.io/2016/09/28/icons/em_tree.jpg" /></center>  </p>
 <h3>训练决策树</h3>
 <p>我们开始先用<a href="https://en.wikipedia.org/wiki/ID3_algorithm">ID３(Iterative Dichotomiser 3)</a>算法来构建决策树。<br />
 假如现在我们需要把一些猫和狗进行分类。但是你不可以通过肉眼观察，而是通过一些它们的行为特征来分类。这些变量也就是所说的解释变量，比如是否喜欢打闹，脾气是否暴躁，三类食物中那类是最喜欢的。</p>
 <p>为了对其分类，决策树需要把解释变量作为树节点来测试。这些节点的下一节点在于它们这次的测试结果是什么。直到最到抵达叶子节点，也就测试出是猫是狗。　　
-<center><img alt="2" src="https://IMYin.github.io/2016/09/28/icons/train_table_dog_cat.jpg" />
-</center><br />
-观察这些数据可以看到，猫比狗更容易发脾气。大多数狗玩球，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码(One-hot)</a>来表示([1,0,0]，[0,1,0]，[0,0,1])。</p>
+<center><img alt="2" src="https://IMYin.github.io/2016/09/28/icons/train_table_dog_cat.jpg" /></center><br />
+观察这些数据可以看到，猫比狗更容易发脾气。大多数狗爱打闹，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码(One-hot)</a>来表示([1,0,0]，[0,1,0]，[0,0,1])。</p>
 <p>到此，我们可以手动得去构建一个分类规则，比如说喜欢打闹并且喜欢吃培根那就是只狗，以此类推。但是手动构建这些规则比较麻烦，我们可以通过构建决策树来制定规则。</p>
 <h3>问题选择</h3>
 <p>在决策树中，我们通常先得对解释变量进行测试，然后通过测试得到的值去预测出响应变量。但是哪些解释变量放在前面会产生更好的输出，以形成好的model？我们的思路是通过测试得到的子集中包含所有的猫或者所有的狗，这样比得到的子集中既有猫又有狗要好很多。我们还需要避免创建那种测试，把单独的一只猫或一条狗分离出去。换句话说，也就是通过测试要最大程度的降低我们的不确定性。这里就涉及到一个用来度量信息不确定性的概念：<a href="https://zh.wikipedia.org/wiki/%E7%86%B5">熵(entropy)</a>。</p>
 <p>熵的单位是<span class="math">\(bit\)</span>，它量化了一个变量的不确定性。它的方程表示如下，其中<span class="math">\(n\)</span>代表会有多少个输出，<span class="math">\(P(x_i)\)</span>代表第<span class="math">\(i\)</span>个输出的概率。<span class="math">\(b\)</span>一般取<span class="math">\(２\)</span>，<span class="math">\(e\)</span>一般取<span class="math">\(10\)</span>。由于<span class="math">\(P\)</span>会小于<span class="math">\(1\)</span>，那么取得对数为负数，所以前面加个负号让其变为正。</p>
 <div class="math">$$H(X) = -\sum_{i=1}^nP(x_i)log_bP(x_i)$$</div>
-<p>比如，投硬币正面朝上的概率是<span class="math">\(0.5\)</span>,正面朝下的概率是<span class="math">\(０。５\)</span>,那么这个硬币投一次所得到的熵就等于：</p>
+<p>
+比如，投硬币正面朝上的概率是<span class="math">\(0.5\)</span>,正面朝下的概率是<span class="math">\(０。５\)</span>,那么这个硬币投一次所得到的熵就等于：</p>
 <div class="math">$$H(X) = -(0.5log_20.5+0.5log_20.5) = 1.0$$</div>
 <p>
 也就是对于投硬币这件事，产生的所有可能值包含的信息期望值为<span class="math">\(1bit\)</span>。如果我们投两个硬币的话，也可以轻松得到这件事产生的所有可能值包含的信息期望值为<span class="math">\(２bit\)</span>。假如，我们对硬币做一些手脚，使得投掷后正面朝上的概率为<span class="math">\(0.8\)</span>，正面朝下的概率为<span class="math">\(0.2\)</span>，那么它的熵为：</p>
 <div class="math">$$H(X) = -(0.8log_20.8+0.2log_20.2) = 0.7219280948873623
 $$</div>
-<p>可以看到，它的值比<span class="math">\(1\)</span>小，虽然硬币投出仍然会产生两种结果，但是它的不确定小了。</p>
+<p>可以看到，它的值比<span class="math">\(1\)</span>小，虽然硬币投出仍然会产生两种结果，但是它的不确定性小了。</p>
+<p>接下来我们来计算动物分类的熵。如果这些训练数据中猫和狗的数量相等，那么计算出来的熵就是<span class="math">\(1\)</span>，我们将得不到任何信息，这就像我们刚刚投硬币的例子。但是我们可以看到这份数据中猫的数量有<span class="math">\(8\)</span>只，狗有<span class="math">\(6\)</span>只，那么它决策的熵就是:</p>
+<div class="math">$$H(X) = -(\frac{6}{14}log_2\frac{6}{14}log_2+\frac{8}{14}log\frac{8}{14}) = 0.985228136.342516
+$$</div>
+<p>由于猫的数量相对要多，所以事件的不确定性要少一些。接下来我们就在这些解释变量中用这种方法找出不确定性最小的。我们可以测试是<em>否喜欢打闹</em>这个解释变量，将它们分成两组，<em>喜欢</em>和<em>不喜欢</em>，结果如下图所示：
+<center><img alt="result1" src="{attach}icons/fetch_or_no_fetch.jpg" /></center>
+决策树经常会用类流程图来展示它的决策过程。在图中可以看到，上面的节点是根节点，包含了所有将要测试的解释变量。在根节点中还没有开始测试，只根据<em>是否爱打闹</em>得到的熵为0.985。前面我们说将解释变量<em>是否爱打闹</em>转换为二元变量，左边的子节点为０，右边的为１。由于在左边有７只猫和２只狗，所以得到的熵为</p>
+<div class="math">$$H(X) = -(\frac{2}{9}log_2\frac{2}{9}+\frac{7}{9}log_2\frac{7}{9}) = 0.7642045065086203$$</div>
+<p>
+右边的子集有１只猫和４只狗，所以得到的熵为：</p>
+<div class="math">$$H(X) = -(\frac{1}{5}log_2\frac{1}{5}+\frac{4}{5}log_2\frac{4}{5}) = 0.721928094887362$$</div>
+<p>
+现在我们换成<em>脾气是否暴躁</em>这种解释变量来测试，那么将得到下面这幅图。脾气温顺的在左边节点，脾气暴躁的在右边节点。
+<center><img alt="result2" src="https://IMYin.github.io/2016/09/28/icons/grumpy_or_nogrumpy.jpg" /></center> 
+我们还可以按照这种思路测试剩下的解释变量，比如最喜欢的食物是猫食：
+<center><img alt="result３" src="https://IMYin.github.io/2016/09/28/icons/cat_food.jpg" /></center></p>
+<h3>信息增益</h3>
+<p>对解释变量<em>最喜欢的食物</em>是猫食的测试结果为，右节点中喜欢猫食的只有猫，没有狗，熵为０；而左节点中有２只猫６只狗，熵为0.811<span class="math">\(bit\)</span>。那么至此，应该如何哪一个变量最大程度得降低了分类的不确定性呢？子集的熵的均值看起来是个合理的度量指标。在刚刚测试过程中，发现猫食的子集熵均值最小。直观上看确实是这样的，因为它可以识别出将近一半的样本。但是这么做的话其实只是得到局部最优。比方说测试出的一个子集中有２只狗没有猫，另一个子集中有４只狗８只猫。得到它们的熵一个是<span class="math">\(０\)</span>，一个是<span class="math">\(0.9182958340544896\)</span>，取平均数为 0.459，但是会发现其中一个子集的熵将近<span class="math">\(1bit\)</span>，这就好比说我们其实并没有消除多少信息的不确定性。因此，接下来我们将用<a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">信息增益(information gain)</a>(如今改名为<em>相对熵</em>)来合理度量熵的降幅。</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
