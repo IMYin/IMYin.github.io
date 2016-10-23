@@ -3050,4 +3050,8 @@ Ten regression r-squared 0.45891550106
 &lt;p&gt;决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。　　&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;&lt;img alt="Icon" src="https://IMYin.github.io/2016/09/28/icons/em_tree.jpg" /&gt;
 &lt;/center&gt;训练集的样本由决策结果分成不同的子集。&lt;/p&gt;
-&lt;p&gt;这是一个正常的&lt;/p&gt;</summary><category term="Machine Learning"></category></entry></feed>
+&lt;p&gt;Here is an example of AppleScript:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;tell application &amp;quot;Foo&amp;quot;
+    beep
+end tell
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="Machine Learning"></category></entry></feed>
