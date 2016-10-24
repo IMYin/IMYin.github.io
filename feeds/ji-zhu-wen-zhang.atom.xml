@@ -4138,10 +4138,10 @@ h6:hover .anchor-link {
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3 id="决策树简介　　"&gt;决策树简介　　&lt;a class="anchor-link" href="#决策树简介　　"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。&lt;/p&gt;
 &lt;p&gt;这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。　　&lt;/p&gt;
-&lt;center&gt;![1]({filename}/icons/em_tree.jpg)&lt;/center&gt;&lt;h3 id="训练决策树"&gt;训练决策树&lt;a class="anchor-link" href="#训练决策树"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;我们开始先用&lt;a href="https://en.wikipedia.org/wiki/ID3_algorithm"&gt;ID３(Iterative Dichotomiser 3)&lt;/a&gt;算法来构建决策树。&lt;br&gt;
+&lt;center&gt;![1]({attach}/icons/em_tree.jpg)&lt;/center&gt;&lt;h3 id="训练决策树"&gt;训练决策树&lt;a class="anchor-link" href="#训练决策树"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;我们开始先用&lt;a href="https://en.wikipedia.org/wiki/ID3_algorithm"&gt;ID３(Iterative Dichotomiser 3)&lt;/a&gt;算法来构建决策树。&lt;br&gt;
 假如现在我们需要把一些猫和狗进行分类。但是你不可以通过肉眼观察，而是通过一些它们的行为特征来分类。这些变量也就是所说的解释变量，比如是否喜欢打闹，脾气是否暴躁，三类食物中那类是最喜欢的。&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;为了对其分类，决策树需要把解释变量作为树节点来测试。这些节点的下一节点在于它们这次的测试结果是什么。直到最到抵达叶子节点，也就测试出是猫是狗。　　&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;![2]({filename}/blog/icons/train_table_dog_cat.jpg)&lt;/center&gt;&lt;br&gt;
+&lt;p&gt;&lt;center&gt;![2]({attach}./icons/train_table_dog_cat.jpg)&lt;/center&gt;&lt;br&gt;
 观察这些数据可以看到，猫比狗更容易发脾气。大多数狗爱打闹，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用&lt;a href="https://en.wikipedia.org/wiki/One-hot"&gt;独热编码(One-hot)&lt;/a&gt;来表示([1,0,0]，[0,1,0]，[0,0,1])。&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;到此，我们可以手动得去构建一个分类规则，比如说喜欢打闹并且喜欢吃培根那就是只狗，以此类推。但是手动构建这些规则比较麻烦，我们可以通过构建决策树来制定规则。&lt;/p&gt;
 &lt;h3 id="问题选择"&gt;问题选择&lt;a class="anchor-link" href="#问题选择"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在决策树中，我们通常先得对解释变量进行测试，然后通过测试得到的值去预测出响应变量。但是哪些解释变量放在前面会产生更好的输出，以形成好的model？我们的思路是通过测试得到的子集中包含所有的猫或者所有的狗，这样比得到的子集中既有猫又有狗要好很多。我们还需要避免创建那种测试，把单独的一只猫或一条狗分离出去。换句话说，也就是通过测试要最大程度的降低我们的不确定性。这里就涉及到一个用来度量信息不确定性的概念：&lt;a href="https://en.wikipedia.org/wiki/Entropy"&gt;熵(entropy)&lt;/a&gt;。&lt;/p&gt;
@@ -4151,7 +4151,7 @@ h6:hover .anchor-link {
 $$可以看到，它的值比$1$小，虽然硬币投出仍然会产生两种结果，但是它的不确定性小了。&lt;/p&gt;
 &lt;p&gt;接下来我们来计算动物分类的熵。如果这些训练数据中猫和狗的数量相等，那么计算出来的熵就是$1$，我们将得不到任何信息，这就像我们刚刚投硬币的例子。但是我们可以看到这份数据中猫的数量有$8$只，狗有$6$只，那么它决策的熵就是:$$H(X) = -(\frac{6}{14}log_2\frac{6}{14}log_2+\frac{8}{14}log\frac{8}{14}) = 0.985228136.342516
 $$由于猫的数量相对要多，所以事件的不确定性要少一些。接下来我们就在这些解释变量中用这种方法找出不确定性最小的。我们可以测试是&lt;em&gt;否喜欢打闹&lt;/em&gt;这个解释变量，将它们分成两组，&lt;em&gt;喜欢&lt;/em&gt;和&lt;em&gt;不喜欢&lt;/em&gt;，结果如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;![result1]({attach}icons/fetch_or_nofetch.jpg)&lt;/center&gt;
+&lt;p&gt;&lt;center&gt;![result1]({attach}../icons/fetch_or_nofetch.jpg)&lt;/center&gt;
 决策树经常会用类流程图来展示它的决策过程。在图中可以看到，上面的节点是根节点，包含了所有将要测试的解释变量。在根节点中还没有开始测试，只根据&lt;em&gt;是否爱打闹&lt;/em&gt;得到的熵为0.985。前面我们说将解释变量&lt;em&gt;是否爱打闹&lt;/em&gt;转换为二元变量，左边的子节点为０，右边的为１。由于在左边有７只猫和２只狗，所以得到的熵为$$H(X) = -(\frac{2}{9}log_2\frac{2}{9}+\frac{7}{9}log_2\frac{7}{9}) = 0.7642045065086203$$
 右边的子集有１只猫和４只狗，所以得到的熵为：$$H(X) = -(\frac{1}{5}log_2\frac{1}{5}+\frac{4}{5}log_2\frac{4}{5}) = 0.721928094887362$$
 现在我们换成&lt;em&gt;脾气是否暴躁&lt;/em&gt;这种解释变量来测试，那么将得到下面这幅图。脾气温顺的在左边节点，脾气暴躁的在右边节点。&lt;/p&gt;
