@@ -4160,9 +4160,9 @@ $$由于猫的数量相对要多，所以事件的不确定性要少一些。接
 &lt;p&gt;&lt;center&gt;![result３]({attach}icons/cat_food.jpg)&lt;/center&gt;&lt;/p&gt;
 &lt;h3 id="信息增益"&gt;信息增益&lt;a class="anchor-link" href="#信息增益"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;对解释变量&lt;em&gt;最喜欢的食物&lt;/em&gt;是猫食的测试结果为，右节点中喜欢猫食的只有猫，没有狗，熵为０；而左节点中有２只猫６只狗，熵为0.811$bit$。那么至此，应该如何哪一个变量最大程度得降低了分类的不确定性呢？子集的熵的均值看起来是个合理的度量指标。在刚刚测试过程中，发现猫食的子集熵均值最小。直观上看确实是这样的，因为它可以识别出将近一半的样本。但是这么做的话其实只是得到局部最优。比方说测试出的一个子集中有２只狗没有猫，另一个子集中有４只狗８只猫。得到它们的熵一个是$０$，一个是$0.9182958340544896$，取平数为 0.459，但是会发现其中一个子集的熵将近$1bit$，这就好比说我们其实并没有消除多少信息的不确定性。因此，接下来我们将用&lt;a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"&gt;信息增益(information gain)&lt;/a&gt;(如今改名为&lt;em&gt;相对熵&lt;/em&gt;)来合理度量熵的降幅。信息增益的表达式如下，表示的是父节点的熵$H(T)$与其子节点熵的加权平均值的差。其中$T$表示目前的实例，$a$表示需要测试的解释变量。$\{x\epsilon vals(a)\}$表示实例$x$属性是解释变量$a$的值。$\{x\epsilon T\mid x_a=v\}$表示解释变量$a$的值等于$v$的数量。$H({x\epsilon T\mid x_a=v})$表示解释变量$a$的值为$ｖ$的实例子集的熵。$$IG(T,a)=H(T)-\sum_{v\epsilon vals(a)} \frac{\mid \{x\epsilon T \mid x_a=v\} \mid }{\mid T \mid }H(\{x\epsilon T\mid x_a=v\})$$
 下表是总体信息增益的计算结果，可以看到，猫粮测试是最佳选择，因为其信息增益最大。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;![result4]({attach}icons/info_gain_all.jpg)&lt;/center&gt; 
+&lt;p&gt;&lt;center&gt;![result4](/icons/info_gain_all.jpg)&lt;/center&gt; 
 现在我们根据上表把其它的节点加进去，其中一个子节点只有猫，另一个节点中有2只猫６只狗。可以得到一下结果：&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;![result5]({attach}icons/info_gain_leftsub.jpg)&lt;/center&gt; 
+&lt;p&gt;&lt;center&gt;![result5](../icons/info_gain_leftsub.jpg)&lt;/center&gt; 
 所有的测试都会产生熵为０的情况，但是可以看到&lt;em&gt;脾气是否暴躁&lt;/em&gt;和&lt;em&gt;是否爱打闹&lt;/em&gt;所得到的信息增益要大。ID3算法会任意选择一个节点作为测试，下面来看看&lt;em&gt;脾气是否暴躁&lt;/em&gt;这个解释变量，可以看出，它的右节点有４只猫，左节点有２只猫和２只狗。&lt;/p&gt;
 &lt;p&gt;&lt;center&gt;![result6]({attach}icons/info_gain_grumpy.jpg)&lt;/center&gt;
 现在我们对剩下的解释变量计算信息增益，包括&lt;em&gt;脾气是否暴躁&lt;/em&gt;，&lt;em&gt;最喜欢狗粮&lt;/em&gt;，&lt;em&gt;最喜欢培根&lt;/em&gt;，这些解释变量都会产生一个叶节点中包含１只猫和１只狗，另一个叶节点中包含剩下的动物，计算的信息增益结果如下图：&lt;/p&gt;
