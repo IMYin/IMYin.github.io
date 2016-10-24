@@ -31,6 +31,7 @@
     <link href="https://IMYin.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="https://IMYin.github.io/theme/css/pygments/solarizedlight.css" rel="stylesheet">
+    <link href="https://IMYin.github.io/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
     <link rel="stylesheet" href="https://IMYin.github.io/theme/css/style.css" type="text/css"/>
 
         <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
@@ -58,12 +59,19 @@ Yin's Blog            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
+                    <li><a href="/search.html">Search</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
                     <li><a href="/pages/about.html">About</a></li>
                         <li class="active">
                             <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search pull-right" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
