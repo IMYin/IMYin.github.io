@@ -94,10 +94,10 @@ Yin's Blog            </a>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="决策树简介　　">决策树简介　　<a class="anchor-link" href="#决策树简介　　">¶</a></h3><p>决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。</p>
 <p>这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。　　</p>
-<center>![1]({filename}../icons/em_tree.jpg)</center><h3 id="训练决策树">训练决策树<a class="anchor-link" href="#训练决策树">¶</a></h3><p>我们开始先用<a href="https://en.wikipedia.org/wiki/ID3_algorithm">ID３(Iterative Dichotomiser 3)</a>算法来构建决策树。<br>
+<center>![1]({filename}/icons/em_tree.jpg)</center><h3 id="训练决策树">训练决策树<a class="anchor-link" href="#训练决策树">¶</a></h3><p>我们开始先用<a href="https://en.wikipedia.org/wiki/ID3_algorithm">ID３(Iterative Dichotomiser 3)</a>算法来构建决策树。<br>
 假如现在我们需要把一些猫和狗进行分类。但是你不可以通过肉眼观察，而是通过一些它们的行为特征来分类。这些变量也就是所说的解释变量，比如是否喜欢打闹，脾气是否暴躁，三类食物中那类是最喜欢的。</br></p>
 <p>为了对其分类，决策树需要把解释变量作为树节点来测试。这些节点的下一节点在于它们这次的测试结果是什么。直到最到抵达叶子节点，也就测试出是猫是狗。　　</p>
-<p><center>![2](icons/train_table_dog_cat.jpg)</center><br>
+<p><center>![2]({filename}/blog/icons/train_table_dog_cat.jpg)</center><br>
 观察这些数据可以看到，猫比狗更容易发脾气。大多数狗爱打闹，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码(One-hot)</a>来表示([1,0,0]，[0,1,0]，[0,0,1])。</br></p>
 <p>到此，我们可以手动得去构建一个分类规则，比如说喜欢打闹并且喜欢吃培根那就是只狗，以此类推。但是手动构建这些规则比较麻烦，我们可以通过构建决策树来制定规则。</p>
 <h3 id="问题选择">问题选择<a class="anchor-link" href="#问题选择">¶</a></h3><p>在决策树中，我们通常先得对解释变量进行测试，然后通过测试得到的值去预测出响应变量。但是哪些解释变量放在前面会产生更好的输出，以形成好的model？我们的思路是通过测试得到的子集中包含所有的猫或者所有的狗，这样比得到的子集中既有猫又有狗要好很多。我们还需要避免创建那种测试，把单独的一只猫或一条狗分离出去。换句话说，也就是通过测试要最大程度的降低我们的不确定性。这里就涉及到一个用来度量信息不确定性的概念：<a href="https://en.wikipedia.org/wiki/Entropy">熵(entropy)</a>。</p>
