@@ -13,13 +13,13 @@
 
         <meta name="author" content="Yin" />
         <meta name="keywords" content="Machine Learning" />
-        <meta name="description" content="" />
+        <meta name="description" content="这篇文章中介绍如何用线性模型处理回归问题。 首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable) 简单线性回归¶如果你想计算披萨的价格，看看菜单就知道了。 不过我们也可以通过披萨的尺寸和价钱的关系建立一个模型。 首先，我们将借助scikit-learn通过披萨的大小，来预测其价格。" />
 
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Linear Regression with scikit-learn"/>
         <meta property="og:url" content="https://IMYin.github.io/2016/09/28/Linear Regression with scikit-learn.html"/>
-        <meta property="og:description" content=""/>
+        <meta property="og:description" content="这篇文章中介绍如何用线性模型处理回归问题。 首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable) 简单线性回归¶如果你想计算披萨的价格，看看菜单就知道了。 不过我们也可以通过披萨的尺寸和价钱的关系建立一个模型。 首先，我们将借助scikit-learn通过披萨的大小，来预测其价格。"/>
         <meta property="article:published_time" content="2016-09-28" />
             <meta property="article:section" content="技术文章" />
             <meta property="article:tag" content="Machine Learning" />
@@ -1074,21 +1074,25 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>这篇文章中介绍如何用线性模型处理回归问题。<br>
+首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable)</br></p>
+<h3 id="简单线性回归">简单线性回归<a class="anchor-link" href="#简单线性回归">¶</a></h3><p>如果你想计算披萨的价格，看看菜单就知道了。<br>
+不过我们也可以通过披萨的尺寸和价钱的关系建立一个模型。<br>
+首先，我们将借助scikit-learn通过披萨的大小，来预测其价格。</br></br></p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="sd">"""</span>
-<span class="sd">这篇文章中介绍如何用线性模型处理回归问题。</span>
-<span class="sd">首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable)</span>
-<span class="sd">"""</span>
-<span class="sd">"""</span>
-<span class="sd">如果你想计算披萨的价格，看看菜单就知道了。</span>
-<span class="sd">不过我们也可以通过披萨的尺寸和价钱的关系建立一个模型。</span>
-<span class="sd">首先，我们将借助scikit-learn通过披萨的大小，来预测其价格。</span>
-<span class="sd">"""</span>
-<span class="c1">#假设在你手中有这样的一个价格表</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#假设在你手中有这样的一个价格表</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">]]</span>
@@ -1171,7 +1175,7 @@ h6:hover .anchor-link {
 <div class="output">
 <div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 <div class="output_text output_subarea output_execute_result">
-<pre><matplotlib.text.text at 0x7351f50></pre>
+<pre><matplotlib.text.text at 0x6b3df50></pre>
 </div>
 </div>
 <div class="output_area"><div class="prompt"></div>
@@ -1318,14 +1322,22 @@ zMwM+P/dASlqA0qAKwAAAABJRU5ErkJggg==
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>通过图形可以看出披萨的价格和尺寸成正相关。看来这符合日常规律：披萨越大，价格自然越贵。<br>
+接下通过scikit-learn训练模型</br></p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#通过图形可以看出披萨的价格和尺寸成正相关。看来这符合日常规律：披萨越大，价格自然越贵。</span>
-<span class="c1">#接下通过scikit-learn训练模型</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="c1">#create and fit the model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
@@ -1352,24 +1364,28 @@ zMwM+P/dASlqA0qAKwAAAABJRU5ErkJggg==
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>上述代码中的 sklearn.linear_model.LinearRegression 是一个估计器，它可以通过观测值来预测结果。
+在scikit-learn中，所有的估计器都有<code>fit()</code>和<code>predict()</code>方法。<br>
+fit()用来分析模型参数，predict()是通过fit()算出的模型参数构成的模型，对解释变量进行预测获得的值。<br>
+LinearRegression类的fit()方法是来学习一元线性回归模型：$$y = \alpha x + \beta$$
+一元线性回归假设响应变量和解释变量之间存在线性关系，这个模型所构成的空间就是一个超平面(hyperplane).<br>
+超平面是一个子空间，它的维度总是比包围它的空间少一维。<br>
+在这个简单线性回归的例子中，一共有两个维度(解释变量和响应变量)，所以超平面就是一维的，是一条线。<br>
+如图：</br></br></br></br></br></p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="sd">"""</span>
-<span class="sd">上述代码中的 sklearn.linear_model.LinearRegression 是一个估计器，它可以通过观测值来预测结果。</span>
-<span class="sd">在scikit-learn中，所有的估计器都有fit()和predict()方法。</span>
-<span class="sd">fit()用来分析模型参数，predict()是通过fit()算出的模型参数构成的模型，对解释变量进行预测获得的值。</span>
-<span class="sd">LinearRegression类的fit()方法是来学习一元线性回归模型：y=α+βx</span>
-
-
-<span class="sd">一元线性回归假设响应变量和解释变量之间存在线性关系，这个模型所构成的空间就是一个超平面(hyperplane).</span>
-<span class="sd">超平面是一个子空间，它的维度总是比包围它的空间少一维。</span>
-<span class="sd">在这个简单线性回归的例子中，一共有两个维度(解释变量和响应变量)，所以超平面就是一维的，是一条线。</span>
-<span class="sd">如图：</span>
-<span class="sd">"""</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'k.'</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'k.'</span><span class="p">)</span>
 <span class="n">X2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">25</span><span class="p">]]</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -1382,12 +1398,6 @@ zMwM+P/dASlqA0qAKwAAAABJRU5ErkJggg==
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Diameter'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Price'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="sd">"""</span>
-<span class="sd">普通最小二乘法(ordinary least squares)或者线性最小二乘法(linear least</span>
-<span class="sd">squares)在简单线性回归问题中可以通过训练数据来学习，以得到参数值产生最好的拟合模型。</span>
-
-<span class="sd">"""</span>
 </pre></div>
 </div>
 </div>
@@ -1616,19 +1626,25 @@ xUBERFAxEBERVAxERAQVAxERAf4fYR5S1H8lG3YAAAAASUVORK5CYII=
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">普通最小二乘法(ordinary least squares)</a>或者<a href="https://en.wikipedia.org/wiki/Linear_least_squares_(mathematics">线性最小二乘法(linear least squares)</a>)在简单线性回归问题中可以通过训练数据来学习，以得到参数值产生最好的拟合模型。</p>
+<h3 id="通过损失函数评估模型的拟合度">通过损失函数评估模型的拟合度<a class="anchor-link" href="#通过损失函数评估模型的拟合度">¶</a></h3><p>首先解释一下什么是<em>成本函数(cost function)</em> 。成本函数也叫<a href="https://en.wikipedia.org/wiki/Loss_function">损失函数(loss function)</a>,用来定义模型运算的误差。<br>
+模型预测与训练数据的真实值的差叫做residuals 或者 training errors.<br>
+模型预测与测试数据的真实值的差叫做prediction errors 或者 test errors<br>
+如图：</br></br></br></p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#接下来我们要对带成本函数的模型进行拟合度评估</span>
-
-<span class="c1">#首先解释一下什么是成本函数(cost function)</span>
-<span class="c1">#成本函数也叫损失函数(loss function),用来定义模型运算的误差。</span>
-<span class="c1">#模型预测与训练数据的真实值的差叫做residuals 或者 training errors.</span>
-<span class="c1">#模型预测与测试数据的真实值的差叫做prediction errors 或者 test errors</span>
-<span class="c1">#如图：</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'k.'</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'k.'</span><span class="p">)</span>
 <span class="n">X2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">25</span><span class="p">]]</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -1646,9 +1662,6 @@ xUBERFAxEBERVAxERAQVAxERAf4fYR5S1H8lG3YAAAAASUVORK5CYII=
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">yr</span><span class="p">[</span><span class="n">idx</span><span class="p">]],</span><span class="s1">'r-'</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1">#我本着负责任的的态度说，这张图作弊了，否则，竖杠杠不会恰好落在斜线上。</span>
-<span class="c1">#好奇的朋友们可以研究一下....</span>
 </pre></div>
 </div>
 </div>
@@ -1877,18 +1890,24 @@ TkSuQmCC
 </div>
 </div>
 </div>
+</div>我本着负责任的的态度说，这张图作弊了，否则，竖杠杠不会恰好落在斜线上。
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>从上图可以清楚地看到residuals的情况，如果residuals最小，那么也就说明拟合效果最好。<br>
+这里用来评估模型拟合度的函数叫做<strong>residual sum of squares cost function</strong>,就是计算各个差值的平方和。<br>
+利用numpy可以轻松实现：</br></br></p>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#从上图可以清楚地看到residuals的情况，如果residuals最小，那么也就说明拟合效果最好。</span>
-<span class="c1">#这里用来评估模型拟合度的函数叫做residual sum of squares cost function,就是计算各个差值的平方和。</span>
-<span class="c1">#利用numpy可以轻松实现：</span>
-<span class="k">print</span> <span class="s1">'Residual sum of squares: </span><span class="si">%.2f</span><span class="s1">'</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-
-<span class="c1">#现在我们已经有了一个成本函数，接下来寻找模型参数的值来使得它最小化。就是求解一元线性回归的最小二乘法</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s1">'Residual sum of squares: </span><span class="si">%.2f</span><span class="s1">'</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1904,26 +1923,34 @@ TkSuQmCC
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>现在我们已经有了一个成本函数，接下来寻找模型参数的值来使得它最小化。就是求解一元线性回归的最小二乘法<br>
+上文已经提到过一元线性方程，现在需要得到$\alpha$和$\beta$的值以使成本函数最小化。我们现在得到$\beta$。<br>
+接下来需要计算X的方差以及（X,y）的协方差。</br></br></p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#上文已经提到过一元线性方程，现在需要得到α和β的值以使成本函数最小化。我们现在得到β。</span>
-<span class="c1">#接下来需要计算X的方差以及（X,y）的协方差。</span>
-<span class="n">xbar</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">14</span> <span class="o">+</span> <span class="mi">18</span><span class="p">)</span> <span class="o">/</span> <span class="mf">5.</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">xbar</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">14</span> <span class="o">+</span> <span class="mi">18</span><span class="p">)</span> <span class="o">/</span> <span class="mf">5.</span>
 <span class="n">variance</span> <span class="o">=</span> <span class="p">((</span><span class="mi">6</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">8</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">10</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">14</span> <span class="o">-</span><span class="n">xbar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">18</span> <span class="o">-</span> <span class="n">xbar</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">4.</span>
-<span class="k">print</span> <span class="n">variance</span>
+<span class="n">variance</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>23.2
-</pre>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>23.2</pre>
 </div>
 </div>
 </div>
@@ -1998,14 +2025,21 @@ TkSuQmCC
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="针对简单线性回归问题求解最小二乘法">针对简单线性回归问题求解最小二乘法<a class="anchor-link" href="#针对简单线性回归问题求解最小二乘法">¶</a></h3><p>由于$$\beta=cov(x,y) \ / \ var(x)$$ $so:$</p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#由于β=cov(x,y) / var(x)</span>
-<span class="c1">#so：</span>
-<span class="n">beta</span> <span class="o">=</span> <span class="n">cov</span> <span class="o">/</span> <span class="n">variance</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">beta</span> <span class="o">=</span> <span class="n">cov</span> <span class="o">/</span> <span class="n">variance</span>
 <span class="k">print</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2022,18 +2056,22 @@ TkSuQmCC
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$\alpha=y.mean() - \beta*x.mean()$</p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#α= y.mean() - β*x.mean()</span>
-<span class="c1">#so:</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
-
-<span class="c1">#以上，参数得到了，就可以得到直线的方程了。</span>
-<span class="c1">#接下来，要对模型评估。</span>
 </pre></div>
 </div>
 </div>
@@ -2049,22 +2087,27 @@ TkSuQmCC
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="模型评估">模型评估<a class="anchor-link" href="#模型评估">¶</a></h3><p>以上，参数得到了，就可以得到直线的方程了。
+接下来，要对模型评估。<br>
+评估时用到的是<strong><a href="https://en.wikipedia.org/wiki/Coefficient_of_determination">R方( r-squared)</a></strong>。通过这个模型，R方在响应变量中描述方差的比率一定是介于0至1之间的。但是在scikit-learn其它的方法中，当计算的不是用Pearson's r 时，遇到特别差的模型是可能会得到负值。在这个例子中，R方是这样计算的：<br>
+首先计算真实价格与价格均值的差值平方和($SS_{tot}$),再计算出真实价格与测试价格的差值平方和($SS_{res}$)<br>
+So, $$R^2 = 1 - \frac{SS_{res}}{SS_{tot}}$$
+通过scikit-learn 将这样实现：</br></br></br></p>
+<p>首先增加一组测试数据：</p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#评估时用到的是R方( r-squared)</span>
-<span class="c1">#通过这个模型，R方在响应变量中描述方差的比率一定是介于0至1之间的。</span>
-<span class="c1">#但是在scikit-learn其它的方法中，当计算的不是用Pearson's r 时，遇到特别差的模型是可能会得到负值。</span>
-<span class="c1">#在这个例子中，R方是这样计算的：</span>
-
-<span class="c1">#首先计算真实价格与价格均值的差值平方和(SStot),再计算出真实价格与测试价格的差值平方和(SSres)</span>
-<span class="c1">#So, R^2 = 1 - SSres / SStot</span>
-<span class="c1">#通过scikit-learn 将这样实现：</span>
-
-<span class="c1">#首先增加一组测试数据：</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">]]</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">X_test</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">]]</span>
 <span class="n">y_test</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mf">8.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">]]</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -2084,16 +2127,23 @@ TkSuQmCC
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>从上面看，R方的值为0.6620，并不高，看来模型效果并不是太好。
+接下来，将通过多项式来拟合模型$$y=\alpha+\beta 1x+\beta 2x^2 ...$$</p>
+<h3 id="多项回归">多项回归<a class="anchor-link" href="#多项回归">¶</a></h3><p>我们引入一组测试数据：</p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [16]:</div>
+<div class="prompt input_prompt">In [14]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#从上面看，R方的值为0.6620，并不高，看来模型效果并不是太好。</span>
-<span class="c1">#接下来，将通过多项式来拟合模型   y=α+β1x+β2x^2 ...</span>
-
-<span class="c1">#我们引入一组测试数据：</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">]]</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">X_train</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">]]</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="p">[</span><span class="mf">17.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">]]</span>
 <span class="n">X_test</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">]]</span>
 <span class="n">y_test</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">]]</span>
@@ -2379,7 +2429,7 @@ RAQlAxERQclARERQMhAREeD/AfgblZsaIVbGAAAAAElFTkSuQmCC
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [17]:</div>
+<div class="prompt input_prompt">In [15]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#来看一下那几个被变换了的值</span>
@@ -2419,7 +2469,7 @@ X_train_quadratic:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [18]:</div>
+<div class="prompt input_prompt">In [16]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#看一下三项式的效果</span>
@@ -2443,8 +2493,6 @@ X_train_quadratic:
 <span class="k">print</span> <span class="s1">'Simple linear regression r-squared'</span><span class="p">,</span> <span class="n">regressor</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="k">print</span> <span class="s1">'Quadratic regression r-squared'</span><span class="p">,</span> <span class="n">regressor_quadratic</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_quadratic</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="k">print</span> <span class="s1">'Cubic regression r-squared'</span><span class="p">,</span> <span class="n">regressor_cubic</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_cubic</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-
-<span class="c1">#可以看出三项式得到的R方比二项式的要低，要是幂数再大一些呢？</span>
 </pre></div>
 </div>
 </div>
@@ -2730,10 +2778,10 @@ Cubic regression r-squared 0.835692415604
 </div>
 </div>
 </div>
-</div>
+</div>可以看出三项式得到的R方比二项式的要低，要是幂数再大一些呢？
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [19]:</div>
+<div class="prompt input_prompt">In [17]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">ten_featurizer</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
@@ -2759,8 +2807,6 @@ Cubic regression r-squared 0.835692415604
 <span class="k">print</span> <span class="s1">'Quadratic regression r-squared'</span><span class="p">,</span> <span class="n">regressor_quadratic</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_quadratic</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="k">print</span> <span class="s1">'Cubic regression r-squared'</span><span class="p">,</span> <span class="n">regressor_cubic</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_cubic</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="k">print</span> <span class="s1">'Ten regression r-squared'</span><span class="p">,</span> <span class="n">regressor_ten</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_ten</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-
-<span class="c1">#将会出现过拟合现象，R方值将会变得更加低</span>
 </pre></div>
 </div>
 </div>
@@ -3108,17 +3154,13 @@ Ten regression r-squared 0.45891550106
 </div>
 </div>
 </div>
+</div>将会出现过拟合现象，R方值将会变得更加低
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#以上，我们学习了如何通过线性模型来学习数据，以及预测结果。</span>
-<span class="c1">#并且通过R方来评估模型的好与坏。</span>
-<span class="c1">#算是机器学习的开始。</span>
-</pre></div>
-</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>以上，我们学习了如何通过线性模型来学习数据，以及预测结果。并且通过R方来评估模型的好与坏。算是机器学习的开始。</p>
 </div>
 </div>
 </div>
@@ -3163,9 +3205,7 @@ Ten regression r-squared 0.45891550106
       <hr>
       <div class="row">
          <div class="col-xs-10">&copy; 2016 Yin
-            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
-            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
-            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+            &middot; Powered by <a href="https://www.imyin.xyz" target="_blank">Yin</a>,         </div>
          <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
       </div>
    </div>
