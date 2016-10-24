@@ -80,10 +80,10 @@ Yin's Blog            </a>
 假如现在我们需要把一些猫和狗进行分类。但是你不可以通过肉眼观察，而是通过一些它们的行为特征来分类。这些变量也就是所说的解释变量，比如是否喜欢打闹，脾气是否暴躁，三类食物中那类是最喜欢的。</br></p>
 <p>为了对其分类，决策树需要把解释变量作为树节点来测试。这些节点的下一节点在于它们这次的测试结果是什么。直到最到抵达叶子节点，也就测试出是猫是狗。　　</p>
 <p><center>![2]({filename}./icons/train_table_dog_cat.png)</center></p>
-<p><center>![2]({attach}./icons/train_table_dog_cat.png)</center></p>
-<p><center>![2]({attach}icons/train_table_dog_cat.png)</center></p>
-<p><center>![2]({attach}/icons/train_table_dog_cat.png)</center></p>
-<p><center>![2]({attach}../icons/train_table_dog_cat.png)</center></p>
+<p><center>![2]({filename}./icons/train_table_dog_cat.png)</center></p>
+<p><center>![2]({filename}icons/train_table_dog_cat.png)</center></p>
+<p><center>![2]({filename}/icons/train_table_dog_cat.png)</center></p>
+<p><center>![2]({filename}../icons/train_table_dog_cat.png)</center></p>
 <p><center>![2]({filename}./icons/train_table_dog_cat.png)</center> 
 观察这些数据可以看到，猫比狗更容易发脾气。大多数狗爱打闹，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码(One-hot)</a>来表示([1,0,0]，[0,1,0]，[0,0,1])。</p>
 <p>到此，我们可以手动得去构建一个分类规则，比如说喜欢打闹并且喜欢吃培根那就是只狗，以此类推。但是手动构建这些规则比较麻烦，我们可以通过构建决策树来制定规则。</p>
