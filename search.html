@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Yin's Blog Search </title>
+    <title>Search - Yin's Blog
+</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -73,25 +74,7 @@ Yin's Blog            </a>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
-
-<div class="entry-content">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">
-    </script>
-    <script type="text/javascript" src="https://IMYin.github.io/theme/tipuesearch/tipuesearch_set.js"></script>
-    <script type="text/javascript" src="https://IMYin.github.io/theme/tipuesearch/tipuesearch.min.js"></script>
-        <script>
-            $(document).ready(function() {
-            $('#tipue_search_input').tipuesearch({
-                'show': 8,
-                'mode': 'json',
-                'contentLocation': 'https://IMYin.github.io/tipuesearch_content.json'
-                });
-            });
-        </script>
-    <div align="center"><input type="text" size="60" id="tipue_search_input">
-        <input type="button" id="tipue_search_button" value="Search"></div>
-    <div id="tipue_search_content"></div>
-</div>
+<div id="tipue_search_content"></div>
         </div>
     </div>
 </div>
@@ -131,5 +114,17 @@ Yin's Blog            </a>
     </script>
     <!-- End Google Analytics Code -->
 
+    <script type="text/javascript" src="https://IMYin.github.io/theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="https://IMYin.github.io/theme/tipuesearch/tipuesearch.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      $('#tipue_search_input').tipuesearch({
+        'mode' : 'json',
+        'show': 10,
+        'newWindow': false,
+        'contentLocation': 'tipuesearch_content.json'
+      });
+    });
+    </script>
 </body>
 </html>

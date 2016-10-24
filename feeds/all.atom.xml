@@ -3088,7 +3088,7 @@ Ten regression r-squared 0.45891550106
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="Machine Learning"></category></entry><entry><title>决策树</title><link href="https://IMYin.github.io/2016/09/28/%E5%86%B3%E7%AD%96%E6%A0%91.html" rel="alternate"></link><published>2016-09-28T20:15:00+08:00</published><updated>2016-09-28T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-28:2016/09/28/决策树.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="Machine Learning"></category></entry><entry><title>Nonlinear Classification and Regression with Decision Trees</title><link href="https://IMYin.github.io/2016/09/28/Nonlinear%20Classification%20and%20Regression%20with%20Decision%20Trees.html" rel="alternate"></link><published>2016-09-28T20:15:00+08:00</published><updated>2016-09-28T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-28:2016/09/28/Nonlinear Classification and Regression with Decision Trees.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -9627,4 +9627,4 @@ RQAUUUUAFFFFAH//2Q==
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="Machine Learning"></category><category term="entropy"></category></entry></feed>
+</summary><category term="Machine Learning"></category><category term="entropy"></category><category term="decision tree"></category><category term="information gain"></category></entry></feed>
