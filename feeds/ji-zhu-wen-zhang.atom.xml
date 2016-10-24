@@ -4141,8 +4141,13 @@ h6:hover .anchor-link {
 &lt;center&gt;![1]({attach}/icons/em_tree.jpg)&lt;/center&gt;&lt;h3 id="训练决策树"&gt;训练决策树&lt;a class="anchor-link" href="#训练决策树"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;我们开始先用&lt;a href="https://en.wikipedia.org/wiki/ID3_algorithm"&gt;ID３(Iterative Dichotomiser 3)&lt;/a&gt;算法来构建决策树。&lt;br&gt;
 假如现在我们需要把一些猫和狗进行分类。但是你不可以通过肉眼观察，而是通过一些它们的行为特征来分类。这些变量也就是所说的解释变量，比如是否喜欢打闹，脾气是否暴躁，三类食物中那类是最喜欢的。&lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;为了对其分类，决策树需要把解释变量作为树节点来测试。这些节点的下一节点在于它们这次的测试结果是什么。直到最到抵达叶子节点，也就测试出是猫是狗。　　&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;![2]({attach}./icons/train_table_dog_cat.jpg)&lt;/center&gt;&lt;br&gt;
-观察这些数据可以看到，猫比狗更容易发脾气。大多数狗爱打闹，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用&lt;a href="https://en.wikipedia.org/wiki/One-hot"&gt;独热编码(One-hot)&lt;/a&gt;来表示([1,0,0]，[0,1,0]，[0,0,1])。&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;![2]({filename}./icons/train_table_dog_cat.png)&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;![2]({attach}./icons/train_table_dog_cat.png)&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;![2]({attach}icons/train_table_dog_cat.png)&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;![2]({attach}/icons/train_table_dog_cat.png)&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;![2]({attach}../icons/train_table_dog_cat.png)&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;![2]({filename}./icons/train_table_dog_cat.png)&lt;/center&gt; 
+观察这些数据可以看到，猫比狗更容易发脾气。大多数狗爱打闹，而猫不爱玩。狗更喜欢狗粮和培根，而猫喜欢猫粮和培根。解释变量是否喜欢玩球和是否经常发脾气可以很简单得转换成二元特征值，而喜欢的食物有三个值，我们将用&lt;a href="https://en.wikipedia.org/wiki/One-hot"&gt;独热编码(One-hot)&lt;/a&gt;来表示([1,0,0]，[0,1,0]，[0,0,1])。&lt;/p&gt;
 &lt;p&gt;到此，我们可以手动得去构建一个分类规则，比如说喜欢打闹并且喜欢吃培根那就是只狗，以此类推。但是手动构建这些规则比较麻烦，我们可以通过构建决策树来制定规则。&lt;/p&gt;
 &lt;h3 id="问题选择"&gt;问题选择&lt;a class="anchor-link" href="#问题选择"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在决策树中，我们通常先得对解释变量进行测试，然后通过测试得到的值去预测出响应变量。但是哪些解释变量放在前面会产生更好的输出，以形成好的model？我们的思路是通过测试得到的子集中包含所有的猫或者所有的狗，这样比得到的子集中既有猫又有狗要好很多。我们还需要避免创建那种测试，把单独的一只猫或一条狗分离出去。换句话说，也就是通过测试要最大程度的降低我们的不确定性。这里就涉及到一个用来度量信息不确定性的概念：&lt;a href="https://en.wikipedia.org/wiki/Entropy"&gt;熵(entropy)&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;熵的单位是$bit$，它量化了一个变量的不确定性。它的方程表示如下，其中$n$代表会有多少个输出，$P(x_i)$代表第$i$个输出的概率。$b$一般取$２$，$e$一般取$10$。由于$P$会小于$1$，那么取得对数为负数，所以前面加个负号让其变为正。$$H(X) = -\sum_{i=1}^nP(x_i)log_bP(x_i)$$
