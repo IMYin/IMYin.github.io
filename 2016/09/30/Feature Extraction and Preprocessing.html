@@ -1,45 +1,118 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-          <title>Yin's Blog</title>
-        <meta charset="utf-8" />
-        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yin's Blog Full Atom Feed" />
-        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate" title="Yin's Blog Categories Atom Feed" />
+    <title>Feature Extraction and Preprocessing - Yin's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
 
-    <meta name="tags" content="降维" />
-    <meta name="tags" content="TF-IDF" />
-    <meta name="tags" content="词袋模型" />
+<link rel="canonical" href="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html">
+
+        <meta name="author" content="Yin" />
+        <meta name="keywords" content="降维,TF-IDF,词袋模型" />
+        <meta name="description" content="在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。 从分类变量中提取特征值¶用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用独热编码表示。 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。" />
+
+        <meta property="og:site_name" content="Yin's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Feature Extraction and Preprocessing"/>
+        <meta property="og:url" content="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html"/>
+        <meta property="og:description" content="在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。 从分类变量中提取特征值¶用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用独热编码表示。 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。"/>
+        <meta property="article:published_time" content="2016-09-30" />
+            <meta property="article:section" content="技术文章" />
+            <meta property="article:tag" content="降维" />
+            <meta property="article:tag" content="TF-IDF" />
+            <meta property="article:tag" content="词袋模型" />
+            <meta property="article:author" content="Yin" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://IMYin.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://IMYin.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://IMYin.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://IMYin.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog ATOM Feed"/>
+
+
+
+        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog 技术文章 ATOM Feed"/>
 
 </head>
+<body>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="https://IMYin.github.io/">Yin's Blog <strong></strong></a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/pages/about.html">About</a></li>
-              <li class="active"><a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a></li>
-        </ul></nav><!-- /#menu -->
-<section id="content" class="body">
-  <header>
-    <h2 class="entry-title">
-      <a href="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html" rel="bookmark"
-         title="Permalink to Feature Extraction and Preprocessing">Feature Extraction and Preprocessing</a></h2>
- 
-  </header>
-  <footer class="post-info">
-    <abbr class="published" title="2016-09-30T20:15:00+08:00">
-      2016-09-30
-    </abbr>
-    <address class="vcard author">
-      By           <a class="url fn" href="https://IMYin.github.io/author/yin.html">Yin</a>
-    </address>
-  </footer><!-- /.post-info -->
-  <div class="entry-content">
-    <style type="text/css">/*!
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://IMYin.github.io/" class="navbar-brand">
+Yin's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/pages/about.html">About</a></li>
+                        <li class="active">
+                            <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html"
+                       rel="bookmark"
+                       title="Permalink to Feature Extraction and Preprocessing">
+                        Feature Extraction and Preprocessing
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-09-30T20:15:00+08:00"> 2016-09-30</time>
+    </span>
+
+
+            <span class="label label-default">By</span>
+            <a href="https://IMYin.github.io/author/yin.html"><i class="fa fa-user"></i> Yin</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://IMYin.github.io/tag/jiang-wei.html">降维</a>
+        /
+	<a href="https://IMYin.github.io/tag/tf-idf.html">TF-IDF</a>
+        /
+	<a href="https://IMYin.github.io/tag/ci-dai-mo-xing.html">词袋模型</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -1251,13 +1324,63 @@ Distance between 1 and 2 documents: [[ 2.64575131]]
 }
 </script>
 
-  </div><!-- /.entry-content -->
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+
+
+
+
+    </ul>
 </section>
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Yin
+            &middot; Powered by <a href="" target="_blank">Yin</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://IMYin.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://IMYin.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://IMYin.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-86179791-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
 </body>
 </html>

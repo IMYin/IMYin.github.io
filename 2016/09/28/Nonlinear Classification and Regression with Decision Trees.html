@@ -1,46 +1,121 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-          <title>Yin's Blog</title>
-        <meta charset="utf-8" />
-        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yin's Blog Full Atom Feed" />
-        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate" title="Yin's Blog Categories Atom Feed" />
+    <title>Nonlinear Classification and Regression with Decision Trees - Yin's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
 
-    <meta name="tags" content="Machine Learning" />
-    <meta name="tags" content="entropy" />
-    <meta name="tags" content="decision tree" />
-    <meta name="tags" content="information gain" />
+<link rel="canonical" href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees.html">
+
+        <meta name="author" content="Yin" />
+        <meta name="keywords" content="Machine Learning,entropy,decision tree,information gain" />
+        <meta name="description" content="决策树简介 ¶决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。 这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。" />
+
+        <meta property="og:site_name" content="Yin's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Nonlinear Classification and Regression with Decision Trees"/>
+        <meta property="og:url" content="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees.html"/>
+        <meta property="og:description" content="决策树简介 ¶决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。 这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。"/>
+        <meta property="article:published_time" content="2016-09-28" />
+            <meta property="article:section" content="技术文章" />
+            <meta property="article:tag" content="Machine Learning" />
+            <meta property="article:tag" content="entropy" />
+            <meta property="article:tag" content="decision tree" />
+            <meta property="article:tag" content="information gain" />
+            <meta property="article:author" content="Yin" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://IMYin.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://IMYin.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://IMYin.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://IMYin.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog ATOM Feed"/>
+
+
+
+        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog 技术文章 ATOM Feed"/>
 
 </head>
+<body>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="https://IMYin.github.io/">Yin's Blog <strong></strong></a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/pages/about.html">About</a></li>
-              <li class="active"><a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a></li>
-        </ul></nav><!-- /#menu -->
-<section id="content" class="body">
-  <header>
-    <h2 class="entry-title">
-      <a href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees.html" rel="bookmark"
-         title="Permalink to Nonlinear Classification and Regression with Decision Trees">Nonlinear Classification and Regression with Decision Trees</a></h2>
- 
-  </header>
-  <footer class="post-info">
-    <abbr class="published" title="2016-09-28T20:15:00+08:00">
-      2016-09-28
-    </abbr>
-    <address class="vcard author">
-      By           <a class="url fn" href="https://IMYin.github.io/author/yin.html">Yin</a>
-    </address>
-  </footer><!-- /.post-info -->
-  <div class="entry-content">
-    <style type="text/css">/*!
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://IMYin.github.io/" class="navbar-brand">
+Yin's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/pages/about.html">About</a></li>
+                        <li class="active">
+                            <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees.html"
+                       rel="bookmark"
+                       title="Permalink to Nonlinear Classification and Regression with Decision Trees">
+                        Nonlinear Classification and Regression with Decision Trees
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-09-28T20:15:00+08:00"> 2016-09-28</time>
+    </span>
+
+
+            <span class="label label-default">By</span>
+            <a href="https://IMYin.github.io/author/yin.html"><i class="fa fa-user"></i> Yin</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://IMYin.github.io/tag/machine-learning.html">Machine Learning</a>
+        /
+	<a href="https://IMYin.github.io/tag/entropy.html">entropy</a>
+        /
+	<a href="https://IMYin.github.io/tag/decision-tree.html">decision tree</a>
+        /
+	<a href="https://IMYin.github.io/tag/information-gain.html">information gain</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -6580,13 +6655,63 @@ RQAUUUUAFFFFAH//2Q==
 }
 </script>
 
-  </div><!-- /.entry-content -->
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+
+
+
+
+    </ul>
 </section>
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Yin
+            &middot; Powered by <a href="" target="_blank">Yin</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://IMYin.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://IMYin.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://IMYin.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-86179791-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
 </body>
 </html>
