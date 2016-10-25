@@ -9,20 +9,22 @@
 
 
 
-<link rel="canonical" href="https://IMYin.github.io/2016/09/28/Linear Regression with scikit-learn.html">
+<link rel="canonical" href="https://IMYin.github.io/2016/09/20/Linear Regression with scikit-learn.html">
 
         <meta name="author" content="Yin" />
-        <meta name="keywords" content="Machine Learning" />
+        <meta name="keywords" content="线性回归,R方,模型评估" />
         <meta name="description" content="这篇文章中介绍如何用线性模型处理回归问题。 首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable) 简单线性回归¶如果你想计算披萨的价格，看看菜单就知道了。 不过我们也可以通过披萨的尺寸和价钱的关系建立一个模型。 首先，我们将借助scikit-learn通过披萨的大小，来预测其价格。" />
 
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Linear Regression with scikit-learn"/>
-        <meta property="og:url" content="https://IMYin.github.io/2016/09/28/Linear Regression with scikit-learn.html"/>
+        <meta property="og:url" content="https://IMYin.github.io/2016/09/20/Linear Regression with scikit-learn.html"/>
         <meta property="og:description" content="这篇文章中介绍如何用线性模型处理回归问题。 首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable) 简单线性回归¶如果你想计算披萨的价格，看看菜单就知道了。 不过我们也可以通过披萨的尺寸和价钱的关系建立一个模型。 首先，我们将借助scikit-learn通过披萨的大小，来预测其价格。"/>
-        <meta property="article:published_time" content="2016-09-28" />
+        <meta property="article:published_time" content="2016-09-20" />
             <meta property="article:section" content="技术文章" />
-            <meta property="article:tag" content="Machine Learning" />
+            <meta property="article:tag" content="线性回归" />
+            <meta property="article:tag" content="R方" />
+            <meta property="article:tag" content="模型评估" />
             <meta property="article:author" content="Yin" />
 
 
@@ -60,6 +62,7 @@ Yin's Blog            </a>
             <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li><a href="/pages/about.html">About</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
                         <li class="active">
                             <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
                         </li>
@@ -74,12 +77,12 @@ Yin's Blog            </a>
 <!-- End Banner -->
 <div class="container">
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-lg-12">
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="https://IMYin.github.io/2016/09/28/Linear Regression with scikit-learn.html"
+                    <a href="https://IMYin.github.io/2016/09/20/Linear Regression with scikit-learn.html"
                        rel="bookmark"
                        title="Permalink to Linear Regression with scikit-learn">
                         Linear Regression with scikit-learn
@@ -92,7 +95,7 @@ Yin's Blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-09-28T22:15:00+08:00"> 2016-09-28</time>
+        <i class="fa fa-calendar"></i><time datetime="2016-09-20T22:15:00+08:00"> 2016-09-20</time>
     </span>
 
 
@@ -102,7 +105,11 @@ Yin's Blog            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="https://IMYin.github.io/tag/machine-learning.html">Machine Learning</a>
+	<a href="https://IMYin.github.io/tag/xian-xing-hui-gui.html">线性回归</a>
+        /
+	<a href="https://IMYin.github.io/tag/rfang.html">R方</a>
+        /
+	<a href="https://IMYin.github.io/tag/mo-xing-ping-gu.html">模型评估</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -3201,20 +3208,6 @@ Ten regression r-squared 0.45891550106
         </article>
     </section>
 
-        </div>
-        <div class="col-sm-3" id="sidebar">
-            <aside>
-
-<section class="well well-sm">
-    <ul class="list-group list-group-flush">
-
-
-
-
-
-    </ul>
-</section>
-            </aside>
         </div>
     </div>
 </div>

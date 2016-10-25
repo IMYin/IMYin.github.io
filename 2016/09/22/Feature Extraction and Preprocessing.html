@@ -9,7 +9,7 @@
 
 
 
-<link rel="canonical" href="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html">
+<link rel="canonical" href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing.html">
 
         <meta name="author" content="Yin" />
         <meta name="keywords" content="降维,TF-IDF,词袋模型" />
@@ -18,9 +18,9 @@
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="Feature Extraction and Preprocessing"/>
-        <meta property="og:url" content="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html"/>
+        <meta property="og:url" content="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing.html"/>
         <meta property="og:description" content="在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。 从分类变量中提取特征值¶用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用独热编码表示。 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。"/>
-        <meta property="article:published_time" content="2016-09-30" />
+        <meta property="article:published_time" content="2016-09-22" />
             <meta property="article:section" content="技术文章" />
             <meta property="article:tag" content="降维" />
             <meta property="article:tag" content="TF-IDF" />
@@ -62,6 +62,7 @@ Yin's Blog            </a>
             <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li><a href="/pages/about.html">About</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
                         <li class="active">
                             <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
                         </li>
@@ -76,12 +77,12 @@ Yin's Blog            </a>
 <!-- End Banner -->
 <div class="container">
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-lg-12">
     <section id="content">
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html"
+                    <a href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing.html"
                        rel="bookmark"
                        title="Permalink to Feature Extraction and Preprocessing">
                         Feature Extraction and Preprocessing
@@ -94,7 +95,7 @@ Yin's Blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-09-30T20:15:00+08:00"> 2016-09-30</time>
+        <i class="fa fa-calendar"></i><time datetime="2016-09-22T22:10:00+08:00"> 2016-09-22</time>
     </span>
 
 
@@ -1281,7 +1282,119 @@ Distance between 1 and 2 documents: [[ 2.64575131]]
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="词根还原与词形还原">词根还原与词形还原<a class="anchor-link" href="#词根还原与词形还原">¶</a></h3><p>虽然上文中将停顿词去掉了，但是那是一小部分，在文档依然会出现大量的单词。那么我们还可以将单词以及与其词根有关的词语看做以一样的。比如jump和jumping。</p>
-<p>python中的nltk是一个神奇的库，可以用它来处理这样的问题。</p>
+<p>python中的<a href="http://www.nltk.org/install.html">nltk</a>是一个神奇的库，可以用它来处理这样的问题。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>showing info https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/index.xml
+</pre>
+</div>
+</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>nltk中的WordNetLemmatizer类，可以用gathering的词类确定词元。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem.wordnet</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+<span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="s1">'gathering'</span><span class="p">,</span><span class="s1">'v'</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="s1">'gathering'</span><span class="p">,</span><span class="s1">'n'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>gather
+gathering
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>现在我们再回到刚才的例子当中。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>
+<span class="kn">from</span> <span class="nn">nltk.stem.wordnet</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">pos_tag</span>
+
+<span class="n">wordnet_tags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'n'</span><span class="p">,</span><span class="s1">'v'</span><span class="p">]</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'He ate the sandwiches'</span><span class="p">,</span>
+    <span class="s1">'Every sandwich was eaten by him'</span>
+<span class="p">]</span>
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">'Stemmed:'</span><span class="p">,</span> <span class="p">[[</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">document</span><span class="p">)]</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('Stemmed:', [[u'He', u'ate', u'the', u'sandwich'], [u'Everi', u'sandwich', u'wa', u'eaten', u'by', u'him']])
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>通过词根还原和词形还原，可以有效的对数据降维。</p>
+<h3 id="带TF-IDF权重的扩展词库">带TF-IDF权重的扩展词库<a class="anchor-link" href="#带TF-IDF权重的扩展词库">¶</a></h3>
 </div>
 </div>
 </div>
@@ -1329,20 +1442,6 @@ Distance between 1 and 2 documents: [[ 2.64575131]]
         </article>
     </section>
 
-        </div>
-        <div class="col-sm-3" id="sidebar">
-            <aside>
-
-<section class="well well-sm">
-    <ul class="list-group list-group-flush">
-
-
-
-
-
-    </ul>
-</section>
-            </aside>
         </div>
     </div>
 </div>
