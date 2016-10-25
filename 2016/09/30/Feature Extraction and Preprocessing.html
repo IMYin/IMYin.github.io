@@ -1,83 +1,45 @@
 <!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <meta charset="utf-8"> 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Yin" />
-        <meta name="copyright" content="Yin" />
+<html lang="zh">
+<head>
+          <title>Yin's Blog</title>
+        <meta charset="utf-8" />
+        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yin's Blog Full Atom Feed" />
+        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate" title="Yin's Blog Categories Atom Feed" />
 
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="降维, TF-IDF, 词袋模型, 技术文章, " />
 
-<meta property="og:title" content="Feature Extraction and Preprocessing "/>
-<meta property="og:url" content="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html" />
-<meta property="og:description" content="在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。 从分类变量中提取特征值¶用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用独热编码表示。 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。" />
-<meta property="og:site_name" content="Yin&#39;s Blog" />
-<meta property="og:article:author" content="Yin" />
-<meta property="og:article:published_time" content="2016-09-30T20:15:00+08:00" />
-<meta name="twitter:title" content="Feature Extraction and Preprocessing ">
-<meta name="twitter:description" content="在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。 从分类变量中提取特征值¶用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用独热编码表示。 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。">
+    <meta name="tags" content="降维" />
+    <meta name="tags" content="TF-IDF" />
+    <meta name="tags" content="词袋模型" />
 
-        <title>Feature Extraction and Preprocessing  · Yin&#39;s Blog
-</title>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://IMYin.github.io/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://IMYin.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://IMYin.github.io/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://IMYin.github.io/theme/css/custom.css" media="screen">
-        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Yin&#39;s Blog - Full Atom Feed" />
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-86179791-1', 'auto');
-    ga('send', 'pageview');
-</script>
-    </head>
-    <body>
-        <div id="content-sans-footer">
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="https://IMYin.github.io/"><span class=site-name>Yin's Blog</span></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right top-menu">
-                            <li ><a href="https://IMYin.github.io">Home</a></li>
-                            <li ><a href="https://IMYin.github.io/categories.html">Categories</a></li>
-                            <li ><a href="https://IMYin.github.io/tags.html">Tags</a></li>
-                            <li ><a href="https://IMYin.github.io/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="https://IMYin.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span1"></div>
-                <div class="span10">
-<article>
-<div class="row-fluid">
-    <header class="page-header span10 offset2">
-    <h1><a href="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html"> Feature Extraction and Preprocessing  </a></h1>
-    </header>
-</div>
+</head>
 
-<div class="row-fluid">
-        <div class="span8 offset2 article-content">
-
-            
-            <style type="text/css">/*!
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://IMYin.github.io/">Yin's Blog <strong></strong></a></h1>
+        </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/pages/about.html">About</a></li>
+              <li class="active"><a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a></li>
+        </ul></nav><!-- /#menu -->
+<section id="content" class="body">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://IMYin.github.io/2016/09/30/Feature Extraction and Preprocessing.html" rel="bookmark"
+         title="Permalink to Feature Extraction and Preprocessing">Feature Extraction and Preprocessing</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <abbr class="published" title="2016-09-30T20:15:00+08:00">
+      2016-09-30
+    </abbr>
+    <address class="vcard author">
+      By           <a class="url fn" href="https://IMYin.github.io/author/yin.html">Yin</a>
+    </address>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <style type="text/css">/*!
 *
 * IPython notebook
 *
@@ -1289,55 +1251,13 @@ Distance between 1 and 2 documents: [[ 2.64575131]]
 }
 </script>
 
-            
-            
-            <hr/>
-        </div>
-        <section>
-        <div class="span2" style="float:right;font-size:0.9em;">
-            <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2016-09-30T20:15:00+08:00">Sep 30, 2016</time>
-            <h4>Category</h4>
-            <a class="category-link" href="https://IMYin.github.io/categories.html#ji-zhu-wen-zhang-ref">技术文章</a>
-            <h4>Tags</h4>
-            <ul class="list-of-tags tags-in-article">
-                <li><a href="https://IMYin.github.io/tags.html#ci-dai-mo-xing-ref">词袋模型
-                    <span>1</span>
-</a></li>
-                <li><a href="https://IMYin.github.io/tags.html#jiang-wei-ref">降维
-                    <span>1</span>
-</a></li>
-                <li><a href="https://IMYin.github.io/tags.html#tf-idf-ref">TF-IDF
-                    <span>1</span>
-</a></li>
-            </ul>
-        </div>
-        </section>
-</div>
-</article>
-                </div>
-                <div class="span1"></div>
-            </div>
-        </div>
-        <div id="push"></div>
-    </div>
-<footer>
-<div id="footer">
-    <ul class="footer-content">
-        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
-    </ul>
-</div>
-</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script>
-            function validateForm(query)
-            {
-                return (query.length > 0);
-            }
-        </script>
-
-    
-    </body>
-    <!-- Theme: Elegant built for Pelican
-    License : http://oncrashreboot.com/pelican-elegant -->
+  </div><!-- /.entry-content -->
+</section>
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+        </footer><!-- /#contentinfo -->
+</body>
 </html>
