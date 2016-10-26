@@ -10593,7 +10593,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。&lt;/p&gt;
+&lt;p&gt;在之前&lt;a href="{filename}blog/Linear_Regression.ipynb"&gt;线性回归&lt;/a&gt;文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。&lt;/p&gt;
 &lt;h3 id="从分类变量中提取特征值"&gt;从分类变量中提取特征值&lt;a class="anchor-link" href="#从分类变量中提取特征值"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用&lt;a href="https://en.wikipedia.org/wiki/One-hot"&gt;独热编码&lt;/a&gt;表示。&lt;br&gt;
 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。&lt;/br&gt;&lt;/p&gt;
 &lt;/div&gt;
