@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yin's Blog</title><link href="https://IMYin.github.io/" rel="alternate"></link><link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" rel="self"></link><id>https://IMYin.github.io/</id><updated>2016-09-28T17:15:00+08:00</updated><entry><title>聊聊随机森林</title><link href="https://IMYin.github.io/2016/09/28/%E8%81%8A%E8%81%8A%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97.html" rel="alternate"></link><published>2016-09-28T17:15:00+08:00</published><updated>2016-09-28T17:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-28:2016/09/28/聊聊随机森林.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yin's Blog</title><link href="https://IMYin.github.io/" rel="alternate"></link><link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" rel="self"></link><id>https://IMYin.github.io/</id><updated>2016-09-28T17:15:00+08:00</updated><entry><title>聊聊随机森林</title><link href="https://IMYin.github.io/2016/09/28/%E8%81%8A%E8%81%8A%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" rel="alternate"></link><published>2016-09-28T17:15:00+08:00</published><updated>2016-09-28T17:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-28:2016/09/28/聊聊随机森林/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -2880,7 +2880,7 @@ avg / total       0.70      0.70      0.65      2019
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="随机森林"></category><category term="分类"></category><category term="树的深度"></category></entry><entry><title>决策树－非线性分类与回归</title><link href="https://IMYin.github.io/2016/09/25/Nonlinear%20Classification%20and%20Regression%20with%20Decision%20Trees.html" rel="alternate"></link><published>2016-09-25T20:15:00+08:00</published><updated>2016-09-25T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-25:2016/09/25/Nonlinear Classification and Regression with Decision Trees.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="随机森林"></category><category term="分类"></category><category term="树的深度"></category></entry><entry><title>决策树－非线性分类与回归</title><link href="https://IMYin.github.io/2016/09/25/Nonlinear%20Classification%20and%20Regression%20with%20Decision%20Trees/" rel="alternate"></link><published>2016-09-25T20:15:00+08:00</published><updated>2016-09-25T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-25:2016/09/25/Nonlinear Classification and Regression with Decision Trees/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -9627,7 +9627,7 @@ avg / total       0.97      0.97      0.97       820
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="Machine Learning"></category><category term="entropy"></category><category term="decision tree"></category><category term="information gain"></category><category term="熵"></category><category term="信息增益"></category><category term="基尼不纯度"></category></entry><entry><title>Feature Extraction and Preprocessing</title><link href="https://IMYin.github.io/2016/09/22/Feature%20Extraction%20and%20Preprocessing.html" rel="alternate"></link><published>2016-09-22T22:10:00+08:00</published><updated>2016-09-22T22:10:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-22:2016/09/22/Feature Extraction and Preprocessing.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="Machine Learning"></category><category term="entropy"></category><category term="decision tree"></category><category term="information gain"></category><category term="熵"></category><category term="信息增益"></category><category term="基尼不纯度"></category></entry><entry><title>Feature Extraction and Preprocessing</title><link href="https://IMYin.github.io/2016/09/22/Feature%20Extraction%20and%20Preprocessing/" rel="alternate"></link><published>2016-09-22T22:10:00+08:00</published><updated>2016-09-22T22:10:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-22:2016/09/22/Feature Extraction and Preprocessing/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -10950,7 +10950,7 @@ gathering
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary><category term="降维"></category><category term="TF-IDF"></category><category term="词袋模型"></category></entry><entry><title>线性回归</title><link href="https://IMYin.github.io/2016/09/20/Linear%20Regression%20with%20scikit-learn.html" rel="alternate"></link><published>2016-09-20T22:15:00+08:00</published><updated>2016-09-20T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-20:2016/09/20/Linear Regression with scikit-learn.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary><category term="降维"></category><category term="TF-IDF"></category><category term="词袋模型"></category></entry><entry><title>线性回归</title><link href="https://IMYin.github.io/2016/09/20/Linear%20Regression%20with%20scikit-learn/" rel="alternate"></link><published>2016-09-20T22:15:00+08:00</published><updated>2016-09-20T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-09-20:2016/09/20/Linear Regression with scikit-learn/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
