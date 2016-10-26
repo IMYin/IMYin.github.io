@@ -5,21 +5,21 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://IMYin.github.io/</loc>
-<lastmod>2016-10-26T07:19:55-00:00</lastmod>
+<lastmod>2016-10-26T18:28:21-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://IMYin.github.io/archives.html</loc>
-<lastmod>2016-10-26T07:19:55-00:00</lastmod>
+<lastmod>2016-10-26T18:28:21-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://IMYin.github.io/categories.html</loc>
-<lastmod>2016-10-26T07:19:55-00:00</lastmod>
+<lastmod>2016-10-26T18:28:21-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -27,6 +27,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://IMYin.github.io/pages/about.html</loc>
 <lastmod>2016-08-20T22:15:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/2016/09/28/聊聊随机森林.html</loc>
+<lastmod>2016-09-28T17:15:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -54,13 +61,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://IMYin.github.io/category/ji-zhu-wen-zhang.html</loc>
-<lastmod>2016-09-25T20:15:00+08:06</lastmod>
+<lastmod>2016-09-28T17:15:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://IMYin.github.io/tag/ci-dai-mo-xing.html</loc>
+<loc>https://IMYin.github.io/tag/shu-de-shen-du.html</loc>
+<lastmod>2016-09-28T17:15:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/tf-idf.html</loc>
 <lastmod>2016-09-22T22:10:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -74,28 +88,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://IMYin.github.io/tag/machine-learning.html</loc>
+<loc>https://IMYin.github.io/tag/ji-ni-bu-chun-du.html</loc>
 <lastmod>2016-09-25T20:15:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>https://IMYin.github.io/tag/information-gain.html</loc>
-<lastmod>2016-09-25T20:15:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>https://IMYin.github.io/tag/shang.html</loc>
-<lastmod>2016-09-25T20:15:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>https://IMYin.github.io/tag/rfang.html</loc>
+<loc>https://IMYin.github.io/tag/xian-xing-hui-gui.html</loc>
 <lastmod>2016-09-20T22:15:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -109,7 +109,42 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://IMYin.github.io/tag/ji-ni-bu-chun-du.html</loc>
+<loc>https://IMYin.github.io/tag/jiang-wei.html</loc>
+<lastmod>2016-09-22T22:10:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/sui-ji-sen-lin.html</loc>
+<lastmod>2016-09-28T17:15:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/shang.html</loc>
+<lastmod>2016-09-25T20:15:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/information-gain.html</loc>
+<lastmod>2016-09-25T20:15:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/rfang.html</loc>
+<lastmod>2016-09-20T22:15:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/machine-learning.html</loc>
 <lastmod>2016-09-25T20:15:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -123,20 +158,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://IMYin.github.io/tag/jiang-wei.html</loc>
-<lastmod>2016-09-22T22:10:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>https://IMYin.github.io/tag/xian-xing-hui-gui.html</loc>
-<lastmod>2016-09-20T22:15:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
 <loc>https://IMYin.github.io/tag/mo-xing-ping-gu.html</loc>
 <lastmod>2016-09-20T22:15:00+08:06</lastmod>
 <changefreq>daily</changefreq>
@@ -144,7 +165,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>https://IMYin.github.io/tag/tf-idf.html</loc>
+<loc>https://IMYin.github.io/tag/fen-lei.html</loc>
+<lastmod>2016-09-28T17:15:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/ci-dai-mo-xing.html</loc>
 <lastmod>2016-09-22T22:10:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -152,7 +180,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://IMYin.github.io/author/yin.html</loc>
-<lastmod>2016-09-25T20:15:00+08:06</lastmod>
+<lastmod>2016-09-28T17:15:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
