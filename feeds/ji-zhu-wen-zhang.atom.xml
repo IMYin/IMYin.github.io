@@ -70,7 +70,197 @@ Kafka是显式分布式架构（明确的指定数据的来源、走向、目的
 &lt;p&gt;写自 2016-05-24&lt;/p&gt;
 &lt;h3&gt;后话&lt;/h3&gt;
 &lt;p&gt;之所以毅然绝然地离开了软通，主要是因为银行项目的技术更新迭代起来太慢，在其中并没有什么深奥的技术可用，都是一些杂七杂八的事情；并且我的兴趣并非大数据处理，而是机器学习或者数据分析。虽然在软通也能够学到很多东西，但对于好奇心及其强烈的我而言，无异于被关在了铁笼子里不能自由飞翔。同事哥哥们都对我非常好，这是让我感觉非常值得感恩的地方。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;人生苦短，做自己最爱的事情。我爱数据。&lt;/strong&gt;&lt;/p&gt;</summary><category term="kafka"></category><category term="flume"></category><category term="python"></category><category term="SMDA"></category><category term="SWDA"></category><category term="数据采集"></category><category term="可视化"></category><category term="数据分析"></category><category term="用户画像"></category></entry><entry><title>K-Means聚类</title><link href="https://IMYin.github.io/2016/10/05/K-Means/" rel="alternate"></link><published>2016-10-05T20:15:00+08:00</published><updated>2016-10-05T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-05:2016/10/05/K-Means/</id><summary type="html">&lt;style type="text/css"&gt;/*!
+&lt;p&gt;&lt;strong&gt;人生苦短，做自己最爱的事情。我爱数据。&lt;/strong&gt;&lt;/p&gt;</summary><category term="kafka"></category><category term="flume"></category><category term="python"></category><category term="SMDA"></category><category term="SWDA"></category><category term="数据采集"></category><category term="可视化"></category><category term="数据分析"></category><category term="用户画像"></category></entry><entry><title>FTP数据入库Hive</title><link href="https://IMYin.github.io/2016/10/20/ftp2hive/" rel="alternate"></link><published>2016-10-20T22:15:00+08:00</published><updated>2016-10-20T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-20:2016/10/20/ftp2hive/</id><summary type="html">&lt;p&gt;今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
+先来看一下处理数据的架构，非常之简单：&lt;/p&gt;
+&lt;p&gt;当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。&lt;/p&gt;
+&lt;p&gt;先简单说一下我们这个loooooooooow架构： &lt;/p&gt;
+&lt;p&gt;&lt;center&gt;FTP共享平台&lt;/center&gt;
+&lt;center&gt;&lt;span class="math"&gt;\(\Downarrow\)&lt;/span&gt;&lt;/center&gt;
+&lt;center&gt;4台交换机&lt;/center&gt;
+&lt;center&gt;&lt;span class="math"&gt;\(\Downarrow\)&lt;/span&gt;&lt;/center&gt;
+&lt;center&gt;17台规模的Hadoop集群&lt;/center&gt;&lt;/p&gt;
+&lt;p&gt;其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
+为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
+代码如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#/bin/bash
+
+#This script will deal with the dns_data.
+
+LOGIN_FTP_USER=$1
+LOGIN_FTP_PASSWD=$2
+REMOTE_DIR=/home/sunnyin/test/longName   #test dir
+LOCAL_DIR=$3   #test dir  /home/hadoop/test_818/dataxx
+FTP_HOST=$4
+TIME_NOW=$5
+length_p5=`echo &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;TIME_NOW&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;|wc -L`
+data_dir=&lt;span class="nv"&gt;$LOCAL_DIR&lt;/span&gt;/dns/&lt;span class="nv"&gt;$TIME_NOW&lt;/span&gt;  #接口路径
+
+#check the parameter
+if [ -z &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;TIME_NOW&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then
+TIME_NOW=`date +%Y%m%d%H`
+echo &amp;quot;Will get data of &lt;span class="nv"&gt;$TIME_NOW....&lt;/span&gt;&amp;quot;
+elif [ &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;length_p5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; -ne 10 ];then
+echo &amp;quot;The parameter 5 is wrong,please check and run again...&amp;quot;
+exit 1
+else
+echo &amp;quot;Will get data of &lt;span class="nv"&gt;$TIME_NOW....&lt;/span&gt;&amp;quot;
+fi
+
+#make dir and change dir
+if [ -d &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then
+cd &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+else
+echo &amp;quot;The dictionary is not exist,will create...&amp;quot;
+mkdir -p &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+cd &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+fi
+
+#login ftp
+for (( i=0;i&lt;span class="err"&gt;&amp;lt;&lt;/span&gt;=15;i++))
+do
+if [ &lt;span class="nv"&gt;$i&lt;/span&gt; -lt 10 ];then
+j=`printf &amp;quot;%02d&amp;quot; &amp;quot;&lt;span class="nv"&gt;$i&lt;/span&gt;&amp;quot;`
+else
+j=&lt;span class="nv"&gt;$i&lt;/span&gt;
+fi
+ftp -n&lt;span class="err"&gt;&amp;lt;&amp;lt;&lt;/span&gt;!
+open &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;FTP_HOST&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+user &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;LOGIN_FTP_USER&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;LOGIN_FTP_PASSWD&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+cd &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;REMOTE_DIR&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;/dns
+prompt
+mget *&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;TIME_NOW&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;*
+close
+bye
+!
+done
+if [ $? -eq 0 ]; then
+echo &amp;quot;Files transfer is completed...(0~15 minutes data)&amp;quot;
+else
+echo &amp;quot;File transfer failed&amp;quot;
+exit 1
+fi
+
+#make a tuple(files name)
+files=(`ls &lt;span class="nv"&gt;$data_dir&lt;/span&gt;`)
+TABLE_NAME_TIME=(`ls &lt;span class="nv"&gt;$data_dir&lt;/span&gt;|awk -F _ &amp;#39;{print $2}&amp;#39;`)  #time:YYYYMMHHMMSS
+
+#split
+for file in &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+do
+split -C 128m &lt;span class="nv"&gt;$file&lt;/span&gt; -d -a 3 &lt;span class="nv"&gt;$TABLE_NAME_TIME&lt;/span&gt;
+if [ $? -eq 0 ]; then
+echo &amp;quot;Split &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; completed...&amp;quot;
+else
+echo -e &amp;quot;Split &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; failed!!\nPlease check the file:&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+continue
+fi
+done
+
+#compress
+cd &lt;span class="nv"&gt;$data_dir&lt;/span&gt;
+gzip dns*
+if [ $? -eq 0 ]; then
+echo &amp;quot;Compress files completed...&amp;quot;
+else
+echo &amp;quot;Comgress files failed!!&amp;quot;
+exit 1
+fi
+
+echo &amp;quot;Transmitting file to cluster......&amp;quot;
+scp -r &lt;span class="nv"&gt;$data_dir&lt;/span&gt;/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/&lt;span class="nv"&gt;$TIME_NOW&lt;/span&gt;
+echo &amp;quot;End of transmission......&amp;quot;
+ssh hadoop@host.of.cluster sh load_hive_dns.sh
+echo &amp;quot;Load data to hive database.......&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个脚本还是比较老的，你会发现上面有一个步骤是对文件进行切片处理，那样做是因为当时还不知道每个文件有380左右的大小，后来知道这个信息之后发现直接对文件进行压缩之后便可以直接入库（HDFS中每个块的大小设置为128m大小）。&lt;/p&gt;
+&lt;p&gt;另一个放在hadoop集群的脚本：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#/bin/bash
+#load_hive_dns.sh
+
+LOCAL_DIR=/home/hadoop/test_818/data05/dns
+TIME_NOW=`date +%Y%m%d%H`
+TIME_MONTH=`date +%m`
+TIME_DAY=`date +%d`
+TIME_HOUR=`date +%H`
+TARGET_DIR=&lt;span class="nv"&gt;$LOCAL_DIR&lt;/span&gt;/&lt;span class="nv"&gt;$TIME_NOW&lt;/span&gt;
+
+cd &lt;span class="nv"&gt;$TARGET_DIR&lt;/span&gt;
+
+hive &lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;EOF&lt;/span&gt;
+&lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;hive.exec.compress.&lt;/span&gt;&lt;span class="na"&gt;output=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
+&lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.&lt;/span&gt;&lt;span class="na"&gt;compress=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
+&lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.compression.&lt;/span&gt;&lt;span class="na"&gt;codec=&lt;/span&gt;&lt;span class="s"&gt;org.apache.hadoop.io.compress.GzipCodec;&lt;/span&gt;
+&lt;span class="err"&gt;ALTER&lt;/span&gt; &lt;span class="err"&gt;TABLE&lt;/span&gt; &lt;span class="err"&gt;load_test.partition_test&lt;/span&gt; &lt;span class="err"&gt;ADD&lt;/span&gt; &lt;span class="err"&gt;IF&lt;/span&gt; &lt;span class="err"&gt;NOT&lt;/span&gt; &lt;span class="err"&gt;EXISTS&lt;/span&gt; &lt;span class="err"&gt;PARTITION&lt;/span&gt; &lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;month=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="nv"&gt;$TIME_MONTH&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;,day=&amp;#39;$TIME_DAY&amp;#39;,hour=&amp;#39;$TIME_HOUR&amp;#39;);&lt;/span&gt;
+&lt;span class="err"&gt;exit;&lt;/span&gt;
+&lt;span class="err"&gt;EOF&lt;/span&gt;
+
+&lt;span class="err"&gt;hdfs&lt;/span&gt; &lt;span class="err"&gt;dfs&lt;/span&gt; &lt;span class="err"&gt;-put&lt;/span&gt; &lt;span class="err"&gt;${TARGET_DIR}/*&lt;/span&gt; &lt;span class="err"&gt;/user/hive/warehouse/load_test.db/partition_test/&lt;/span&gt;&lt;span class="na"&gt;month=&lt;/span&gt;&lt;span class="s"&gt;$TIME_MONTH/day=$TIME_DAY/hour=$TIME_HOUR&lt;/span&gt;
+&lt;span class="err"&gt;echo&lt;/span&gt; &lt;span class="err"&gt;&amp;quot;load&lt;/span&gt; &lt;span class="err"&gt;data&lt;/span&gt; &lt;span class="err"&gt;completed...&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;代码中的三个set也是多余的，不用每次都设置，放在这里是想提醒一下为了在入库时不出错，最好在运行时set一下这些参数。 
+这里之所以没有用Hive进行load，是因为那样会很慢，因为每一次load都会启动hive，如果用hdfs的put命令，则可以省去很多时间。&lt;/p&gt;
+&lt;p&gt;保证以上脚本自动运行的前提是两个环境之间进行了密钥设置。&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' }, Macros: {} }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="shell"></category><category term="hive"></category><category term="ftp"></category><category term="hadoop"></category></entry><entry><title>K-Means聚类</title><link href="https://IMYin.github.io/2016/10/05/K-Means/" rel="alternate"></link><published>2016-10-05T20:15:00+08:00</published><updated>2016-10-05T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-05:2016/10/05/K-Means/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *

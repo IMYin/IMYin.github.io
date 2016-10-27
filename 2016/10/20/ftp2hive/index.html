@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>FTP数据入库Hive - Yin's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="https://IMYin.github.io/2016/10/20/ftp2hive/">
+
+        <meta name="author" content="Yin" />
+        <meta name="keywords" content="shell,hive,ftp,hadoop" />
+        <meta name="description" content="今天聊一聊我们公司辽宁项目中是怎样做数据处理的。 先来看一下处理数据的架构，非常之简单： 当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。 先简单说一下我们这个loooooooooow架构： FTP共享平台 \(\Downarrow\) 4台交换机 \(\Downarrow\) ...if (!document.getElementById(&#39;mathjaxscript_pelican_#%@#$@#&#39;)) { var align = &#34;center&#34;, indent = &#34;0em&#34;, linebreak = &#34;false&#34;; if (false) { align = (screen.width" />
+
+        <meta property="og:site_name" content="Yin's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="FTP数据入库Hive"/>
+        <meta property="og:url" content="https://IMYin.github.io/2016/10/20/ftp2hive/"/>
+        <meta property="og:description" content="今天聊一聊我们公司辽宁项目中是怎样做数据处理的。 先来看一下处理数据的架构，非常之简单： 当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。 先简单说一下我们这个loooooooooow架构： FTP共享平台 \(\Downarrow\) 4台交换机 \(\Downarrow\) ...if (!document.getElementById(&#39;mathjaxscript_pelican_#%@#$@#&#39;)) { var align = &#34;center&#34;, indent = &#34;0em&#34;, linebreak = &#34;false&#34;; if (false) { align = (screen.width"/>
+        <meta property="article:published_time" content="2016-10-20" />
+            <meta property="article:section" content="技术文章" />
+            <meta property="article:tag" content="shell" />
+            <meta property="article:tag" content="hive" />
+            <meta property="article:tag" content="ftp" />
+            <meta property="article:tag" content="hadoop" />
+            <meta property="article:author" content="Yin" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://IMYin.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://IMYin.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://IMYin.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://IMYin.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog ATOM Feed"/>
+
+
+
+        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog 技术文章 ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://IMYin.github.io/" class="navbar-brand">
+Yin's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                         <li><a href="https://IMYin.github.io/pages/about-me.html">
+                             About Me
+                          </a></li>
+                        <li class="active">
+                            <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://IMYin.github.io/2016/10/20/ftp2hive/"
+                       rel="bookmark"
+                       title="Permalink to FTP数据入库Hive">
+                        FTP数据入库Hive
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-10-20T22:15:00+08:00"> 2016-10-20</time>
+    </span>
+
+
+            <span class="label label-default">By</span>
+            <a href="https://IMYin.github.io/author/yin.html"><i class="fa fa-user"></i> Yin</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://IMYin.github.io/tag/shell.html">shell</a>
+        /
+	<a href="https://IMYin.github.io/tag/hive.html">hive</a>
+        /
+	<a href="https://IMYin.github.io/tag/ftp.html">ftp</a>
+        /
+	<a href="https://IMYin.github.io/tag/hadoop.html">hadoop</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
+先来看一下处理数据的架构，非常之简单：</p>
+<p>当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。</p>
+<p>先简单说一下我们这个loooooooooow架构： </p>
+<p><center>FTP共享平台</center>
+<center><span class="math">\(\Downarrow\)</span></center>
+<center>4台交换机</center>
+<center><span class="math">\(\Downarrow\)</span></center>
+<center>17台规模的Hadoop集群</center></p>
+<p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
+为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
+代码如下：</p>
+<div class="highlight"><pre><span></span>#/bin/bash
+
+#This script will deal with the dns_data.
+
+LOGIN_FTP_USER=$1
+LOGIN_FTP_PASSWD=$2
+REMOTE_DIR=/home/sunnyin/test/longName   #test dir
+LOCAL_DIR=$3   #test dir  /home/hadoop/test_818/dataxx
+FTP_HOST=$4
+TIME_NOW=$5
+length_p5=`echo <span class="cp">${</span><span class="n">TIME_NOW</span><span class="cp">}</span>|wc -L`
+data_dir=<span class="nv">$LOCAL_DIR</span>/dns/<span class="nv">$TIME_NOW</span>  #接口路径
+
+#check the parameter
+if [ -z <span class="cp">${</span><span class="n">TIME_NOW</span><span class="cp">}</span> ]; then
+TIME_NOW=`date +%Y%m%d%H`
+echo &quot;Will get data of <span class="nv">$TIME_NOW....</span>&quot;
+elif [ <span class="cp">${</span><span class="n">length_p5</span><span class="cp">}</span> -ne 10 ];then
+echo &quot;The parameter 5 is wrong,please check and run again...&quot;
+exit 1
+else
+echo &quot;Will get data of <span class="nv">$TIME_NOW....</span>&quot;
+fi
+
+#make dir and change dir
+if [ -d <span class="cp">${</span><span class="n">data_dir</span><span class="cp">}</span> ]; then
+cd <span class="cp">${</span><span class="n">data_dir</span><span class="cp">}</span>
+else
+echo &quot;The dictionary is not exist,will create...&quot;
+mkdir -p <span class="cp">${</span><span class="n">data_dir</span><span class="cp">}</span>
+cd <span class="cp">${</span><span class="n">data_dir</span><span class="cp">}</span>
+fi
+
+#login ftp
+for (( i=0;i<span class="err">&lt;</span>=15;i++))
+do
+if [ <span class="nv">$i</span> -lt 10 ];then
+j=`printf &quot;%02d&quot; &quot;<span class="nv">$i</span>&quot;`
+else
+j=<span class="nv">$i</span>
+fi
+ftp -n<span class="err">&lt;&lt;</span>!
+open <span class="cp">${</span><span class="n">FTP_HOST</span><span class="cp">}</span>
+user <span class="cp">${</span><span class="n">LOGIN_FTP_USER</span><span class="cp">}</span> <span class="cp">${</span><span class="n">LOGIN_FTP_PASSWD</span><span class="cp">}</span>
+cd <span class="cp">${</span><span class="n">REMOTE_DIR</span><span class="cp">}</span>/dns
+prompt
+mget *<span class="cp">${</span><span class="n">TIME_NOW</span><span class="cp">}${</span><span class="n">j</span><span class="cp">}</span>*
+close
+bye
+!
+done
+if [ $? -eq 0 ]; then
+echo &quot;Files transfer is completed...(0~15 minutes data)&quot;
+else
+echo &quot;File transfer failed&quot;
+exit 1
+fi
+
+#make a tuple(files name)
+files=(`ls <span class="nv">$data_dir</span>`)
+TABLE_NAME_TIME=(`ls <span class="nv">$data_dir</span>|awk -F _ &#39;{print $2}&#39;`)  #time:YYYYMMHHMMSS
+
+#split
+for file in <span class="cp">${</span><span class="n">files</span><span class="p">[</span><span class="err">@</span><span class="p">]</span><span class="cp">}</span>
+do
+split -C 128m <span class="nv">$file</span> -d -a 3 <span class="nv">$TABLE_NAME_TIME</span>
+if [ $? -eq 0 ]; then
+echo &quot;Split <span class="cp">${</span><span class="nb">file</span><span class="cp">}</span> completed...&quot;
+else
+echo -e &quot;Split <span class="cp">${</span><span class="nb">file</span><span class="cp">}</span> failed!!\nPlease check the file:<span class="cp">${</span><span class="nb">file</span><span class="cp">}</span>&quot;
+continue
+fi
+done
+
+#compress
+cd <span class="nv">$data_dir</span>
+gzip dns*
+if [ $? -eq 0 ]; then
+echo &quot;Compress files completed...&quot;
+else
+echo &quot;Comgress files failed!!&quot;
+exit 1
+fi
+
+echo &quot;Transmitting file to cluster......&quot;
+scp -r <span class="nv">$data_dir</span>/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/<span class="nv">$TIME_NOW</span>
+echo &quot;End of transmission......&quot;
+ssh hadoop@host.of.cluster sh load_hive_dns.sh
+echo &quot;Load data to hive database.......&quot;
+</pre></div>
+
+
+<p>这个脚本还是比较老的，你会发现上面有一个步骤是对文件进行切片处理，那样做是因为当时还不知道每个文件有380左右的大小，后来知道这个信息之后发现直接对文件进行压缩之后便可以直接入库（HDFS中每个块的大小设置为128m大小）。</p>
+<p>另一个放在hadoop集群的脚本：</p>
+<div class="highlight"><pre><span></span>#/bin/bash
+#load_hive_dns.sh
+
+LOCAL_DIR=/home/hadoop/test_818/data05/dns
+TIME_NOW=`date +%Y%m%d%H`
+TIME_MONTH=`date +%m`
+TIME_DAY=`date +%d`
+TIME_HOUR=`date +%H`
+TARGET_DIR=<span class="nv">$LOCAL_DIR</span>/<span class="nv">$TIME_NOW</span>
+
+cd <span class="nv">$TARGET_DIR</span>
+
+hive <span class="err">&lt;</span><span class="nt">&lt;EOF</span>
+<span class="err">set</span> <span class="err">hive.exec.compress.</span><span class="na">output=</span><span class="s">true;</span>
+<span class="err">set</span> <span class="err">mapred.output.</span><span class="na">compress=</span><span class="s">true;</span>
+<span class="err">set</span> <span class="err">mapred.output.compression.</span><span class="na">codec=</span><span class="s">org.apache.hadoop.io.compress.GzipCodec;</span>
+<span class="err">ALTER</span> <span class="err">TABLE</span> <span class="err">load_test.partition_test</span> <span class="err">ADD</span> <span class="err">IF</span> <span class="err">NOT</span> <span class="err">EXISTS</span> <span class="err">PARTITION</span> <span class="err">(</span><span class="na">month=</span><span class="s">&#39;</span><span class="nv">$TIME_MONTH</span><span class="s">&#39;,day=&#39;$TIME_DAY&#39;,hour=&#39;$TIME_HOUR&#39;);</span>
+<span class="err">exit;</span>
+<span class="err">EOF</span>
+
+<span class="err">hdfs</span> <span class="err">dfs</span> <span class="err">-put</span> <span class="err">${TARGET_DIR}/*</span> <span class="err">/user/hive/warehouse/load_test.db/partition_test/</span><span class="na">month=</span><span class="s">$TIME_MONTH/day=$TIME_DAY/hour=$TIME_HOUR</span>
+<span class="err">echo</span> <span class="err">&quot;load</span> <span class="err">data</span> <span class="err">completed...&quot;</span>
+</pre></div>
+
+
+<p>代码中的三个set也是多余的，不用每次都设置，放在这里是想提醒一下为了在入库时不出错，最好在运行时set一下这些参数。 
+这里之所以没有用Hive进行load，是因为那样会很慢，因为每一次load都会启动hive，如果用hdfs的put命令，则可以省去很多时间。</p>
+<p>保证以上脚本自动运行的前提是两个环境之间进行了密钥设置。</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' }, Macros: {} }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Yin
+            &middot; Powered by <a href="" target="_blank">Yin</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://IMYin.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://IMYin.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://IMYin.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-86179791-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+</body>
+</html>
