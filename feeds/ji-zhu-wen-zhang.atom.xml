@@ -1,5 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Yin's Blog</title><link href="https://IMYin.github.io/" rel="alternate"></link><link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" rel="self"></link><id>https://IMYin.github.io/</id><updated>2016-10-05T20:15:00+08:00</updated><entry><title>K-Means聚类</title><link href="https://IMYin.github.io/2016/10/05/K-Means/" rel="alternate"></link><published>2016-10-05T20:15:00+08:00</published><updated>2016-10-05T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-05:2016/10/05/K-Means/</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yin's Blog</title><link href="https://IMYin.github.io/" rel="alternate"></link><link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" rel="self"></link><id>https://IMYin.github.io/</id><updated>2016-10-26T23:15:00+08:00</updated><entry><title>某银行大数据平台处理系统</title><link href="https://IMYin.github.io/2016/10/26/%E6%9F%90%E9%93%B6%E8%A1%8C%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F/" rel="alternate"></link><published>2016-10-26T23:15:00+08:00</published><updated>2016-10-26T23:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-26:2016/10/26/某银行大数据平台处理系统/</id><summary type="html">&lt;p&gt;《富兰克林自传》是我最爱的书目之一，在他的自传中，富兰克林十分推崇勤劳和节俭，提到了36次之多。这也深深地影响了我，并且将勤劳、节俭作为自己的生活准则。而且我对生活同样充满了无穷的好奇心，促使我每天都想多知道些什么，所以我养成了每天都看书的习惯。并且可喜的是，在维持了很长时间写日记的习惯之后，我得到了很多好处。当我回首再看那些自己写过的东西时，除了看到了自己一点点成长进步的痕迹外，还使得自己想起了很多都将要忘记的有趣事情。所以我有了这样的一个打算，将利用几个月的时间，把自己在某银行大数据平台项目组的经历，详细的记录下来。当然，主题是为了让自己对项目有一个更加清楚的认识，不仅对整个项目知其然，而且要知其所以然。&lt;/p&gt;
+&lt;p&gt;在去东单上班的前一个月，项目总监，也是我的领导洋哥就下发了一些资料让我学习。说实在的，看那些资料对我来讲实在是一种折磨，因为那个时候我正沉浸在开发&lt;a href="https://mahout.apache.org/"&gt;mahout&lt;/a&gt;算法的乐趣当中，突然接到了这一档子差事，着实让我觉得十分乏味。&lt;/p&gt;
+&lt;p&gt;那些材料是一些关于SMDA以及SWDA的白皮书、部署手册、操作手册、测试报告、产品需求说明书等等。从这些资料中，在我脑子里并没有勾勒出一个清晰的框架图，直到在SWDA将要上线的时候，我才对这个项目有了一个全面且清晰的了解。&lt;/p&gt;
+&lt;p&gt;首先要讲的是，某银行的这个项目，涉及到了多个公司的配合。其中有软通动力，也是这个项目的乙方，负责的是SMDA和SWDA的开发、部署、测试、维护，直到交接。目前对百分点所处在的位置不是有很深的了解，不过通过项目的架构图可以看出，百分点也参与了这个项目的开发，占据了比较重要的位置。再者就是雅普兰以及安永，雅普兰和安永应该是负责埋码提需求等角色的。&lt;/p&gt;
+&lt;p&gt;据我了解，这个项目曾经在宁波实施过，应该算是一个比较成熟的作品。所以在华夏这个项目中，我幸运地躲开了第一次项目实施所应该遇到的一系列不可预知的麻烦。&lt;/p&gt;
+&lt;p&gt;在这里，我要特别感谢我的同事宾哥，他的耐心指导使得我每天都在进步。虽然他的嗓音和他的语速并不招人喜欢，但是在内心中，我是十分尊敬他的。刚进项目的时候，宾哥让我修改一些python脚本，但是我对这些python脚本的作用知之甚少。也是在后来慢慢的接触中，才知道原来这些python脚本，就是为了实现在hive中进行简单的数据挖掘。这些python脚本会被编辑成一些作业，放在公司开发的SMC作业调度平台中进行作业调度。有关SMC的具体操作，我将在下文详细介绍。&lt;/p&gt;
+&lt;p&gt;我所做的项目属于BI(Business Intelligence)，也就是商业智能。它有着一套完整的解决方案，用来将企业中现有的数据进行有效的整合，快速准确的提供报表并提出决策依据，帮助企业做出明智的业务经营决策。不得不说，软通动力的这个产品还是很漂亮的。优美且炫酷的界面，相信未来让银行的管理人员用起来一定会爱不释手。相比某直销银行的web页面，确实能好上好几倍。&lt;/p&gt;
+&lt;p&gt;我作为一名后台的开发人员，每天都和一堆数据、表、代码打交道。在部署SWDA期间，我做了很长一段时间的测试人员。不过我做的是白盒测试，而不是黑盒测试。所谓的白盒测试，又称为结构测试、透明盒测试、逻辑驱动测试或基于代码的测试。在测试过程中，我需要清楚盒子内部的东西以及里面是如何运作的。比如我在某直销银行web端进行一些界面操作之后，我需要知道在后台是如何接受到数据的，以及接受到的数据会进行如何的处理。&lt;/p&gt;
+&lt;h3&gt;架构&lt;/h3&gt;
+&lt;p&gt;那么，我先从产品的架构谈起。SWDA这个产品，是通过在某直销银行web端进行事件埋码，当用户在web端进行操作时，一些行为轨迹会被后台悄悄的记录下来，形成JSON字符串。这些JSON字符串会通过Nginx服务将数据以日志的形式记录在后台服务器中的access.log文件中。这些文件被设置为每半个小时进行一次转移，在项目中这个动作被称为切割日志。接下来，是我比较困惑的一个环节，它用到了Flume和Kafka。&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://flume.apache.org/"&gt;Flume&lt;/a&gt;，是一个分布式、可靠、和高可用的海量日志采集、聚合和传输的系统。以下是FLUME的架构图：&lt;center&gt;&lt;img alt="flume" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/flume架构图.jpg" /&gt;&lt;/center&gt;
+从上图可以看到几个名词，有Agent、Source、Channel、Sink。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个Agent包含Source、Channel、Sink、和其他组件。Flume就是由一个或者多个Agent组成;&lt;/li&gt;
+&lt;li&gt;Source是数据源，简单的说就是Agent获取数据的入口;&lt;/li&gt;
+&lt;li&gt;Channel是数据流通和存储的通道。一个Source必须至少和一个Channel关联;&lt;/li&gt;
+&lt;li&gt;Sink是用来接受Channel传输的数据并将之传送到指定的地方。传送成功后数据从Channel中删除。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Flume具有高可扩展的性，可以随意组合。也就是说，在上图中，Sink端可以继续把数据传送到另一个Flume中的Source端。当然，还可以通过另外一种方式进行组合。比如一个source端把数据发送给了三个Channel端，这三个Channel端把数据分别发送给了三个Sink端，这三个Sink端的数据，可以根据不同的需求发送到三个不同的接收端，比如其中一个发送给了HDFS，一个发送给了JMS（Java Message Service），一个发送给了另外一个Flume的Source端。&lt;/p&gt;
+&lt;p&gt;再来看&lt;a href="https://kafka.apache.org/"&gt;Kafka&lt;/a&gt;。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。这种动作（网页浏览，搜索和其他用户的行为）是现代网络上的许多社会功能的一个关键因素。这些数据通常是由于高吞吐量的要求而通过处理日志和日志聚合来解决。对于像Hadoop的一样的日志数据和离线分析系统，但又要求实时处理的限制，这是一个可行的解决方案。&lt;/p&gt;
+&lt;p&gt;Kafka有以下特性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过Ｏ(1)的磁盘数据结构提供消息的持久化，这种结构对于即使数以TB的消息存储也能够保持长时间的稳定性能;&lt;/li&gt;
+&lt;li&gt;高吞吐量：即使是非常普通的硬件Kafka也可以支持每秒数百万的消息;&lt;/li&gt;
+&lt;li&gt;支持通过Kafka服务器和消费机集群来分区消息;&lt;/li&gt;
+&lt;li&gt;支持Hadoop并行数据加载;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下是Kafka的架构图：&lt;center&gt;&lt;img alt="kafka" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/kafka架构图.jpg" /&gt;&lt;/center&gt;
+Kafka是显式分布式架构（明确的指定数据的来源、走向、目的地），producer、broker（Kafka）和consumer都可以有多个。Kafka的作用类似于缓存，即活跃的数据和离线处理系统之间的缓存。这其中有几个概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;message（消息）是通信的基本单位，每个producer可以向一个topic（主题）发布一些消息。如果consumer订阅了这个主题，那么新发布的消息就会广播给这些consumer;&lt;/li&gt;
+&lt;li&gt;Kafka是显式分布式的，多个producer、consumer、和broker可以运行在一个大的集群上，作为一个逻辑整体对外提供服务。对于consumer，多个consumer可以组成一个group，这个message只能传输给某个group中的某一个consumer;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;数据从producer推送到broker，接着consumer再从broker上拉取数据（也就是项目经理亮哥所说的数据落地）。&lt;/p&gt;
+&lt;p&gt;说到这里，就可以清楚的看到，Flume可以和Kafka进行无接缝结合。Kafka生产的数据，是由Flume的Sink所提供的，通过Flume集群将Agent的日志收集分发到Kafka（供实时计算处理）和HDFS（离线计算处理）。流程图如下：&lt;center&gt;&lt;img alt="flow" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/数据流向走向图.jpg" /&gt;&lt;/center&gt;
+可以看到，我们使用Flume作为日志收集系统，将收集到的数据输送到Kafka中间件，以供Storm去实时计算（由百分点负责）以及存储到HDFS上为后续的离线数据分析做准备。&lt;/p&gt;
+&lt;p&gt;在这里，我想引用一下&lt;a href="http://www.aboutyun.com/thread-8317-1-1.html"&gt;美团的日志收集系统&lt;/a&gt;的架构，以供和SWDA架构做一下对比。&lt;/p&gt;
+&lt;p&gt;美团的日志收集系统负责美团的所有业务日志的收集，并分别给Hadoop平台提供离线数据和Storm平台提供实时数据流。美团的日志收集系统基于Flume设计和搭建而成。目前每天收集和处理约T级别的日志是数据。下图是美团的日志收集系统的整体框架图:&lt;center&gt;&lt;img alt="meituan" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/美团日志架构图.jpg" /&gt;&lt;/center&gt;
+整个系统分为三层：Agent层，Collector层和Store层。其中Agent层每个机器部署一个进程，负责对单机的日志收集工作；Collector层部署在中心服务器上，负责接收Agent层发送的日志，并且将日志根据路由规则写到相应的Store层中；Store层负责提供永久或者临时的日志存储服务，或者将日志流导向其它服务器。&lt;/p&gt;
+&lt;p&gt;Agent到Collector试用LoadBalance策略，将所有的日志均衡地发到所有的Collector上，达到负载均衡的目标，同时并处理单个Collector失效的问题。&lt;/p&gt;
+&lt;p&gt;Collector层的目标主要有三个：SinkHdfs，SinkKafka和SinkBypass。分别提供离线的数据到Hdfs，和提供实时的日志流到Kafka和Bypass。其中SinkHdfs又根据日志量的带线啊哦分为SinkHdfs_b，SinkHdfs_m和SinkHdfs_s三个Sink，以提高写入到Hdfs的性能。&lt;/p&gt;
+&lt;p&gt;对于Store来讲，Hdfs负责离线数据的存储；Kafka存储最新的7天日志，并给Storm系统提供实时日志流（这部分和百分点的架构一样）；Bypass负责给其它服务器和应用提供实时日志流。&lt;/p&gt;
+&lt;p&gt;说到这里，就可以很清楚的看到美团的日志收集系统架构和SWDA的日志收集系统架构之间的区别了。SWDA的架构在Kafka之后又多加了一层Flume，这是因为在搭建系统时候数据落地端和数据接受端没有在一个ip段上，所以多了一层Flume，但这无疑浪费了很多的资源。&lt;/p&gt;
+&lt;p&gt;下图为产品的总体架构图:&lt;center&gt;&lt;img alt="ensemble" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/总体架构图.jpg" /&gt;&lt;/center&gt;
+根据SWDA的架构图得知，数据从Flume的Sink被输送到HDFS。其实我在实际操作中，发现并不是上图描述的这么流畅。数据从Flume中被输送到本地磁盘中，之后再通过Python脚本把数据导入到&lt;a href="https://hive.apache.org/"&gt;Hive&lt;/a&gt;表中，有关Python脚本的运行内容，后文我会详细介绍。从Python脚本的内容得知，在数据导入至Hive表的这个过程当中，是非常之罗嗦的，原因嘛，呵呵，实在不想提了。&lt;/p&gt;
+&lt;p&gt;Hive是基于Hadoop的一个数据仓库工具，可以将结构化的文件数据映射为一张数据库表，并提供简单的Sql查询功能，可以将Sql语句转换为MapReduce任务进行运行。&lt;/p&gt;
+&lt;p&gt;据了解，Hive一共有四种常见的数据导入方式:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从本地文件系统中导入数据到Hive表；&lt;/li&gt;
+&lt;li&gt;从HDFS上导入数据到Hive表；&lt;/li&gt;
+&lt;li&gt;从别的表中查询出相应的数据并导入到Hive表中；&lt;/li&gt;
+&lt;li&gt;在创建表的时候通过从别的表中查询出相应的记录并插入到所创建的表中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过对这四种方式的描述，对于SWDA中数据导入到Hive表的方式，应该很迅速的就可以选择出最好的导入方式——从本地文件系统中导入数据到Hive表。但是通过查看Python脚本得知，数据首先会从本地导入至HDFS中，然后再从HDFS中导入至Hive表，并且在导入至Hive之后再把HDFS中是文件删掉。噢，天！这完全违背了奥卡姆剃刀原理。&lt;/p&gt;
+&lt;p&gt;在数据导入到Hive之后，就开始通过一系列的Python脚本来调度sql语句，进行数据挖掘。将Hive最终得到的结果通过sqlload（也是Python脚本来调度）来导入至ORACLE数据库中。这些数据分了四层来存储计算，有数据来源层（S），临时存储层（TM），中间层（M）以及应用展现层（A）。在ORACLE中除了TM层没有，其它三层也同样存在。但是在ORACLE中，并不存在大量的数据计算，只有仅仅几个存储过程。大量的数据计算都在Hive中进行，ORACLE主要的功能就是为了展现，所以在ORACLE中最重要的一层就是A层。&lt;/p&gt;
+&lt;p&gt;到此，有关软通动力所负责内容的架构已经说完了。&lt;/p&gt;
+&lt;h3&gt;平台&lt;/h3&gt;
+&lt;p&gt;我刚进这个项目的时候，每天的任务很少，主要是阅读那些Python脚本。
+那些Python脚本是根据表名来制定命名规则的。所以同一层次的Python脚本内容基本一致，以至于需要读的脚本也非常少。在这里我挑几个脚本来描述一下它们的作用。&lt;/p&gt;
+&lt;p&gt;我认为最重要的一个脚本就是HiveClient.py，它相当于整个计算框架的心脏。因为在之后我所修改的每个脚本中都会调用它里面的方法，就像是一根根血管都与它相连。在HiveClient.py里面集成了很多方法，这些方法通过函数的命名就可以很清楚知道它的作用是什么。比如exec_sql，这是用来执行sql语句的，在a、m、tm开头的Python脚本中，都会调用此方法来执行sql语句。再比如load_local_into_hive，很明显，它是为了将数据导入至Hive表中，通过阅读这个方法，我发现其实这个函数的命名并不妥当。因为在这个函数里面，开发人员设置了一个开关，可以指定数据的源头是在本地还是在HDFS中，也就是说这个方法不仅可以让本地的数据导入到Hive也可以使HDFS中的数据导入到Hive。所以我觉得将名字改为load_data_into_hive将更加妥当。&lt;/p&gt;
+&lt;p&gt;在HiveClient.py中还有很多有意思的方法，在这里就不赘述了。在后来开发客户数据分析系统（CDA）时，我又根据原来的HiveClient.py脚本，在其中添加了几个方法，目的是为了给本地文件转变编码格式和删除本地文件。&lt;/p&gt;
+&lt;p&gt;以s开头的脚本都是为了将数据导入到Hive表中，这并没有什么可说的。只是，在我开发CDA的时候，大部分脚本是根据SDA中的脚本修改所得，里面一些的所定义的变量并不是很清晰，所以也让我费了一些时间来梳理这些变量的定义。&lt;/p&gt;
+&lt;p&gt;上文中也提到了，以a、m、tm开头的脚本都是在Hive内部执行一些sql语句，但是这些sql语句的功能根据各个层次的不同又各不相同。
+有一次，在开发CDA时，宾哥让我把数据源文件通过Python脚本导入只Hive中。当时Python脚本已经写好，并且已经测试了一段时间，是没有问题的。但是那次让我导入的数据有1.1G，1400多万行。在执行脚本的时候，以非常之快的速度就结束了，我非常惊讶。表中也确实存在数据，但是当我查询数据的行数时，发现只有1万多行。当时认为一定是脚本出错了，于是我开始手动对数据进行操作。后来发现，当我在对文件转换编码格式之后，文件突然从1.1G缩小为2M多。哦！原因找到了，我兴奋极了。可是我当时却找不到解决的办法，因为没有网络，手机也很不方便。晚上回家后我才知道解决的办法。其实很简单，只要在命令之后加强制转换的选项就可以。看，没有了网络，就好像在睡觉时丢失了枕头，让人心神不宁。&lt;/p&gt;
+&lt;p&gt;软通动力公司内部自己研发了一个用来作业调度的平台，用起来很方便，也很简单，叫做SMC作业调度平台。在我看来，这个平台上只有作业流和作业。在SMC上可以调度多种格式的脚本，把这些脚本编制成作业然后再通过把一个个作业串联起来，形成作业流，并且还支持定时执行，这样就完全可以实现自动化脚本执行。但是有一点不好的就是，有时候因为脚本内容的原因，会导致作业流执行失败，但是报错原因并不是实际的真实错误，而是SMC中的错误，只有手动去后台查看Hive运行日志才会发现真实的错误。假如让一个新同事用SMC来调度作业，出错的时候极易可能会误导他。还有一个小小的不足之处就是，在SMC中配置作业的时候，需要非常认真。有一次作业运行失败，错误信息提示找不到相应的脚本文件，但是我的查看了后台和作业的配置，一点错也没有。那时我一度怀疑是SMC平台初现了BUG，后来实在找不到答案，只能求助宾哥。之间宾哥拿着鼠标在配置作业流的页面上点了几下，在一处停顿下来，敲了一下退格键，就解决了。原来是我在配置作业的时候，在添加脚本名称时，在脚本名称的后面不小心多复制了一个空格，导致SMC找不到作业，冤哉！&lt;/p&gt;
+&lt;p&gt;在项目二期的时候开发过一段时间的Hive SQL，这就真的考验自己的耐心了。恩，很负责的说，和技术没什么关系，毕竟我感觉还是挺简单的。麻烦之处就在于你需要将之前的源码全部读一遍，因为他们写的那个逻辑啊！！！我和宾哥不止一次的吐槽它，一点注释也没有，sql也不按要求的格式写，我之前写过的开发规范就真的是废话一篇，扔在未知的盘符里任其生锈发霉！！！&lt;strong&gt;但还是在这里说一下，没有好的代码书写习惯，没有严格的规范准则，绝对是在给别人或自己挖坑。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3&gt;总结&lt;/h3&gt;
+&lt;p&gt;今天这篇文章主要讲了某银行的大数据平台处理系统，用到了很多打数据处理的东西。但是并没有做什么深奥的挖掘，银行有着非常健康的数据，如果在数据上做一些深度的数据挖掘，想必肯定会创造出很多利益的。目前软通的这套系统主要起到一个数据采集的作用，表层面的数据分析以及可视化并没有跟上数据时代的脚步，就算后面有百分点为其做用户画像，但也限于做推荐系统，银行方面并没有做更多的需求，这是我认为比较可惜的地方。虽然我工作的同时也一直向机器学习的方向努力着，但没有起到任何作用。&lt;/p&gt;
+&lt;h3&gt;后话&lt;/h3&gt;
+&lt;p&gt;之所以毅然绝然地离开了软通，主要是因为银行项目的技术更新迭代起来太慢，在其中并没有什么深奥的技术可用，都是一些杂七杂八的事情；并且我的兴趣并非大数据处理，而是机器学习或者数据分析。虽然在软通也能够学到很多东西，但对于好奇心及其强烈的我而言，无异于被关在了铁笼子里不能自由飞翔。同事哥哥们都对我非常好，这是让我感觉非常值得感恩的地方。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;人生苦短，做自己最爱的事情。我爱数据。&lt;/strong&gt;&lt;/p&gt;</summary><category term="kafka"></category><category term="flume"></category><category term="python"></category><category term="SMDA"></category><category term="SWDA"></category><category term="数据采集"></category><category term="可视化"></category><category term="数据分析"></category><category term="用户画像"></category></entry><entry><title>K-Means聚类</title><link href="https://IMYin.github.io/2016/10/05/K-Means/" rel="alternate"></link><published>2016-10-05T20:15:00+08:00</published><updated>2016-10-05T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-05:2016/10/05/K-Means/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
