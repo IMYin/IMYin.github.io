@@ -71,6 +71,28 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-lg-12">
             <article>
+                <h2><a href="https://IMYin.github.io/2016/10/05/K-Means/">K-Means聚类</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>之前几篇文章我详细讲了一下分类和回归的问题，它们都是通过对带有标签的数据进行训练，然后得到一个模型，再通过模型对数据输入的信息进行预测。今天我们来讲一下聚类算法。</p>
+<p>聚类算法有很多种，比如K-Means，AP聚类，层次聚类(Hierarchical clustering)等等，我接触最多的就是K-Means，去年在公司还用mahout开发过K-Means算法，但是一次次的MR，效率确实不太高。现在mahout内部机制也换成spark了，效率应该提升了不少。今天我们依然先从K-Means开始，它很简单，之后我会在记录其它一些聚类算法的应用。</p>
+<h3 id="K-Means简介">K-Means简介<a class="anchor-link" href="#K-Means简介">¶</a></h3><p>K-Means之所以很受欢迎，就是其速度很快并且有很好的可扩展性。K-Means算法是一个重复移动类中心点的过程，把类的中心点，也称重心（centroids），移动到其包含成员的平均位置，然后重新划分其内部成员。它的应用场景很广泛，比如一个鞋厂有三种新款式，它想知道每种新款式都有哪些潜在客户，于是它调研客户，然后从数据里找出三类。在后面我会通过程序实现一些场景。</p>
+<p>K-Means的参数是类的重心位置和其内部观测值的位置。与广义线性模型和决策树类似，K-Means参数的最优解也是以成本函数最小化为目标。K-Means成本函数公式如下：$$J=\sum_{k=1}^{K}\sum_{i\epsilon C_k}\lVert x_i-\mu _k\rVert^2$$ 公式中$\mu _k$表示第$k$个重心的位置。成本函数是各个类畸变程度之和。每个类的畸变程度等于该类重心与其内部成员位置距离的平方和。也就是说内部成员越紧凑那么类的畸变程度就越小，反之则反之。求解成本函数最小化的参数就是一个重复配置每个类包含的观测值，并不断移动类重心的过程。每次迭代的时候，K-Means会把观测值分配到离它们最近的类，然后把重心移动到该类全部成员位置的平均值那里。</p>
+<p>假如我现在有以下样本，每个样本有两个特征。在图像上表示出来是这么个样子：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/05/K-Means/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/09/28/聊聊随机森林/">聊聊随机森林</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -116,7 +138,7 @@ Yin's Blog            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>在之前<a href="{filename}blog/Linear_Regression.ipynb">线性回归</a>文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。</p>
+<p>在之前<a href="http://imyin.xyz/2016/09/20/Linear%20Regression%20with%20scikit-learn/">线性回归</a>文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。</p>
 <h3 id="从分类变量中提取特征值">从分类变量中提取特征值<a class="anchor-link" href="#从分类变量中提取特征值">¶</a></h3><p>用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码</a>表示。<br>
 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。</br></p>
 </div>
