@@ -70,7 +70,7 @@ Kafka是显式分布式架构（明确的指定数据的来源、走向、目的
 &lt;p&gt;写自 2016-05-24&lt;/p&gt;
 &lt;h3&gt;后话&lt;/h3&gt;
 &lt;p&gt;之所以毅然绝然地离开了软通，主要是因为银行项目的技术更新迭代起来太慢，在其中并没有什么深奥的技术可用，都是一些杂七杂八的事情；并且我的兴趣并非大数据处理，而是机器学习或者数据分析。虽然在软通也能够学到很多东西，但对于好奇心及其强烈的我而言，无异于被关在了铁笼子里不能自由飞翔。同事哥哥们都对我非常好，这是让我感觉非常值得感恩的地方。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;人生苦短，做自己最爱的事情。我爱数据。&lt;/strong&gt;&lt;/p&gt;</summary><category term="kafka"></category><category term="flume"></category><category term="python"></category><category term="SMDA"></category><category term="SWDA"></category><category term="数据采集"></category><category term="可视化"></category><category term="数据分析"></category><category term="用户画像"></category></entry><entry><title>FTP数据入库Hive</title><link href="https://IMYin.github.io/2016/10/20/ftp2hive/" rel="alternate"></link><published>2016-10-20T22:15:00+08:00</published><updated>2016-10-20T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-20:2016/10/20/ftp2hive/</id><summary type="html">&lt;p&gt;今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
+&lt;p&gt;&lt;strong&gt;人生苦短，做自己最爱的事情。我爱数据。&lt;/strong&gt;&lt;/p&gt;</summary><category term="kafka"></category><category term="flume"></category><category term="python"></category><category term="SMDA"></category><category term="SWDA"></category><category term="数据采集"></category><category term="可视化"></category><category term="数据分析"></category><category term="用户画像"></category></entry><entry><title>FTP数据入库Hive(shell实现)</title><link href="https://IMYin.github.io/2016/10/20/ftp2hive/" rel="alternate"></link><published>2016-10-20T22:15:00+08:00</published><updated>2016-10-20T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-20:2016/10/20/ftp2hive/</id><summary type="html">&lt;p&gt;今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
 先来看一下处理数据的架构，非常之简单：&lt;/p&gt;
 &lt;p&gt;当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。&lt;/p&gt;
 &lt;p&gt;先简单说一下我们这个loooooooooow架构： &lt;/p&gt;
@@ -188,7 +188,7 @@ TARGET_DIR=&lt;span class="nv"&gt;$LOCAL_DIR&lt;/span&gt;/&lt;span class="nv"&gt
 
 cd &lt;span class="nv"&gt;$TARGET_DIR&lt;/span&gt;
 
-hive \&lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;EOF&lt;/span&gt;
+hive &lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;EOF&lt;/span&gt;
 &lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;hive.exec.compress.&lt;/span&gt;&lt;span class="na"&gt;output=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
 &lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.&lt;/span&gt;&lt;span class="na"&gt;compress=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
 &lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.compression.&lt;/span&gt;&lt;span class="na"&gt;codec=&lt;/span&gt;&lt;span class="s"&gt;org.apache.hadoop.io.compress.GzipCodec;&lt;/span&gt;
