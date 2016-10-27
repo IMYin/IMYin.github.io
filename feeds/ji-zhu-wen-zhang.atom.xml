@@ -75,9 +75,9 @@ Kafka是显式分布式架构（明确的指定数据的来源、走向、目的
 &lt;p&gt;当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。&lt;/p&gt;
 &lt;p&gt;先简单说一下我们这个loooooooooow架构： &lt;/p&gt;
 &lt;p&gt;&lt;center&gt;FTP共享平台&lt;/center&gt;
-&lt;center&gt;&lt;span class="math"&gt;\(\Downarrow\)&lt;/span&gt;&lt;/center&gt;
-&lt;center&gt;4台交换机&lt;/center&gt;
-&lt;center&gt;&lt;span class="math"&gt;\(\Downarrow\)&lt;/span&gt;&lt;/center&gt;
+&lt;center&gt;&lt;span class="math"&gt;\(\Downarrow　$&amp;lt;/center&amp;gt;
+&amp;lt;center&amp;gt;4台交换机&amp;lt;/center&amp;gt;
+&amp;lt;center&amp;gt;\)&lt;/span&gt;\Downarrow　$&lt;/center&gt;
 &lt;center&gt;17台规模的Hadoop集群&lt;/center&gt;&lt;/p&gt;
 &lt;p&gt;其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
@@ -188,7 +188,7 @@ TARGET_DIR=&lt;span class="nv"&gt;$LOCAL_DIR&lt;/span&gt;/&lt;span class="nv"&gt
 
 cd &lt;span class="nv"&gt;$TARGET_DIR&lt;/span&gt;
 
-hive &lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;EOF&lt;/span&gt;
+hive \&lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;EOF&lt;/span&gt;
 &lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;hive.exec.compress.&lt;/span&gt;&lt;span class="na"&gt;output=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
 &lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.&lt;/span&gt;&lt;span class="na"&gt;compress=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
 &lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.compression.&lt;/span&gt;&lt;span class="na"&gt;codec=&lt;/span&gt;&lt;span class="s"&gt;org.apache.hadoop.io.compress.GzipCodec;&lt;/span&gt;
