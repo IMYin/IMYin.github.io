@@ -1,127 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
-<head>
-    <title>FTP数据入库Hive(shell实现) - Yin's Blog</title>
-    <!-- Using the latest rendering mode for IE -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-
-<link rel="canonical" href="https://IMYin.github.io/2016/10/20/ftp2hive/">
-
-        <meta name="author" content="Yin" />
-        <meta name="keywords" content="shell,hive,ftp,hadoop" />
-        <meta name="description" content="今天聊一聊我们公司辽宁项目中是怎样做数据处理的。 先来看一下处理数据的架构，非常之简单： 当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。 先简单说一下我们这个loooooooooow架构： FTP共享平台 $\Downarrow$ 4台交换机 $\Downarrow$ 17台规模的Hadoop集群其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 代码如下：" />
-
-        <meta property="og:site_name" content="Yin's Blog" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="FTP数据入库Hive(shell实现)"/>
-        <meta property="og:url" content="https://IMYin.github.io/2016/10/20/ftp2hive/"/>
-        <meta property="og:description" content="今天聊一聊我们公司辽宁项目中是怎样做数据处理的。 先来看一下处理数据的架构，非常之简单： 当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。 先简单说一下我们这个loooooooooow架构： FTP共享平台 $\Downarrow$ 4台交换机 $\Downarrow$ 17台规模的Hadoop集群其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 代码如下："/>
-        <meta property="article:published_time" content="2016-10-20" />
-            <meta property="article:section" content="技术文章" />
-            <meta property="article:tag" content="shell" />
-            <meta property="article:tag" content="hive" />
-            <meta property="article:tag" content="ftp" />
-            <meta property="article:tag" content="hadoop" />
-            <meta property="article:author" content="Yin" />
-
-
-    <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://IMYin.github.io/theme/css/bootstrap.min.css" type="text/css"/>
-    <link href="https://IMYin.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
-
-    <link href="https://IMYin.github.io/theme/css/pygments/native.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://IMYin.github.io/theme/css/style.css" type="text/css"/>
-
-        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Yin's Blog ATOM Feed"/>
-
-
-
-        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Yin's Blog 技术文章 ATOM Feed"/>
-
-</head>
-<body>
-
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="https://IMYin.github.io/" class="navbar-brand">
-Yin's Blog            </a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/archives.html">Archives</a></li>
-                         <li><a href="https://IMYin.github.io/pages/about-me.html">
-                             About Me
-                          </a></li>
-                        <li >
-                            <a href="https://IMYin.github.io/category/ge-ren.html">个人</a>
-                        </li>
-                        <li class="active">
-                            <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
-                        </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-</div> <!-- /.navbar -->
-<!-- Banner -->
-<!-- End Banner -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="https://IMYin.github.io/2016/10/20/ftp2hive/"
-                       rel="bookmark"
-                       title="Permalink to FTP数据入库Hive(shell实现)">
-                        FTP数据入库Hive(shell实现)
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-10-20T22:15:00+08:00"> 2016-10-20</time>
-    </span>
-
-
-            <span class="label label-default">By</span>
-            <a href="https://IMYin.github.io/author/yin.html"><i class="fa fa-user"></i> Yin</a>
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="https://IMYin.github.io/tag/shell.html">shell</a>
-        /
-	<a href="https://IMYin.github.io/tag/hive.html">hive</a>
-        /
-	<a href="https://IMYin.github.io/tag/ftp.html">ftp</a>
-        /
-	<a href="https://IMYin.github.io/tag/hadoop.html">hadoop</a>
-    
-</footer><!-- /.post-info -->                    </div>
-                </div>
-                <style type="text/css">/*!
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Yin's Blog</title><link href="https://IMYin.github.io/" rel="alternate"></link><link href="https://IMYin.github.io/feeds/ge-ren.atom.xml" rel="self"></link><id>https://IMYin.github.io/</id><updated>2016-10-28T22:15:00+08:00</updated><entry><title>第一篇</title><link href="https://IMYin.github.io/2016/10/28/%E7%AC%AC%E4%B8%80%E7%AF%87/" rel="alternate"></link><published>2016-10-28T22:15:00+08:00</published><updated>2016-10-28T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-28:2016/10/28/第一篇/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -352,7 +230,7 @@ div.unrecognized_cell .inner_cell a:hover {
   text-decoration: none;
 }
 @media (max-width: 540px) {
-  div.unrecognized_cell > div.prompt {
+  div.unrecognized_cell &gt; div.prompt {
     display: none;
   }
 }
@@ -405,19 +283,19 @@ div.input_prompt {
   color: #303F9F;
   border-top: 1px solid transparent;
 }
-div.input_area > div.highlight {
+div.input_area &gt; div.highlight {
   margin: 0.4em;
   border: none;
   padding: 0px;
   background-color: transparent;
 }
-div.input_area > div.highlight > pre {
+div.input_area &gt; div.highlight &gt; pre {
   margin: 0px;
   border: none;
   padding: 0px;
   background-color: transparent;
 }
-/* The following gets added to the <head> if it is detected that the user has a
+/* The following gets added to the &lt;head&gt; if it is detected that the user has a
  * monospace font with inconsistent normal/bold/italic height.  See
  * notebookmain.js.  Such fonts will have keywords vertically offset with
  * respect to the rest of the text.  The user should select a better font.
@@ -463,7 +341,7 @@ div.input_area > div.highlight > pre {
 }
 /*
 
-Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Original style from softwaremaniacs.org (c) Ivan Sagalaev &lt;Maniac@SoftwareManiacs.Org&gt;
 Adapted from GitHub theme
 
 */
@@ -925,7 +803,7 @@ div.text_cell {
   align-items: stretch;
 }
 @media (max-width: 540px) {
-  div.text_cell > div.prompt {
+  div.text_cell &gt; div.prompt {
     display: none;
   }
 }
@@ -990,8 +868,8 @@ h6:hover .anchor-link {
   font-size: 100%;
   font-style: italic;
 }
-</style>
-<style type="text/css">.highlight .hll { background-color: #ffffcc }
+&lt;/style&gt;
+&lt;style type="text/css"&gt;.highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
@@ -1055,8 +933,8 @@ h6:hover .anchor-link {
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
-<style type="text/css">
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;
+&lt;style type="text/css"&gt;
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
 .ansi-black-fg { color: #3E424D; }
 .ansi-black-bg { background-color: #3E424D; }
@@ -1092,175 +970,76 @@ h6:hover .anchor-link {
 .ansi-white-intense-bg { background-color: #A1A6B2; }
 
 .ansi-bold { font-weight: bold; }
-</style>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
-先来看一下处理数据的架构，非常之简单：</p>
-<p>当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。</p>
-<p>先简单说一下我们这个loooooooooow架构：</p>
-<center>FTP共享平台</center>
-<center>$\Downarrow$</center>
-<center>4台交换机</center>
-<center>$\Downarrow$</center>
-<center>17台规模的Hadoop集群</center><p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
-为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
-代码如下：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<pre><code>#/bin/bash
-
-#This script will deal with the dns_data.
-
-LOGIN_FTP_USER=$1
-LOGIN_FTP_PASSWD=$2
-REMOTE_DIR=/home/sunnyin/test/longName   #test dir
-LOCAL_DIR=$3   #test dir  /home/hadoop/test_818/dataxx
-FTP_HOST=$4
-TIME_NOW=$5
-length_p5=`echo ${TIME_NOW}|wc -L`
-data_dir=$LOCAL_DIR/dns/$TIME_NOW  #接口路径
-
-#check the parameter
-if [ -z ${TIME_NOW} ]; then
-TIME_NOW=`date +%Y%m%d%H`
-echo "Will get data of $TIME_NOW...."
-elif [ ${length_p5} -ne 10 ];then
-echo "The parameter 5 is wrong,please check and run again..."
-exit 1
-else
-echo "Will get data of $TIME_NOW...."
-fi
-
-#make dir and change dir
-if [ -d ${data_dir} ]; then
-cd ${data_dir}
-else
-echo "The dictionary is not exist,will create..."
-mkdir -p ${data_dir}
-cd ${data_dir}
-fi
-
-#login ftp
-for (( i=0;i<=15;i++))
-do
-if [ $i -lt 10 ];then
-j=`printf "%02d" "$i"`
-else
-j=$i
-fi
-ftp -n&lt;&lt;!
-open ${FTP_HOST}
-user ${LOGIN_FTP_USER} ${LOGIN_FTP_PASSWD}
-cd ${REMOTE_DIR}/dns
-prompt
-mget *${TIME_NOW}${j}*
-close
-bye
-!
-done
-if [ $? -eq 0 ]; then
-echo "Files transfer is completed...(0~15 minutes data)"
-else
-echo "File transfer failed"
-exit 1
-fi
-
-#make a tuple(files name)
-files=(`ls $data_dir`)
-TABLE_NAME_TIME=(`ls $data_dir|awk -F _ '{print $2}'`)  #time:YYYYMMHHMMSS
-
-#split
-for file in ${files[@]}
-do
-split -C 128m $file -d -a 3 $TABLE_NAME_TIME
-if [ $? -eq 0 ]; then
-echo "Split ${file} completed..."
-else
-echo -e "Split ${file} failed!!\nPlease check the file:${file}"
-continue
-fi
-done
-
-#compress
-cd $data_dir
-gzip dns*
-if [ $? -eq 0 ]; then
-echo "Compress files completed..."
-else
-echo "Comgress files failed!!"
-exit 1
-fi
-
-echo "Transmitting file to cluster......"
-scp -r $data_dir/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/$TIME_NOW
-echo "End of transmission......"
-ssh hadoop@host.of.cluster sh load_hive_dns.sh
-echo "Load data to hive database......."</code></pre>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>这个脚本还是比较老的，你会发现上面有一个步骤是对文件进行切片处理，那样做是因为当时还不知道每个文件有380左右的大小，后来知道这个信息之后发现直接对文件进行压缩之后便可以直接入库（HDFS中每个块的大小设置为128m大小）。</p>
-<p>另一个放在hadoop集群的脚本：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<pre><code>#/bin/bash
-#load_hive_dns.sh
-
-LOCAL_DIR=/home/hadoop/test_818/data05/dns
-TIME_NOW=`date +%Y%m%d%H`
-TIME_MONTH=`date +%m`
-TIME_DAY=`date +%d`
-TIME_HOUR=`date +%H`
-TARGET_DIR=$LOCAL_DIR/$TIME_NOW
-
-cd $TARGET_DIR
-
-hive &lt;&lt;　EOF
-set hive.exec.compress.output=true;
-set mapred.output.compress=true;
-set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;
-ALTER TABLE load_test.partition_test ADD IF NOT EXISTS PARTITION (month='$TIME_MONTH',day='$TIME_DAY',hour='$TIME_HOUR');
-exit;
-EOF
-
-hdfs dfs -put ${TARGET_DIR}/* /user/hive/warehouse/load_test.db/partition_test/month=$TIME_MONTH/day=$TIME_DAY/hour=$TIME_HOUR
-echo "load data completed..."</code></pre>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>代码中的三个set也是多余的，不用每次都设置，放在这里是想提醒一下为了在入库时不出错，最好在运行时set一下这些参数。 
-这里之所以没有用Hive进行load，是因为那样会很慢，因为每一次load都会启动hive，如果用hdfs的put命令，则可以省去很多时间。</p>
-<p>保证以上脚本自动运行的前提是两个环境之间进行了密钥设置。</p>
-</div>
-</div>
-</div>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+&lt;/style&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="前言"&gt;前言&lt;a class="anchor-link" href="#前言"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在我之前是有写日记的习惯，给我带来了很大的帮助。说实话，我真心成为自己的记性不是太好，有时候做过的事情扭头就忘记了。但是日记帮了我很大的忙，它让我回忆起了很多重要的事情。但是后来日记由每天写，到隔天写，慢慢得就再也不写了。也许是懒了，就是再也想不起来去写它。不过还好，我有每天写工作日志的习惯，每天如此。我想，这应该是日记的一种转变形式，只是内容大多不再是自己的心情，自己的感悟等等。来到上海已经有两个多月了，看着这将近50篇的工作日志，我感到挺欣慰的。这，也是我为什么要搭建这个博客的原因之一。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="我觉得，这里是天堂"&gt;我觉得，这里是天堂&lt;a class="anchor-link" href="#我觉得，这里是天堂"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;我是一个对知识十分渴望的家伙，但不是从小就这样，我想，如果我从小就对知识像现在这么渴望，那么现在的我也许早就成为某一个领域的佼佼者了。我是在大三的时候才真正意识到危机的到来，从那时起，我才真正的知道知识的重要性。但是纵观其身，缺点种种，年少时养成的坏习惯根本培养不出一个好的学习习惯。于是在图书馆泡了一年，这是非常值得我感谢的一年。虽然最后的结果并没有出彩，但是这也为我今后的学习之路打下了一个好的基础。&lt;/p&gt;
+&lt;p&gt;我知道这个网站是不会有太多的人看。因为我深有体会，在拜读他人的帖子时，多是一目十行，匆匆在密密麻麻的文字当中寻找自己想要的答案，找到之后便匆匆Ctrl+W，很少有人会一字一句将一个人的博客从头看到尾。所以，这里的东西，永远只属于我自己。我在这里可以记录任何自己想记录的点点滴滴，任何自己想了解的知识，任何想到的事情，任何感悟，任何片段......它，永远只属于我自己，说对话不会看到有人为我鼓掌，说错话也不会听到别人的责备，这是一个完全属于自己的世界。&lt;/p&gt;
+&lt;p&gt;我曾经看过这样一段话，大概意思是说，如果想快速学会一样本领，那么就自己当老师，教会别人，你将会的很彻底。感谢这句话，因为我深有体会。这里的所有的技术文章都是我抱着去教别人的心态记录下来的，一方面是给为了帮自己记忆，一方面是为了让别人看到。但是每当写完一篇文章时，我都会对其中的内容了如指掌，对文章中涉及到的知识理解得更加透彻。因为在写这些文章的时候我真的有去认真查很多很多相关的资料，真的有认真反复的思考每一个问题。写文章，绝对比写代码难太多。&lt;/p&gt;
+&lt;p&gt;其中有一些文章是我根据英文原著翻译过来的，但是又并非全文照翻不误，几乎所有的章节我都改动了。每个章节我都会加一些其他的知识点，或者添加一些自己做过的案例。并且每一行代码我都会去验证，过程中还真的发现书中有很多错误的地方。在这个过程中，我的英语阅读能力再次得到大幅度的提升，并且对技术的掌握速度也远远超过了我的预期。这，是我搭建此博客的一个非常重要的原因。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="不放鞭炮"&gt;不放鞭炮&lt;a class="anchor-link" href="#不放鞭炮"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在我的印象里，新店开业都会在自己门前舞狮，放鞭炮，图个吉利，都会在门前贴上“开业大吉”。这个博客也算是我个人的一个家，但是我不会放炮，还不如放个屁污染小，并且自己的屁永远不会嫌弃，对鞭炮的烟雾讨厌至极，尤其是每到过年，村里面挨家挨户去请“爷爷奶奶”，那天的整个村子绝对会被厌恶笼罩一天。&lt;/p&gt;
+&lt;p&gt;我的家乡是一个雾霾十分严重的城市，去雾霾这个愿望，不知不觉就溜进了我的愿望清单，我真心希望在未来我能够用自己的能力去拯救家乡的空气。所以，现在在上海每一天的拼搏，也是为了将来有一天能够回去，去把以前晚上能够看到银河的天空再拽回来，那个天空，不应该只属于我的童年。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="号声响起"&gt;号声响起&lt;a class="anchor-link" href="#号声响起"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;看战争片的时候，看到在冲锋时总会吹响集结号。我小的时候不太明白，打仗的时候下一秒都可能会保不住性命，怎么会还有心情去玩弄一件乐器。随着年龄大了，也就知道了所谓的精神力量是什么。我相信每个人都会有非常奋斗的时候，当自己肚子饿得咕咕叫，不会有人宁愿饿死也不下床去找口吃的，只是有些人没有饿到份上，有人渴望温饱。那些江湖行骗的人，他们连尊严都可以不要，你能说他们不努力？他们比任何人都努力，他们被生活的触碰到了激发自己下床的点上，但是苦于自己无法融入社会，又忍受不了饥饿的折磨，所以才被迫撇弃尊严。我十分感谢勤劳的父母，让我从小到大，始终处在一个温饱的环境当中，并且他们有非常超前正确的人生观，就是用尽任何方法都会让我上一个好的学校，而不只是有学校上。年少不懂事的我浪费了太多的光阴，但是有时想想，现在觉悟也不算晚，起码超出自己身边很多的同龄人。&lt;/p&gt;
+&lt;p&gt;所以，有一个重要的价值观、人生观很重要。在这里我要非常感谢弗兰克林、温森特以及野口嘉則，三位先生在我思想贫瘠的时候及时树立了我的三观，让我正确的看世界，看世人。当然，不可否认，每个人都有自己独特的生活，世界几十亿人口，就有几十亿个不同的世界。世上没有对错，任何事物都是相对的。所以我理所应当认为自己的三观正确，因为这让我很快乐，并会造福于其他人。&lt;/p&gt;
+&lt;p&gt;野口嘉則在文章中讲过这样一个故事：有个男人，为了庆祝恋人的生日，预订了晚餐与观光游轮。他想：“一边在海上眺望都市夜景，一边品尝美味的食物，佐以葡萄美酒，恋人一定非常开心。”可是由于种种巧合，恋人因为堵车迟到了很长时间，电话也没有了电。后来男子的恋人过了约定时间的半个小时才匆匆赶到，但是游轮早就开走了。男人冲他的恋人发了一通火，女人一面含着泪水，一面不停地道歉，虽然后来气消了，但是计划也泡汤了。后面又重新挑选了个地方吃饭，但是恋人已经没有了心情，只好重新换了个日子。&lt;/p&gt;
+&lt;p&gt;全毁了，为什么？因为男子脱离了他的思想轴心。男主人公预约观光游轮，原本是给恋人庆祝生日，想让她高兴，却在她迟到时大发脾气，让她不开心。&lt;strong&gt;其实大多数人，都会为一时的情绪和冲动支配，陷入和自己最初期待的场景完全相反的境地。而且，在人生当中，总是不断重复相同的错误。&lt;/strong&gt;就好像很多电视里面都会重复的桥段：男人在外任劳任怨，扬言是为了家庭的幸福，去把工作上的情绪一股闹发泄到家里，弄得家里面鸡犬不宁。这就是失去思想轴心的典型表现。&lt;/p&gt;
+&lt;p&gt;这是野口嘉則教给我的，我欣然认可，并且很快遇到了相似的经历。有一次我开车去找好友玩，这个好友是名女性，这里称她为楠。那天我是带着非常开心的心情去找她的，因为我们两个是非常要好的朋友，又很长一段时间没见了，必然很想念她。虽然在车里，但是正值寒冬，还是有些冷的，等了楠将近一个小时，她才出现。她上车之后，我十分开心得冲她笑了笑，亲切问她想吃什么？她惊讶得看我好一会，因为她也意识到让我等待的时间实在过长。所以在路上她就一直惊讶这件事情，并且对我的态度表示非常开心。因为楠在上车之前已经做好了挨骂的准备。看，野口嘉则教会了我这招，我告诉楠:"我今天来找你，就是让你开心的，如果因为你的迟到骂你一通，影响了大家的心情，岂不是偏离了我的思想轴心？"于是，那天的见面，我们非常开心，非常非常开心。&lt;/p&gt;
+&lt;p&gt;野口嘉则还教会我不要生活在别人的价值观中，这也是我非常认真学习的思想。他告诉我，如果总是在乎别人对自己的评价，那就是生活在别人的价值观中，失去了自我的轴心。我经常拿这个理论在教育自己，我们每个人都是有思想的，不应该被别人的价值观所左右，我们要做自己认为对的事情，即使这也许会招来闲人闲语，但那根本不会对你个人本身所做的事情带来任何的影响。&lt;/p&gt;
+&lt;p&gt;当然，野口嘉则教会我还有很多很多，弗兰克林和温森特同样教会我很多很多。我会在未来的文章中逐个提到他们，每个人。所以说，看什么书，就会成为什么样的人，因为在看书的过程中，我会去学习，去学习书里面的思想，学习书里面人物的思想，处身设地地想象一下如果我要是书中的主人公，我应该会如何想，如何做，这使得我进步得非常快。&lt;/p&gt;
+&lt;p&gt;这是这个博客的第一篇个人文章，所以我要为这篇文章吹响号角，我成长的经历会一一记录其上，让自己循序渐进，一步一个脚印的去认知世界。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="祝福自己"&gt;祝福自己&lt;a class="anchor-link" href="#祝福自己"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;未来的路，谁也不知道是怎样，但是过去的路，我们看的真真彻彻。经验是非常重要的，这个平台，将陪伴我一生，作为我人生中的一面镜子。
+祝福自己，为了未来。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [ ]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython2"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
@@ -1286,51 +1065,5 @@ echo "load data completed..."</code></pre>
         "}); ";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script>
-
-            </div>
-            <!-- /.entry-content -->
-        </article>
-    </section>
-
-        </div>
-    </div>
-</div>
-<footer>
-   <div class="container">
-      <hr>
-      <div class="row">
-         <div class="col-xs-10">&copy; 2016 Yin
-            &middot; Powered by <a href="" target="_blank">Yin</a>         </div>
-         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
-      </div>
-   </div>
-</footer>
-<script src="https://IMYin.github.io/theme/js/jquery.min.js"></script>
-
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://IMYin.github.io/theme/js/bootstrap.min.js"></script>
-
-<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="https://IMYin.github.io/theme/js/respond.min.js"></script>
-
-    <!-- Google Analytics -->
-    <script type="text/javascript">
-
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-86179791-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
-    <!-- End Google Analytics Code -->
-
-</body>
-</html>
+&lt;/script&gt;
+</summary><category term="弗兰克林"></category><category term="野口嘉则"></category><category term="温森特"></category></entry></feed>

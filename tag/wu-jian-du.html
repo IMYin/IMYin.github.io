@@ -57,6 +57,9 @@ Yin's Blog            </a>
                              About Me
                           </a></li>
                         <li >
+                            <a href="https://IMYin.github.io/category/ge-ren.html">个人</a>
+                        </li>
+                        <li >
                             <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
                         </li>
             </ul>
@@ -83,12 +86,6 @@ Yin's Blog            </a>
 <p>聚类算法有很多种，比如K-Means，AP聚类，层次聚类(Hierarchical clustering)等等，我接触最多的就是K-Means，去年在公司还用mahout开发过K-Means算法，但是一次次的MR，效率确实不太高。现在mahout内部机制也换成spark了，效率应该提升了不少。今天我们依然先从K-Means开始，它很简单，之后我会在记录其它一些聚类算法的应用。</p>
 <h3 id="K-Means简介">K-Means简介<a class="anchor-link" href="#K-Means简介">¶</a></h3><p>K-Means之所以很受欢迎，就是其速度很快并且有很好的可扩展性。K-Means算法是一个重复移动类中心点的过程，把类的中心点，也称重心（centroids），移动到其包含成员的平均位置，然后重新划分其内部成员。它的应用场景很广泛，比如一个鞋厂有三种新款式，它想知道每种新款式都有哪些潜在客户，于是它调研客户，然后从数据里找出三类。在后面我会通过程序实现一些场景。</p>
 <p>K-Means的参数是类的重心位置和其内部观测值的位置。与广义线性模型和决策树类似，K-Means参数的最优解也是以成本函数最小化为目标。K-Means成本函数公式如下：$$J=\sum_{k=1}^{K}\sum_{i\epsilon C_k}\lVert x_i-\mu _k\rVert^2$$ 公式中$\mu _k$表示第$k$个重心的位置。成本函数是各个类畸变程度之和。每个类的畸变程度等于该类重心与其内部成员位置距离的平方和。也就是说内部成员越紧凑那么类的畸变程度就越小，反之则反之。求解成本函数最小化的参数就是一个重复配置每个类包含的观测值，并不断移动类重心的过程。每次迭代的时候，K-Means会把观测值分配到离它们最近的类，然后把重心移动到该类全部成员位置的平均值那里。</p>
-<p>假如我现在有以下样本，每个样本有两个特征。在图像上表示出来是这么个样子：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/08/K-Means/">more ...</a>
                 </div>
             </article>

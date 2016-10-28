@@ -57,6 +57,9 @@ Yin's Blog            </a>
                              About Me
                           </a></li>
                         <li >
+                            <a href="https://IMYin.github.io/category/ge-ren.html">个人</a>
+                        </li>
+                        <li >
                             <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">技术文章</a>
                         </li>
             </ul>
@@ -90,103 +93,6 @@ Yin's Blog            </a>
 <center>17台规模的Hadoop集群</center><p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
 代码如下：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<pre><code>#/bin/bash
-
-#This script will deal with the dns_data.
-
-LOGIN_FTP_USER=$1
-LOGIN_FTP_PASSWD=$2
-REMOTE_DIR=/home/sunnyin/test/longName   #test dir
-LOCAL_DIR=$3   #test dir  /home/hadoop/test_818/dataxx
-FTP_HOST=$4
-TIME_NOW=$5
-length_p5=`echo ${TIME_NOW}|wc -L`
-data_dir=$LOCAL_DIR/dns/$TIME_NOW  #接口路径
-
-#check the parameter
-if [ -z ${TIME_NOW} ]; then
-TIME_NOW=`date +%Y%m%d%H`
-echo "Will get data of $TIME_NOW...."
-elif [ ${length_p5} -ne 10 ];then
-echo "The parameter 5 is wrong,please check and run again..."
-exit 1
-else
-echo "Will get data of $TIME_NOW...."
-fi
-
-#make dir and change dir
-if [ -d ${data_dir} ]; then
-cd ${data_dir}
-else
-echo "The dictionary is not exist,will create..."
-mkdir -p ${data_dir}
-cd ${data_dir}
-fi
-
-#login ftp
-for (( i=0;i<=15;i++))
-do
-if [ $i -lt 10 ];then
-j=`printf "%02d" "$i"`
-else
-j=$i
-fi
-ftp -n&lt;&lt;!
-open ${FTP_HOST}
-user ${LOGIN_FTP_USER} ${LOGIN_FTP_PASSWD}
-cd ${REMOTE_DIR}/dns
-prompt
-mget *${TIME_NOW}${j}*
-close
-bye
-!
-done
-if [ $? -eq 0 ]; then
-echo "Files transfer is completed...(0~15 minutes data)"
-else
-echo "File transfer failed"
-exit 1
-fi
-
-#make a tuple(files name)
-files=(`ls $data_dir`)
-TABLE_NAME_TIME=(`ls $data_dir|awk -F _ '{print $2}'`)  #time:YYYYMMHHMMSS
-
-#split
-for file in ${files[@]}
-do
-split -C 128m $file -d -a 3 $TABLE_NAME_TIME
-if [ $? -eq 0 ]; then
-echo "Split ${file} completed..."
-else
-echo -e "Split ${file} failed!!\nPlease check the file:${file}"
-continue
-fi
-done
-
-#compress
-cd $data_dir
-gzip dns*
-if [ $? -eq 0 ]; then
-echo "Compress files completed..."
-else
-echo "Comgress files failed!!"
-exit 1
-fi
-
-echo "Transmitting file to cluster......"
-scp -r $data_dir/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/$TIME_NOW
-echo "End of transmission......"
-ssh hadoop@host.of.cluster sh load_hive_dns.sh
-echo "Load data to hive database......."</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/20/ftp2hive/">more ...</a>
                 </div>
             </article>

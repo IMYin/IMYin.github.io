@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Yin's Blog</title>
+    <title>个人 - Yin's Blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,8 +9,9 @@
 
 
 
-<link rel="canonical" href="https://IMYin.github.io">
-        <meta name="author" content="Yin" />
+
+    <meta name="author" content="Yin" />
+    <meta name="keywords" content="个人" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Yin's Blog" />
@@ -32,6 +33,8 @@
 
 
 
+        <link href="https://IMYin.github.io/feeds/ge-ren.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog 个人 ATOM Feed"/>
 
 </head>
 <body>
@@ -55,7 +58,7 @@ Yin's Blog            </a>
                          <li><a href="https://IMYin.github.io/pages/about-me.html">
                              About Me
                           </a></li>
-                        <li >
+                        <li class="active">
                             <a href="https://IMYin.github.io/category/ge-ren.html">个人</a>
                         </li>
                         <li >
@@ -136,138 +139,6 @@ Yin's Blog            </a>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/28/第一篇/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/">某银行大数据平台处理系统</a></h2>
-                <div class="summary"><p>《富兰克林自传》是我最爱的书目之一，在他的自传中 ...</p>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/10/20/ftp2hive/">FTP数据入库Hive(shell实现)</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
-先来看一下处理数据的架构，非常之简单：</p>
-<p>当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。</p>
-<p>先简单说一下我们这个loooooooooow架构：</p>
-<center>FTP共享平台</center>
-<center>$\Downarrow$</center>
-<center>4台交换机</center>
-<center>$\Downarrow$</center>
-<center>17台规模的Hadoop集群</center><p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
-为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
-代码如下：</p>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/20/ftp2hive/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/10/08/K-Means/">K-Means聚类</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>之前几篇文章我详细讲了一下分类和回归的问题，它们都是通过对带有标签的数据进行训练，然后得到一个模型，再通过模型对数据输入的信息进行预测。今天我们来讲一下聚类算法。</p>
-<p>聚类算法有很多种，比如K-Means，AP聚类，层次聚类(Hierarchical clustering)等等，我接触最多的就是K-Means，去年在公司还用mahout开发过K-Means算法，但是一次次的MR，效率确实不太高。现在mahout内部机制也换成spark了，效率应该提升了不少。今天我们依然先从K-Means开始，它很简单，之后我会在记录其它一些聚类算法的应用。</p>
-<h3 id="K-Means简介">K-Means简介<a class="anchor-link" href="#K-Means简介">¶</a></h3><p>K-Means之所以很受欢迎，就是其速度很快并且有很好的可扩展性。K-Means算法是一个重复移动类中心点的过程，把类的中心点，也称重心（centroids），移动到其包含成员的平均位置，然后重新划分其内部成员。它的应用场景很广泛，比如一个鞋厂有三种新款式，它想知道每种新款式都有哪些潜在客户，于是它调研客户，然后从数据里找出三类。在后面我会通过程序实现一些场景。</p>
-<p>K-Means的参数是类的重心位置和其内部观测值的位置。与广义线性模型和决策树类似，K-Means参数的最优解也是以成本函数最小化为目标。K-Means成本函数公式如下：$$J=\sum_{k=1}^{K}\sum_{i\epsilon C_k}\lVert x_i-\mu _k\rVert^2$$ 公式中$\mu _k$表示第$k$个重心的位置。成本函数是各个类畸变程度之和。每个类的畸变程度等于该类重心与其内部成员位置距离的平方和。也就是说内部成员越紧凑那么类的畸变程度就越小，反之则反之。求解成本函数最小化的参数就是一个重复配置每个类包含的观测值，并不断移动类重心的过程。每次迭代的时候，K-Means会把观测值分配到离它们最近的类，然后把重心移动到该类全部成员位置的平均值那里。</p>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/08/K-Means/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">聊聊随机森林</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>之前那篇<a href="http://imyin.xyz/2016/09/25/Nonlinear%20Classification%20and%20Regression%20with%20Decision%20Trees.html">《决策树-非线性分类与回归》</a>的文章中，重点介绍了决策树的用法，并且详细介绍了熵、信息增益以及基尼不纯度的概念，在文章的结尾，稍微提了一下随机森林，并将其结果与决策树作了简单的对比。那么这篇文章中我就仔细来聊一聊随机森林的用法。</p>
-<h3 id="还是从决策树开始">还是从决策树开始<a class="anchor-link" href="#还是从决策树开始">¶</a></h3><p>要介绍随机森林，逃离不了决策树，为了让这篇文章逻辑清晰一些，我先来用决策树做一个简单的例子。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees/">决策树－非线性分类与回归</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="决策树简介　　">决策树简介　　<a class="anchor-link" href="#决策树简介　　">¶</a></h3><p>决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。</p>
-<p>这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。　　</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/25/From Linear Regression to Logistic Regression/">从线性回归到逻辑回归：解决二元分类问题</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="从线性回归到逻辑回归">从线性回归到逻辑回归<a class="anchor-link" href="#从线性回归到逻辑回归">¶</a></h3><p>之前在线性回归的文章中，我们聊过一元线性回归以及多项式回归，虽然并没有太多的文字说明，但是很简单，相信一眼就可以看懂什么意思。在这篇文章中，我们来聊一聊广义线性回归模型另外一种具体形式——<a href="https://en.wikipedia.org/wiki/Logistic_regression">逻辑回归</a></p>
-<p>首先需要清楚地是，逻辑回归和线性回归是不一样的，它是用来处理分类问题的。分类任务的目标就是找到一个函数，将观测值匹配到正确的类别上。它需要成对的特征向量和对应的标签来估计匹配函数的参数，这也就是所谓的<a href="https://en.wikipedia.org/wiki/Supervised_learning">监督学习</a>。在<a href="https://en.wikipedia.org/wiki/Binary_classification">二元分类(binary classification)</a>问题中，算法会在一个实例中配置两个类别，在<a href="https://en.wikipedia.org/wiki/Multiclass_classification">多元分类(Multiclass classification)</a>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/25/From Linear Regression to Logistic Regression/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing/">Feature Extraction and Preprocessing</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>在之前<a href="http://imyin.xyz/2016/09/20/Linear%20Regression%20with%20scikit-learn/">线性回归</a>文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。</p>
-<h3 id="从分类变量中提取特征值">从分类变量中提取特征值<a class="anchor-link" href="#从分类变量中提取特征值">¶</a></h3><p>用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码</a>表示。<br>
-假如现在又三个城市的名字需要处理，我们试着用程序表示出来。</br></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/20/Linear Regression with scikit-learn/">线性回归</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>这篇文章中介绍如何用线性模型处理回归问题。<br>
-首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable)</br>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/20/Linear Regression with scikit-learn/">more ...</a>
                 </div>
             </article>
             <hr/>
