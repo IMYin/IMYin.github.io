@@ -1058,6 +1058,14 @@ h6:hover .anchor-link {
 &lt;center&gt;17台规模的Hadoop集群&lt;/center&gt;&lt;p&gt;其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
 代码如下：&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;pre&gt;&lt;code&gt;#/bin/bash
 
 #This script will deal with the dns_data.
@@ -1099,7 +1107,7 @@ j=`printf "%02d" "$i"`
 else
 j=$i
 fi
-ftp -n&lt;&lt;!--
+ftp -n&amp;lt;&amp;lt;!
 open ${FTP_HOST}
 user ${LOGIN_FTP_USER} ${LOGIN_FTP_PASSWD}
 cd ${REMOTE_DIR}/dns
@@ -1146,11 +1154,25 @@ echo "Transmitting file to cluster......"
 scp -r $data_dir/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/$TIME_NOW
 echo "End of transmission......"
 ssh hadoop@host.of.cluster sh load_hive_dns.sh
-echo "Load data to hive database......."
-
-&lt;/code--&gt;&lt;/pre&gt;
+echo "Load data to hive database......."&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;这个脚本还是比较老的，你会发现上面有一个步骤是对文件进行切片处理，那样做是因为当时还不知道每个文件有380左右的大小，后来知道这个信息之后发现直接对文件进行压缩之后便可以直接入库（HDFS中每个块的大小设置为128m大小）。&lt;/p&gt;
 &lt;p&gt;另一个放在hadoop集群的脚本：&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;pre&gt;&lt;code&gt;#/bin/bash
 #load_hive_dns.sh
 
@@ -1163,7 +1185,7 @@ TARGET_DIR=$LOCAL_DIR/$TIME_NOW
 
 cd $TARGET_DIR
 
-hive &lt;&lt;EOF
+hive &amp;lt;&amp;lt;　EOF
 set hive.exec.compress.output=true;
 set mapred.output.compress=true;
 set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;
@@ -1172,9 +1194,15 @@ exit;
 EOF
 
 hdfs dfs -put ${TARGET_DIR}/* /user/hive/warehouse/load_test.db/partition_test/month=$TIME_MONTH/day=$TIME_DAY/hour=$TIME_HOUR
-echo "load data completed..."
-
-&lt;/code&gt;&lt;/pre&gt;
+echo "load data completed..."&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;代码中的三个set也是多余的，不用每次都设置，放在这里是想提醒一下为了在入库时不出错，最好在运行时set一下这些参数。 
 这里之所以没有用Hive进行load，是因为那样会很慢，因为每一次load都会启动hive，如果用hdfs的put命令，则可以省去很多时间。&lt;/p&gt;
 &lt;p&gt;保证以上脚本自动运行的前提是两个环境之间进行了密钥设置。&lt;/p&gt;

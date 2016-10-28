@@ -99,6 +99,14 @@ Yin's Blog            </a>
 <center>17台规模的Hadoop集群</center><p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
 代码如下：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <pre><code>#/bin/bash
 
 #This script will deal with the dns_data.
@@ -140,7 +148,7 @@ j=`printf "%02d" "$i"`
 else
 j=$i
 fi
-ftp -n<<!--
+ftp -n&lt;&lt;!
 open ${FTP_HOST}
 user ${LOGIN_FTP_USER} ${LOGIN_FTP_PASSWD}
 cd ${REMOTE_DIR}/dns
@@ -187,9 +195,7 @@ echo "Transmitting file to cluster......"
 scp -r $data_dir/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/$TIME_NOW
 echo "End of transmission......"
 ssh hadoop@host.of.cluster sh load_hive_dns.sh
-echo "Load data to hive database......."
-
-</code--></pre>
+echo "Load data to hive database......."</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/20/ftp2hive/">more ...</a>
                 </div>
             </article>
