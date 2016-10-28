@@ -82,70 +82,114 @@ Yin's Blog            </a>
             <hr/>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/10/20/ftp2hive/">FTP数据入库Hive(shell实现)</a></h2>
-                <div class="summary"><p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
 先来看一下处理数据的架构，非常之简单：</p>
 <p>当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。</p>
-<p>先简单说一下我们这个loooooooooow架构： </p>
-<p><center>FTP共享平台</center>
-<center><span class="math">\(\Downarrow\)</span></center>
+<p>先简单说一下我们这个loooooooooow架构：</p>
+<center>FTP共享平台</center>
+<center>$\Downarrow$</center>
 <center>4台交换机</center>
-<center><span class="math">\(\Downarrow\) ...</span></center></p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
+<center>$\Downarrow$</center>
+<center>17台规模的Hadoop集群</center><p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
+为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
+代码如下：</p>
+<pre><code>#/bin/bash
 
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
+#This script will deal with the dns_data.
 
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' }, Macros: {} }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
+LOGIN_FTP_USER=$1
+LOGIN_FTP_PASSWD=$2
+REMOTE_DIR=/home/sunnyin/test/longName   #test dir
+LOCAL_DIR=$3   #test dir  /home/hadoop/test_818/dataxx
+FTP_HOST=$4
+TIME_NOW=$5
+length_p5=`echo ${TIME_NOW}|wc -L`
+data_dir=$LOCAL_DIR/dns/$TIME_NOW  #接口路径
+
+#check the parameter
+if [ -z ${TIME_NOW} ]; then
+TIME_NOW=`date +%Y%m%d%H`
+echo "Will get data of $TIME_NOW...."
+elif [ ${length_p5} -ne 10 ];then
+echo "The parameter 5 is wrong,please check and run again..."
+exit 1
+else
+echo "Will get data of $TIME_NOW...."
+fi
+
+#make dir and change dir
+if [ -d ${data_dir} ]; then
+cd ${data_dir}
+else
+echo "The dictionary is not exist,will create..."
+mkdir -p ${data_dir}
+cd ${data_dir}
+fi
+
+#login ftp
+for (( i=0;i<=15;i++))
+do
+if [ $i -lt 10 ];then
+j=`printf "%02d" "$i"`
+else
+j=$i
+fi
+ftp -n<<!--
+open ${FTP_HOST}
+user ${LOGIN_FTP_USER} ${LOGIN_FTP_PASSWD}
+cd ${REMOTE_DIR}/dns
+prompt
+mget *${TIME_NOW}${j}*
+close
+bye
+!
+done
+if [ $? -eq 0 ]; then
+echo "Files transfer is completed...(0~15 minutes data)"
+else
+echo "File transfer failed"
+exit 1
+fi
+
+#make a tuple(files name)
+files=(`ls $data_dir`)
+TABLE_NAME_TIME=(`ls $data_dir|awk -F _ '{print $2}'`)  #time:YYYYMMHHMMSS
+
+#split
+for file in ${files[@]}
+do
+split -C 128m $file -d -a 3 $TABLE_NAME_TIME
+if [ $? -eq 0 ]; then
+echo "Split ${file} completed..."
+else
+echo -e "Split ${file} failed!!\nPlease check the file:${file}"
+continue
+fi
+done
+
+#compress
+cd $data_dir
+gzip dns*
+if [ $? -eq 0 ]; then
+echo "Compress files completed..."
+else
+echo "Comgress files failed!!"
+exit 1
+fi
+
+echo "Transmitting file to cluster......"
+scp -r $data_dir/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/$TIME_NOW
+echo "End of transmission......"
+ssh hadoop@host.of.cluster sh load_hive_dns.sh
+echo "Load data to hive database......."
+
+</code--></pre>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/20/ftp2hive/">more ...</a>
                 </div>
             </article>
@@ -221,7 +265,7 @@ Yin's Blog            </a>
 <h3 id="从线性回归到逻辑回归">从线性回归到逻辑回归<a class="anchor-link" href="#从线性回归到逻辑回归">¶</a></h3><p>之前在线性回归的文章中，我们聊过一元线性回归以及多项式回归，虽然并没有太多的文字说明，但是很简单，相信一眼就可以看懂什么意思。在这篇文章中，我们来聊一聊广义线性回归模型另外一种具体形式——<a href="https://en.wikipedia.org/wiki/Logistic_regression">逻辑回归</a></p>
 <p>首先需要清楚地是，逻辑回归和线性回归是不一样的，它是用来处理分类问题的。分类任务的目标就是找到一个函数，将观测值匹配到正确的类别上。它需要成对的特征向量和对应的标签来估计匹配函数的参数，这也就是所谓的<a href="https://en.wikipedia.org/wiki/Supervised_learning">监督学习</a>。在<a href="https://en.wikipedia.org/wiki/Binary_classification">二元分类(binary classification)</a>问题中，算法会在一个实例中配置两个类别，在<a href="https://en.wikipedia.org/wiki/Multiclass_classification">多元分类(Multiclass classification)</a>问题中，算法会在一个实例中配置多个类别。在这篇文章中，我们会针对这两种分类问题做详细讲解。</p>
 <h3 id="到底什么是逻辑回归">到底什么是逻辑回归<a class="anchor-link" href="#到底什么是逻辑回归">¶</a></h3><p>如果刚刚接触到逻辑回归，很可能会被这个概念抽象地不知如何下手。下面我讲一个小故事，你应该就能清晰地理解了逻辑回归的概念。</p>
-<p>有这么一个小子，叫吊丝。吊丝每天都会在芍药居地铁站出站口的天桥上卖貂丝。一根貂丝进货几毛钱，如果他卖$x_1$元一根，那么当天他就会卖出$y_1$根貂丝，如果他卖$x_2$元一根，那么当天他就会卖出$y_2$根貂丝。吊丝学过数学，外加挺聪明，他就寻思$x$和$y$会不会有什么关系。所以吊丝就通过之前的销售数据列了个方程式$$y=\alpha x+\beta$$，聪明的吊丝发现，貂丝的销售价钱与销售量存在着这样的关系，还能够动手在纸上画出趋势图，但是又不是太准确。吊丝认为，貂丝的销售量不仅仅和价格有关，比如貂丝的质量好与否，貂丝的长度，再比如今天的天气如何，城管的出勤率都会影响着貂丝的销售量。于是貂丝又列了这个么方程：$$z=\alpha A+\beta B+\gamma C+\delta D...$$吊丝犯难了,心想这他妈怎么画出来？且慢，咱先不说这能不能画出来，就这关系式，都不一定对，因为每个变量对貂丝销售量的影响不都是遵守这样的规则，也许还不如只有价格一个变量的好。<strong>ok,以上说的这是一元线性回归和多元线性回归。</strong></p>
+<p>有这么一个小子，叫吊丝。吊丝每天都会在芍药居地铁站出站口的天桥上卖貂丝。一根貂丝进货几毛钱，如果他卖$x_1$元一根，那么当天他就会卖出$y_1$根貂丝，如果他卖$x_2$元一根，那么当天他就会卖出$y_2$根貂丝。吊丝学过数学，外加挺聪明，他就寻思$x$和$y$会不会有什么关系。所以吊丝就通过之前的销售数据列了个方程式$$y=\alpha x+\beta$$聪明的吊丝发现，貂丝的销售价钱与销售量存在着这样的关系，还能够动手在纸上画出趋势图，但是又不是太准确。吊丝认为，貂丝的销售量不仅仅和价格有关，比如貂丝的质量好与否，貂丝的长度，再比如今天的天气如何，城管的出勤率都会影响着貂丝的销售量。于是貂丝又列了这个么方程：$$z=\alpha A+\beta B+\gamma C+\delta D...$$吊丝犯难了,心想这他妈怎么画出来？且慢，咱先不说这能不能画出来，就这关系式，都不一定对，因为每个变量对貂丝销售量的影响不都是遵守这样的规则，也许还不如只有价格一个变量的好。<strong>ok,以上说的这是一元线性回归和多元线性回归。</strong></p>
 <p>有时候吊丝想着能不能用数学预测今天的貂丝是否卖得出去的<strong>可能性</strong>，所以他就想通过回归产生一个类似概率值0到1之间的数值。但是貂丝的销售数量显然不局限于0到1之间，于是引入了Logistic方程，来做归一化。我们来思考一下为什么非得0到1？因为事件中变量不止一个，为了某一个因素的影响不会被另一个因素的影响覆盖掉，所以就都作归一化处理。但是为了区分这些变量的影响的大小，就对变量增加权重。比如貂丝的长度权重为$0.001$，貂丝的直径权重为$0.05$，天气的影响占$0.1$等等。最后吊丝列了这么一个方程$$g(x)=ln\frac {F(x)}{1-F(x)}=\beta_0 +\beta_1 x_1+\beta_2 x_2+\beta_3 x_3+...+\beta_m x_m$$其中$g(x)$就是你的总得分。说到这里，应该对逻辑回归有了清晰地概念了。一句话：<strong>逻辑回归就是一个被加了权重值的并做了归一化的线性回归，用来表示某个事件的可能性。</strong>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/25/From Linear Regression to Logistic Regression/">more ...</a>
                 </div>

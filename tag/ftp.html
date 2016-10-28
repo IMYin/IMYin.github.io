@@ -73,70 +73,114 @@ Yin's Blog            </a>
         <div class="col-lg-12">
             <article>
                 <h2><a href="https://IMYin.github.io/2016/10/20/ftp2hive/">FTP数据入库Hive(shell实现)</a></h2>
-                <div class="summary"><p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
 先来看一下处理数据的架构，非常之简单：</p>
 <p>当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。</p>
-<p>先简单说一下我们这个loooooooooow架构： </p>
-<p><center>FTP共享平台</center>
-<center><span class="math">\(\Downarrow\)</span></center>
+<p>先简单说一下我们这个loooooooooow架构：</p>
+<center>FTP共享平台</center>
+<center>$\Downarrow$</center>
 <center>4台交换机</center>
-<center><span class="math">\(\Downarrow\) ...</span></center></p><script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
+<center>$\Downarrow$</center>
+<center>17台规模的Hadoop集群</center><p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
+为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
+代码如下：</p>
+<pre><code>#/bin/bash
 
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
+#This script will deal with the dns_data.
 
-    var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
-    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' }, Macros: {} }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
+LOGIN_FTP_USER=$1
+LOGIN_FTP_PASSWD=$2
+REMOTE_DIR=/home/sunnyin/test/longName   #test dir
+LOCAL_DIR=$3   #test dir  /home/hadoop/test_818/dataxx
+FTP_HOST=$4
+TIME_NOW=$5
+length_p5=`echo ${TIME_NOW}|wc -L`
+data_dir=$LOCAL_DIR/dns/$TIME_NOW  #接口路径
+
+#check the parameter
+if [ -z ${TIME_NOW} ]; then
+TIME_NOW=`date +%Y%m%d%H`
+echo "Will get data of $TIME_NOW...."
+elif [ ${length_p5} -ne 10 ];then
+echo "The parameter 5 is wrong,please check and run again..."
+exit 1
+else
+echo "Will get data of $TIME_NOW...."
+fi
+
+#make dir and change dir
+if [ -d ${data_dir} ]; then
+cd ${data_dir}
+else
+echo "The dictionary is not exist,will create..."
+mkdir -p ${data_dir}
+cd ${data_dir}
+fi
+
+#login ftp
+for (( i=0;i<=15;i++))
+do
+if [ $i -lt 10 ];then
+j=`printf "%02d" "$i"`
+else
+j=$i
+fi
+ftp -n<<!--
+open ${FTP_HOST}
+user ${LOGIN_FTP_USER} ${LOGIN_FTP_PASSWD}
+cd ${REMOTE_DIR}/dns
+prompt
+mget *${TIME_NOW}${j}*
+close
+bye
+!
+done
+if [ $? -eq 0 ]; then
+echo "Files transfer is completed...(0~15 minutes data)"
+else
+echo "File transfer failed"
+exit 1
+fi
+
+#make a tuple(files name)
+files=(`ls $data_dir`)
+TABLE_NAME_TIME=(`ls $data_dir|awk -F _ '{print $2}'`)  #time:YYYYMMHHMMSS
+
+#split
+for file in ${files[@]}
+do
+split -C 128m $file -d -a 3 $TABLE_NAME_TIME
+if [ $? -eq 0 ]; then
+echo "Split ${file} completed..."
+else
+echo -e "Split ${file} failed!!\nPlease check the file:${file}"
+continue
+fi
+done
+
+#compress
+cd $data_dir
+gzip dns*
+if [ $? -eq 0 ]; then
+echo "Compress files completed..."
+else
+echo "Comgress files failed!!"
+exit 1
+fi
+
+echo "Transmitting file to cluster......"
+scp -r $data_dir/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/$TIME_NOW
+echo "End of transmission......"
+ssh hadoop@host.of.cluster sh load_hive_dns.sh
+echo "Load data to hive database......."
+
+</code--></pre>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/20/ftp2hive/">more ...</a>
                 </div>
             </article>

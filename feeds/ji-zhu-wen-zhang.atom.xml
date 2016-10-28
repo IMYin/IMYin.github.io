@@ -70,19 +70,995 @@ Kafka是显式分布式架构（明确的指定数据的来源、走向、目的
 &lt;p&gt;写自 2016-05-24&lt;/p&gt;
 &lt;h3&gt;后话&lt;/h3&gt;
 &lt;p&gt;之所以毅然绝然地离开了软通，主要是因为银行项目的技术更新迭代起来太慢，在其中并没有什么深奥的技术可用，都是一些杂七杂八的事情；并且我的兴趣并非大数据处理，而是机器学习或者数据分析。虽然在软通也能够学到很多东西，但对于好奇心及其强烈的我而言，无异于被关在了铁笼子里不能自由飞翔。同事哥哥们都对我非常好，这是让我感觉非常值得感恩的地方。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;人生苦短，做自己最爱的事情。我爱数据。&lt;/strong&gt;&lt;/p&gt;</summary><category term="kafka"></category><category term="flume"></category><category term="python"></category><category term="SMDA"></category><category term="SWDA"></category><category term="数据采集"></category><category term="可视化"></category><category term="数据分析"></category><category term="用户画像"></category></entry><entry><title>FTP数据入库Hive(shell实现)</title><link href="https://IMYin.github.io/2016/10/20/ftp2hive/" rel="alternate"></link><published>2016-10-20T22:15:00+08:00</published><updated>2016-10-20T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-20:2016/10/20/ftp2hive/</id><summary type="html">&lt;p&gt;今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
+&lt;p&gt;&lt;strong&gt;人生苦短，做自己最爱的事情。我爱数据。&lt;/strong&gt;&lt;/p&gt;</summary><category term="kafka"></category><category term="flume"></category><category term="python"></category><category term="SMDA"></category><category term="SWDA"></category><category term="数据采集"></category><category term="可视化"></category><category term="数据分析"></category><category term="用户画像"></category></entry><entry><title>FTP数据入库Hive(shell实现)</title><link href="https://IMYin.github.io/2016/10/20/ftp2hive/" rel="alternate"></link><published>2016-10-20T22:15:00+08:00</published><updated>2016-10-20T22:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-20:2016/10/20/ftp2hive/</id><summary type="html">&lt;style type="text/css"&gt;/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area &gt; div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area &gt; div.highlight &gt; pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the &lt;head&gt; if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev &lt;Maniac@SoftwareManiacs.Org&gt;
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+&lt;/style&gt;
+&lt;style type="text/css"&gt;.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;
+&lt;style type="text/css"&gt;
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+&lt;/style&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
 先来看一下处理数据的架构，非常之简单：&lt;/p&gt;
 &lt;p&gt;当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。&lt;/p&gt;
-&lt;p&gt;先简单说一下我们这个loooooooooow架构： &lt;/p&gt;
-&lt;p&gt;&lt;center&gt;FTP共享平台&lt;/center&gt;
-&lt;center&gt;&lt;span class="math"&gt;\(\Downarrow\)&lt;/span&gt;&lt;/center&gt;
+&lt;p&gt;先简单说一下我们这个loooooooooow架构：&lt;/p&gt;
+&lt;center&gt;FTP共享平台&lt;/center&gt;
+&lt;center&gt;$\Downarrow$&lt;/center&gt;
 &lt;center&gt;4台交换机&lt;/center&gt;
-&lt;center&gt;&lt;span class="math"&gt;\(\Downarrow\)&lt;/span&gt;&lt;/center&gt;
-&lt;center&gt;17台规模的Hadoop集群&lt;/center&gt;&lt;/p&gt;
-&lt;p&gt;其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
+&lt;center&gt;$\Downarrow$&lt;/center&gt;
+&lt;center&gt;17台规模的Hadoop集群&lt;/center&gt;&lt;p&gt;其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
 代码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#/bin/bash
+&lt;pre&gt;&lt;code&gt;#/bin/bash
 
 #This script will deal with the dns_data.
 
@@ -92,91 +1068,90 @@ REMOTE_DIR=/home/sunnyin/test/longName   #test dir
 LOCAL_DIR=$3   #test dir  /home/hadoop/test_818/dataxx
 FTP_HOST=$4
 TIME_NOW=$5
-length_p5=`echo &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;TIME_NOW&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;|wc -L`
-data_dir=&lt;span class="nv"&gt;$LOCAL_DIR&lt;/span&gt;/dns/&lt;span class="nv"&gt;$TIME_NOW&lt;/span&gt;  #接口路径
+length_p5=`echo ${TIME_NOW}|wc -L`
+data_dir=$LOCAL_DIR/dns/$TIME_NOW  #接口路径
 
 #check the parameter
-if [ -z &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;TIME_NOW&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then
+if [ -z ${TIME_NOW} ]; then
 TIME_NOW=`date +%Y%m%d%H`
-echo &amp;quot;Will get data of &lt;span class="nv"&gt;$TIME_NOW....&lt;/span&gt;&amp;quot;
-elif [ &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;length_p5&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; -ne 10 ];then
-echo &amp;quot;The parameter 5 is wrong,please check and run again...&amp;quot;
+echo "Will get data of $TIME_NOW...."
+elif [ ${length_p5} -ne 10 ];then
+echo "The parameter 5 is wrong,please check and run again..."
 exit 1
 else
-echo &amp;quot;Will get data of &lt;span class="nv"&gt;$TIME_NOW....&lt;/span&gt;&amp;quot;
+echo "Will get data of $TIME_NOW...."
 fi
 
 #make dir and change dir
-if [ -d &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; ]; then
-cd &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+if [ -d ${data_dir} ]; then
+cd ${data_dir}
 else
-echo &amp;quot;The dictionary is not exist,will create...&amp;quot;
-mkdir -p &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
-cd &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;data_dir&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+echo "The dictionary is not exist,will create..."
+mkdir -p ${data_dir}
+cd ${data_dir}
 fi
 
 #login ftp
-for (( i=0;i&lt;span class="err"&gt;&amp;lt;&lt;/span&gt;=15;i++))
+for (( i=0;i&lt;=15;i++))
 do
-if [ &lt;span class="nv"&gt;$i&lt;/span&gt; -lt 10 ];then
-j=`printf &amp;quot;%02d&amp;quot; &amp;quot;&lt;span class="nv"&gt;$i&lt;/span&gt;&amp;quot;`
+if [ $i -lt 10 ];then
+j=`printf "%02d" "$i"`
 else
-j=&lt;span class="nv"&gt;$i&lt;/span&gt;
+j=$i
 fi
-ftp -n&lt;span class="err"&gt;&amp;lt;&amp;lt;&lt;/span&gt;!
-open &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;FTP_HOST&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
-user &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;LOGIN_FTP_USER&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;LOGIN_FTP_PASSWD&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
-cd &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;REMOTE_DIR&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;/dns
+ftp -n&lt;&lt;!--
+open ${FTP_HOST}
+user ${LOGIN_FTP_USER} ${LOGIN_FTP_PASSWD}
+cd ${REMOTE_DIR}/dns
 prompt
-mget *&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;TIME_NOW&lt;/span&gt;&lt;span class="cp"&gt;}${&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;*
+mget *${TIME_NOW}${j}*
 close
 bye
 !
 done
 if [ $? -eq 0 ]; then
-echo &amp;quot;Files transfer is completed...(0~15 minutes data)&amp;quot;
+echo "Files transfer is completed...(0~15 minutes data)"
 else
-echo &amp;quot;File transfer failed&amp;quot;
+echo "File transfer failed"
 exit 1
 fi
 
 #make a tuple(files name)
-files=(`ls &lt;span class="nv"&gt;$data_dir&lt;/span&gt;`)
-TABLE_NAME_TIME=(`ls &lt;span class="nv"&gt;$data_dir&lt;/span&gt;|awk -F _ &amp;#39;{print $2}&amp;#39;`)  #time:YYYYMMHHMMSS
+files=(`ls $data_dir`)
+TABLE_NAME_TIME=(`ls $data_dir|awk -F _ '{print $2}'`)  #time:YYYYMMHHMMSS
 
 #split
-for file in &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+for file in ${files[@]}
 do
-split -C 128m &lt;span class="nv"&gt;$file&lt;/span&gt; -d -a 3 &lt;span class="nv"&gt;$TABLE_NAME_TIME&lt;/span&gt;
+split -C 128m $file -d -a 3 $TABLE_NAME_TIME
 if [ $? -eq 0 ]; then
-echo &amp;quot;Split &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; completed...&amp;quot;
+echo "Split ${file} completed..."
 else
-echo -e &amp;quot;Split &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt; failed!!\nPlease check the file:&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;
+echo -e "Split ${file} failed!!\nPlease check the file:${file}"
 continue
 fi
 done
 
 #compress
-cd &lt;span class="nv"&gt;$data_dir&lt;/span&gt;
+cd $data_dir
 gzip dns*
 if [ $? -eq 0 ]; then
-echo &amp;quot;Compress files completed...&amp;quot;
+echo "Compress files completed..."
 else
-echo &amp;quot;Comgress files failed!!&amp;quot;
+echo "Comgress files failed!!"
 exit 1
 fi
 
-echo &amp;quot;Transmitting file to cluster......&amp;quot;
-scp -r &lt;span class="nv"&gt;$data_dir&lt;/span&gt;/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/&lt;span class="nv"&gt;$TIME_NOW&lt;/span&gt;
-echo &amp;quot;End of transmission......&amp;quot;
+echo "Transmitting file to cluster......"
+scp -r $data_dir/*.gz hadoop@host.of.cluster:/home/hadoop/data_dir/dns/$TIME_NOW
+echo "End of transmission......"
 ssh hadoop@host.of.cluster sh load_hive_dns.sh
-echo &amp;quot;Load data to hive database.......&amp;quot;
-&lt;/pre&gt;&lt;/div&gt;
+echo "Load data to hive database......."
 
-
+&lt;/code--&gt;&lt;/pre&gt;
 &lt;p&gt;这个脚本还是比较老的，你会发现上面有一个步骤是对文件进行切片处理，那样做是因为当时还不知道每个文件有380左右的大小，后来知道这个信息之后发现直接对文件进行压缩之后便可以直接入库（HDFS中每个块的大小设置为128m大小）。&lt;/p&gt;
 &lt;p&gt;另一个放在hadoop集群的脚本：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;#/bin/bash
+&lt;pre&gt;&lt;code&gt;#/bin/bash
 #load_hive_dns.sh
 
 LOCAL_DIR=/home/hadoop/test_818/data05/dns
@@ -184,83 +1159,56 @@ TIME_NOW=`date +%Y%m%d%H`
 TIME_MONTH=`date +%m`
 TIME_DAY=`date +%d`
 TIME_HOUR=`date +%H`
-TARGET_DIR=&lt;span class="nv"&gt;$LOCAL_DIR&lt;/span&gt;/&lt;span class="nv"&gt;$TIME_NOW&lt;/span&gt;
+TARGET_DIR=$LOCAL_DIR/$TIME_NOW
 
-cd &lt;span class="nv"&gt;$TARGET_DIR&lt;/span&gt;
+cd $TARGET_DIR
 
-hive &lt;span class="err"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;EOF&lt;/span&gt;
-&lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;hive.exec.compress.&lt;/span&gt;&lt;span class="na"&gt;output=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
-&lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.&lt;/span&gt;&lt;span class="na"&gt;compress=&lt;/span&gt;&lt;span class="s"&gt;true;&lt;/span&gt;
-&lt;span class="err"&gt;set&lt;/span&gt; &lt;span class="err"&gt;mapred.output.compression.&lt;/span&gt;&lt;span class="na"&gt;codec=&lt;/span&gt;&lt;span class="s"&gt;org.apache.hadoop.io.compress.GzipCodec;&lt;/span&gt;
-&lt;span class="err"&gt;ALTER&lt;/span&gt; &lt;span class="err"&gt;TABLE&lt;/span&gt; &lt;span class="err"&gt;load_test.partition_test&lt;/span&gt; &lt;span class="err"&gt;ADD&lt;/span&gt; &lt;span class="err"&gt;IF&lt;/span&gt; &lt;span class="err"&gt;NOT&lt;/span&gt; &lt;span class="err"&gt;EXISTS&lt;/span&gt; &lt;span class="err"&gt;PARTITION&lt;/span&gt; &lt;span class="err"&gt;(&lt;/span&gt;&lt;span class="na"&gt;month=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;&lt;span class="nv"&gt;$TIME_MONTH&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;,day=&amp;#39;$TIME_DAY&amp;#39;,hour=&amp;#39;$TIME_HOUR&amp;#39;);&lt;/span&gt;
-&lt;span class="err"&gt;exit;&lt;/span&gt;
-&lt;span class="err"&gt;EOF&lt;/span&gt;
+hive &lt;&lt;EOF
+set hive.exec.compress.output=true;
+set mapred.output.compress=true;
+set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;
+ALTER TABLE load_test.partition_test ADD IF NOT EXISTS PARTITION (month='$TIME_MONTH',day='$TIME_DAY',hour='$TIME_HOUR');
+exit;
+EOF
 
-&lt;span class="err"&gt;hdfs&lt;/span&gt; &lt;span class="err"&gt;dfs&lt;/span&gt; &lt;span class="err"&gt;-put&lt;/span&gt; &lt;span class="err"&gt;${TARGET_DIR}/*&lt;/span&gt; &lt;span class="err"&gt;/user/hive/warehouse/load_test.db/partition_test/&lt;/span&gt;&lt;span class="na"&gt;month=&lt;/span&gt;&lt;span class="s"&gt;$TIME_MONTH/day=$TIME_DAY/hour=$TIME_HOUR&lt;/span&gt;
-&lt;span class="err"&gt;echo&lt;/span&gt; &lt;span class="err"&gt;&amp;quot;load&lt;/span&gt; &lt;span class="err"&gt;data&lt;/span&gt; &lt;span class="err"&gt;completed...&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+hdfs dfs -put ${TARGET_DIR}/* /user/hive/warehouse/load_test.db/partition_test/month=$TIME_MONTH/day=$TIME_DAY/hour=$TIME_HOUR
+echo "load data completed..."
 
-
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;代码中的三个set也是多余的，不用每次都设置，放在这里是想提醒一下为了在入库时不出错，最好在运行时set一下这些参数。 
 这里之所以没有用Hive进行load，是因为那样会很慢，因为每一次load都会启动hive，如果用hdfs的put命令，则可以省去很多时间。&lt;/p&gt;
 &lt;p&gt;保证以上脚本自动运行的前提是两个环境之间进行了密钥设置。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width &lt; 768) ? "left" : align;
-        indent = (screen.width &lt; 768) ? "0em" : indent;
-        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
-    }
-
     var mathjaxscript = document.createElement('script');
-    var location_protocol = (false) ? 'https' : document.location.protocol;
-    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
     mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
     mathjaxscript[(window.opera ? "innerHTML" : "text")] =
         "MathJax.Hub.Config({" +
         "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' }, Macros: {} }," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
         "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
         "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
         "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
         "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        inlineMath: [ ['$','$'] ], " +
         "        displayMath: [ ['$$','$$'] ]," +
         "        processEscapes: true," +
         "        preview: 'TeX'," +
         "    }, " +
         "    'HTML-CSS': { " +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="shell"></category><category term="hive"></category><category term="ftp"></category><category term="hadoop"></category></entry><entry><title>K-Means聚类</title><link href="https://IMYin.github.io/2016/10/08/K-Means/" rel="alternate"></link><published>2016-10-08T20:15:00+08:00</published><updated>2016-10-08T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-08:2016/10/08/K-Means/</id><summary type="html">&lt;style type="text/css"&gt;/*!
+&lt;/script&gt;
+</summary><category term="shell"></category><category term="hive"></category><category term="ftp"></category><category term="hadoop"></category></entry><entry><title>K-Means聚类</title><link href="https://IMYin.github.io/2016/10/08/K-Means/" rel="alternate"></link><published>2016-10-08T20:15:00+08:00</published><updated>2016-10-08T20:15:00+08:00</updated><author><name>Yin</name></author><id>tag:IMYin.github.io,2016-10-08:2016/10/08/K-Means/</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -13449,7 +14397,7 @@ h6:hover .anchor-link {
 &lt;h3 id="从线性回归到逻辑回归"&gt;从线性回归到逻辑回归&lt;a class="anchor-link" href="#从线性回归到逻辑回归"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;之前在线性回归的文章中，我们聊过一元线性回归以及多项式回归，虽然并没有太多的文字说明，但是很简单，相信一眼就可以看懂什么意思。在这篇文章中，我们来聊一聊广义线性回归模型另外一种具体形式——&lt;a href="https://en.wikipedia.org/wiki/Logistic_regression"&gt;逻辑回归&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;首先需要清楚地是，逻辑回归和线性回归是不一样的，它是用来处理分类问题的。分类任务的目标就是找到一个函数，将观测值匹配到正确的类别上。它需要成对的特征向量和对应的标签来估计匹配函数的参数，这也就是所谓的&lt;a href="https://en.wikipedia.org/wiki/Supervised_learning"&gt;监督学习&lt;/a&gt;。在&lt;a href="https://en.wikipedia.org/wiki/Binary_classification"&gt;二元分类(binary classification)&lt;/a&gt;问题中，算法会在一个实例中配置两个类别，在&lt;a href="https://en.wikipedia.org/wiki/Multiclass_classification"&gt;多元分类(Multiclass classification)&lt;/a&gt;问题中，算法会在一个实例中配置多个类别。在这篇文章中，我们会针对这两种分类问题做详细讲解。&lt;/p&gt;
 &lt;h3 id="到底什么是逻辑回归"&gt;到底什么是逻辑回归&lt;a class="anchor-link" href="#到底什么是逻辑回归"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;如果刚刚接触到逻辑回归，很可能会被这个概念抽象地不知如何下手。下面我讲一个小故事，你应该就能清晰地理解了逻辑回归的概念。&lt;/p&gt;
-&lt;p&gt;有这么一个小子，叫吊丝。吊丝每天都会在芍药居地铁站出站口的天桥上卖貂丝。一根貂丝进货几毛钱，如果他卖$x_1$元一根，那么当天他就会卖出$y_1$根貂丝，如果他卖$x_2$元一根，那么当天他就会卖出$y_2$根貂丝。吊丝学过数学，外加挺聪明，他就寻思$x$和$y$会不会有什么关系。所以吊丝就通过之前的销售数据列了个方程式$$y=\alpha x+\beta$$，聪明的吊丝发现，貂丝的销售价钱与销售量存在着这样的关系，还能够动手在纸上画出趋势图，但是又不是太准确。吊丝认为，貂丝的销售量不仅仅和价格有关，比如貂丝的质量好与否，貂丝的长度，再比如今天的天气如何，城管的出勤率都会影响着貂丝的销售量。于是貂丝又列了这个么方程：$$z=\alpha A+\beta B+\gamma C+\delta D...$$吊丝犯难了,心想这他妈怎么画出来？且慢，咱先不说这能不能画出来，就这关系式，都不一定对，因为每个变量对貂丝销售量的影响不都是遵守这样的规则，也许还不如只有价格一个变量的好。&lt;strong&gt;ok,以上说的这是一元线性回归和多元线性回归。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;有这么一个小子，叫吊丝。吊丝每天都会在芍药居地铁站出站口的天桥上卖貂丝。一根貂丝进货几毛钱，如果他卖$x_1$元一根，那么当天他就会卖出$y_1$根貂丝，如果他卖$x_2$元一根，那么当天他就会卖出$y_2$根貂丝。吊丝学过数学，外加挺聪明，他就寻思$x$和$y$会不会有什么关系。所以吊丝就通过之前的销售数据列了个方程式$$y=\alpha x+\beta$$聪明的吊丝发现，貂丝的销售价钱与销售量存在着这样的关系，还能够动手在纸上画出趋势图，但是又不是太准确。吊丝认为，貂丝的销售量不仅仅和价格有关，比如貂丝的质量好与否，貂丝的长度，再比如今天的天气如何，城管的出勤率都会影响着貂丝的销售量。于是貂丝又列了这个么方程：$$z=\alpha A+\beta B+\gamma C+\delta D...$$吊丝犯难了,心想这他妈怎么画出来？且慢，咱先不说这能不能画出来，就这关系式，都不一定对，因为每个变量对貂丝销售量的影响不都是遵守这样的规则，也许还不如只有价格一个变量的好。&lt;strong&gt;ok,以上说的这是一元线性回归和多元线性回归。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;有时候吊丝想着能不能用数学预测今天的貂丝是否卖得出去的&lt;strong&gt;可能性&lt;/strong&gt;，所以他就想通过回归产生一个类似概率值0到1之间的数值。但是貂丝的销售数量显然不局限于0到1之间，于是引入了Logistic方程，来做归一化。我们来思考一下为什么非得0到1？因为事件中变量不止一个，为了某一个因素的影响不会被另一个因素的影响覆盖掉，所以就都作归一化处理。但是为了区分这些变量的影响的大小，就对变量增加权重。比如貂丝的长度权重为$0.001$，貂丝的直径权重为$0.05$，天气的影响占$0.1$等等。最后吊丝列了这么一个方程$$g(x)=ln\frac {F(x)}{1-F(x)}=\beta_0 +\beta_1 x_1+\beta_2 x_2+\beta_3 x_3+...+\beta_m x_m$$其中$g(x)$就是你的总得分。说到这里，应该对逻辑回归有了清晰地概念了。一句话：&lt;strong&gt;逻辑回归就是一个被加了权重值的并做了归一化的线性回归，用来表示某个事件的可能性。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;好了，上面说了这么多，我们用程序做几个例子。&lt;/p&gt;
 &lt;h3 id="逻辑回归处理二元分类"&gt;逻辑回归处理二元分类&lt;a class="anchor-link" href="#逻辑回归处理二元分类"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在普通线性回归当中，假设响应变量呈正态分布，也就是钟形曲线。上过初中的话应该都记得，正态分布的图形是对称的，其均值、中位数、众数都是相等的。但是在某些问题中，响应变量并不是呈正态分布的，比如投硬币。&lt;/p&gt;
@@ -13729,8 +14677,8 @@ Prediction: ham. Message: Was the farm open?
 &lt;li&gt;accuracy： 分类器预测正确性的比例；&lt;/li&gt;
 &lt;li&gt;precision：分类器预测出来的垃圾短信中真的是垃圾短信的比率；&lt;/li&gt;
 &lt;li&gt;recall：所有真的垃圾短信被分类器找出来的比率；&lt;/li&gt;
-&lt;li&gt;F1 measure:综合评价指标；&lt;/li&gt;
-&lt;li&gt;ROC AUC score:  所有阴性样本中分类器识别为阳性的样本所占比例。&lt;/li&gt;
+&lt;li&gt;F1 measure：综合评价指标；&lt;/li&gt;
+&lt;li&gt;ROC AUC score： 所有非垃圾短信中被识别为垃圾短信所占的比例。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;计算准确率(accuracy)可以用scikit-learn 提供的 accuracy_score 来计算：&lt;/p&gt;
 &lt;/div&gt;
@@ -14309,7 +15257,8 @@ Recall: 0.898936170213
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;结果描述的很清晰，如果想要得到更好的模型，可以继续尝试不同的参数。&lt;/p&gt;
+&lt;p&gt;运行时间比较长，只能怪公司配的电脑实在垃圾.....&lt;/p&gt;
+&lt;p&gt;不过结果描述的还是很清晰，如果想要得到更好的模型，可以继续尝试不同的参数。&lt;/p&gt;
 &lt;h3 id="总结"&gt;总结&lt;a class="anchor-link" href="#总结"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;今天在开头我详细解释了什么是逻辑回归，并说明了逻辑回归与线性回归的区别，而且还讲了一个小故事，哈哈哈，见笑了。在python中应用这些算法来处理问题时非常简单，但是要找到最优的参数还是需要多多练习，对数据有足够的了解和理解，将这些技能结合起来去解决这个问题才是真正的难点。所以我也经常提醒自己，做机器学习，真正的难点并不是用这些算法，而是去真正得理解那些数据，并有效地去对数据预处理，比如对残缺值的处理，变量之间的联系，提取特征变量等等。&lt;/p&gt;
 &lt;p&gt;后面我会再把逻辑回归处理多元分类的笔记补充上去，如果有朋友看到这篇文章非常感兴趣，&lt;a href="http://imyin.xyz/pages/about-me.html"&gt;随时欢迎您与我讨论&lt;/a&gt;。知识，只有互相分享才能发挥更大的作用！&lt;/p&gt;
 &lt;/div&gt;
