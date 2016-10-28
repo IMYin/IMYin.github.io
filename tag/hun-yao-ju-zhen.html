@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>分类 - Yin's Blog</title>
+    <title>混淆矩阵 - Yin's Blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
 
 
     <meta name="author" content="Yin" />
-    <meta name="keywords" content="分类" />
+    <meta name="keywords" content="混淆矩阵" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Yin's Blog" />
@@ -72,21 +72,19 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-lg-12">
             <article>
-                <h2><a href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">聊聊随机森林</a></h2>
+                <h2><a href="https://IMYin.github.io/2016/09/25/From Linear Regression to Logistic Regression/">从线性回归到逻辑回归：解决二元分类问题</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>之前那篇<a href="http://imyin.xyz/2016/09/25/Nonlinear%20Classification%20and%20Regression%20with%20Decision%20Trees.html">《决策树-非线性分类与回归》</a>的文章中，重点介绍了决策树的用法，并且详细介绍了熵、信息增益以及基尼不纯度的概念，在文章的结尾，稍微提了一下随机森林，并将其结果与决策树作了简单的对比。那么这篇文章中我就仔细来聊一聊随机森林的用法。</p>
-<h3 id="还是从决策树开始">还是从决策树开始<a class="anchor-link" href="#还是从决策树开始">¶</a></h3><p>要介绍随机森林，逃离不了决策树，为了让这篇文章逻辑清晰一些，我先来用决策树做一个简单的例子。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">more ...</a>
+<h3 id="从线性回归到逻辑回归">从线性回归到逻辑回归<a class="anchor-link" href="#从线性回归到逻辑回归">¶</a></h3><p>之前在线性回归的文章中，我们聊过一元线性回归以及多项式回归，虽然并没有太多的文字说明，但是很简单，相信一眼就可以看懂什么意思。在这篇文章中，我们来聊一聊广义线性回归模型另外一种具体形式——<a href="https://en.wikipedia.org/wiki/Logistic_regression">逻辑回归</a></p>
+<p>首先需要清楚地是，逻辑回归和线性回归是不一样的，它是用来处理分类问题的。分类任务的目标就是找到一个函数，将观测值匹配到正确的类别上。它需要成对的特征向量和对应的标签来估计匹配函数的参数，这也就是所谓的<a href="https://en.wikipedia.org/wiki/Supervised_learning">监督学习</a>。在<a href="https://en.wikipedia.org/wiki/Binary_classification">二元分类(binary classification)</a>问题中，算法会在一个实例中配置两个类别，在<a href="https://en.wikipedia.org/wiki/Multiclass_classification">多元分类(Multiclass classification)</a>问题中，算法会在一个实例中配置多个类别。在这篇文章中，我们会针对这两种分类问题做详细讲解。</p>
+<h3 id="到底什么是逻辑回归">到底什么是逻辑回归<a class="anchor-link" href="#到底什么是逻辑回归">¶</a></h3><p>如果刚刚接触到逻辑回归，很可能会被这个概念抽象地不知如何下手。下面我讲一个小故事，你应该就能清晰地理解了逻辑回归的概念。</p>
+<p>有这么一个小子，叫吊丝。吊丝每天都会在芍药居地铁站出站口的天桥上卖貂丝。一根貂丝进货几毛钱，如果他卖$x_1$元一根，那么当天他就会卖出$y_1$根貂丝，如果他卖$x_2$元一根，那么当天他就会卖出$y_2$根貂丝。吊丝学过数学，外加挺聪明，他就寻思$x$和$y$会不会有什么关系。所以吊丝就通过之前的销售数据列了个方程式$$y=\alpha x+\beta$$，聪明的吊丝发现，貂丝的销售价钱与销售量存在着这样的关系，还能够动手在纸上画出趋势图，但是又不是太准确。吊丝认为，貂丝的销售量不仅仅和价格有关，比如貂丝的质量好与否，貂丝的长度，再比如今天的天气如何，城管的出勤率都会影响着貂丝的销售量。于是貂丝又列了这个么方程：$$z=\alpha A+\beta B+\gamma C+\delta D...$$吊丝犯难了,心想这他妈怎么画出来？且慢，咱先不说这能不能画出来，就这关系式，都不一定对，因为每个变量对貂丝销售量的影响不都是遵守这样的规则，也许还不如只有价格一个变量的好。<strong>ok,以上说的这是一元线性回归和多元线性回归。</strong></p>
+<p>有时候吊丝想着能不能用数学预测今天的貂丝是否卖得出去的<strong>可能性</strong>，所以他就想通过回归产生一个类似概率值0到1之间的数值。但是貂丝的销售数量显然不局限于0到1之间，于是引入了Logistic方程，来做归一化。我们来思考一下为什么非得0到1？因为事件中变量不止一个，为了某一个因素的影响不会被另一个因素的影响覆盖掉，所以就都作归一化处理。但是为了区分这些变量的影响的大小，就对变量增加权重。比如貂丝的长度权重为$0.001$，貂丝的直径权重为$0.05$，天气的影响占$0.1$等等。最后吊丝列了这么一个方程$$g(x)=ln\frac {F(x)}{1-F(x)}=\beta_0 +\beta_1 x_1+\beta_2 x_2+\beta_3 x_3+...+\beta_m x_m$$其中$g(x)$就是你的总得分。说到这里，应该对逻辑回归有了清晰地概念了。一句话：<strong>逻辑回归就是一个被加了权重值的并做了归一化的线性回归，用来表示某个事件的可能性。</strong>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/25/From Linear Regression to Logistic Regression/">more ...</a>
                 </div>
             </article>
             <hr/>
