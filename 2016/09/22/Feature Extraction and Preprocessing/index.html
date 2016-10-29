@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Feature Extraction and Preprocessing - Yin's Blog</title>
+    <title>特征提取与处理 - Yin's Blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,19 +12,19 @@
 <link rel="canonical" href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing/">
 
         <meta name="author" content="Yin" />
-        <meta name="keywords" content="降维,TF-IDF,词袋模型" />
+        <meta name="keywords" content="TF-IDF,词袋模型,稀疏向量" />
         <meta name="description" content="在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。 从分类变量中提取特征值¶用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用独热编码表示。 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。" />
 
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Feature Extraction and Preprocessing"/>
+        <meta property="og:title" content="特征提取与处理"/>
         <meta property="og:url" content="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing/"/>
         <meta property="og:description" content="在之前线性回归文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。 从分类变量中提取特征值¶用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用独热编码表示。 假如现在又三个城市的名字需要处理，我们试着用程序表示出来。"/>
         <meta property="article:published_time" content="2016-09-22" />
             <meta property="article:section" content="技术文章" />
-            <meta property="article:tag" content="降维" />
             <meta property="article:tag" content="TF-IDF" />
             <meta property="article:tag" content="词袋模型" />
+            <meta property="article:tag" content="稀疏向量" />
             <meta property="article:author" content="Yin" />
 
 
@@ -89,8 +89,8 @@ Yin's Blog            </a>
                 <h1>
                     <a href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing/"
                        rel="bookmark"
-                       title="Permalink to Feature Extraction and Preprocessing">
-                        Feature Extraction and Preprocessing
+                       title="Permalink to 特征提取与处理">
+                        特征提取与处理
                     </a>
                 </h1>
             </header>
@@ -110,11 +110,11 @@ Yin's Blog            </a>
 
 
 <span class="label label-default">Tags</span>
-	<a href="https://IMYin.github.io/tag/jiang-wei.html">降维</a>
-        /
 	<a href="https://IMYin.github.io/tag/tf-idf.html">TF-IDF</a>
         /
 	<a href="https://IMYin.github.io/tag/ci-dai-mo-xing.html">词袋模型</a>
+        /
+	<a href="https://IMYin.github.io/tag/xi-shu-xiang-liang.html">稀疏向量</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -1399,18 +1399,183 @@ gathering
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>通过词根还原和词形还原，可以有效的对数据降维。</p>
-<h3 id="带TF-IDF权重的扩展词库">带TF-IDF权重的扩展词库<a class="anchor-link" href="#带TF-IDF权重的扩展词库">¶</a></h3><p>前面我们</p>
+<h3 id="带TF-IDF权重的扩展词库">带TF-IDF权重的扩展词库<a class="anchor-link" href="#带TF-IDF权重的扩展词库">¶</a></h3><p>前面我们用词袋法创建了特征向量，这些向量与单词的语法、顺序以及词频没有关系。但是我们认为，一片文章如果在说某一个主题，那么这个与主题相关的单词应该会多次在文章中出现。所以接下来我们将词频也放入特征向量中。</p>
+<p>我们用词频的方法来创建特征向量：</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span> 
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'The dog ate a sandwich, the wizard transfigured a sandwich, and I ate a sandwich'</span><span class="p">]</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s1">'english'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">vocabulary_</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[2 1 3 1 1]]
+{u'sandwich': 2, u'wizard': 4, u'dog': 1, u'transfigured': 3, u'ate': 0}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>现在看到的特征向量是单词出现的频率，需要注意的的是，在CountVectorizer方法中，默认binary参数为False，如果改为True,那么结果就将是独热编码。</p>
+<p>有时候两篇文档中的很多单词频率几乎一样，但是文档的长度却非常大。在scikit-learn中会用<strong>TfdfTransformer</strong>类来处理这个问题，通过对词频特征向量的归一化来是不同文档向量的可比性,这里需要注意，在一些逻辑回归中就需要用到向量的归一化来处理问题，所以这个概念个相当重要：$$t\ f(t,d)=\frac {f(t,d)+1}{\lVert x\rVert}$$其中$f(t,d)$是单词$t$在文档$ｄ$中出现的频率，$\lVert x\rVert$是向量的L2范数，是指向量各元素的平方和然后求平方根。至于是干什么用的，这篇文章是不打算花长篇幅解释了，如果想详细了解的话，可以看<a href="http://blog.csdn.net/zouxy09/article/details/24971995">这篇文章</a>。我们还可以计算<a href="https://en.wikipedia.org/wiki/Logarithmic_scale">对数词频调整(logarithmically scaled term frequencies)</a>来优化特征向量，用以将词频调到更小的范围，公式如下：$$t\ f(t,d)=log(f(t,d)+1)$$除了这些，还有词频放大法，公式如下：$$t\ f(t,d)=0.5+\frac {0.5*f(t,d)}{max\ f(w,d):w\epsilon d}$$其中$max\ f(w,d):w\epsilon d$表示文档$d$中的最大词频。在scikit-learn中没有现成的词频放大公式，不过可以通过CountVectorize轻松实现。</p>
+<p>以上三个公式理解起来比较不容易，不过用python实现起来比较简单，我们只需要记住：</p>
+<ul>
+<li>特征向量归一化(L2实现)：　<strong>TfdfTransformer</strong></li>
+<li>对数词频调整：　将　<strong>TfdfTransformer</strong>中的参数　<strong>sublinear_tf</strong>　设置为　<strong>True</strong></li>
+<li>词频放大：　<strong>CountVectorizer</strong></li>
+</ul>
+<p>我们前面说的三种方法都可以消除文档不同大小对词频的影响。但是，还有一个问题就是，特征向量里高频词的权重更大，即使这些词在文集内其他文档中也存在。这些词的存在并不会突出某个文档的意思，只是单纯的高频，对于这样的问题，我们采用逆向文件频率<a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">(inverse document frequency，IDF)</a>$$id\ f(t,D)=log\frac {N}{1+\lvert d\epsilon D:t\epsilon d\rvert}$$其中$N$代表文集中文档的数量，$\lvert d\epsilon D:t\epsilon d\rvert $代表包含单词$t$的文档数量。单词的TF-IDF值就是其频率与逆向文件频率的乘积。</p>
+<p>ok，从现在开始，我要忘掉前面的概念，通tf-idf来举个简单的小例子：假如现在我们有这样的一个数据：</p>
+<table>
+<thead><tr>
+<th>document1</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">document2</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Term</td>
+<td style="text-align:center">Term Count</td>
+<td style="text-align:center">Term</td>
+<td>Term Count</td>
+</tr>
+<tr>
+<td>this</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">this</td>
+<td>1</td>
+</tr>
+<tr>
+<td>is</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">is</td>
+<td>1</td>
+</tr>
+<tr>
+<td>a</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">another</td>
+<td>2</td>
+</tr>
+<tr>
+<td>sample</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">example</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>我们计算得</p>
+<p>$tf("this",d_1)=\frac 15=0.2$</p>
+<p>$tf("this",d_2)=\frac 17\approx 0.14$</p>
+<p>$idf("this",D)=log(\frac 22)=0$</p>
+<p>$tfidf("this",d_1)=0.2*0=0$</p>
+<p>$tfidf("this",d_2)=0.14*0=0$</p>
+<hr>
+<p>$tf("example",d_1)=\frac 05=0$</p>
+<p>$tf("example",d_2)=\frac 37\approx 0.429$</p>
+<p>$idf("example",D)=log(\frac 21)=0.301$</p>
+<p>$tfidf("example",d_1)=tf("example",d_1)*idf("example",D)=0*0.301=0$</p>
+<p>$tfidf("example",d_2)=tf("example",d_2)*idf("example",D)=0.429*0.301\approx 0.13$</p>
+<p>例子很简单，现在应该很tfidf如何计算了。在scikit-learn中，TfdfTransfromer类默认返回TF-IDF值，其参数use_idf默认为True。由于TF-IDF加权特征向量经常用来表示文本，所以scikit-learn提供了TfidfVectorizer类讲CountVectorizer和TfdfTransformer类封装在一起。</p>
+</hr></div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'The dog ate a sandwich and I ate a sandwich'</span><span class="p">,</span>
+    <span class="s1">'The wizard transfigured a sandwich'</span>
+<span class="p">]</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s1">'english'</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">vocabulary_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 0.75458397  0.37729199  0.53689271  0.          0.        ]
+ [ 0.          0.          0.44943642  0.6316672   0.6316672 ]]
+{u'sandwich': 2, u'wizard': 4, u'dog': 1, u'transfigured': 3, u'ate': 0}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="通过哈希技巧实现特征向量">通过哈希技巧实现特征向量<a class="anchor-link" href="#通过哈希技巧实现特征向量">¶</a></h3><p>之前我们所用的方法存在两个缺点，一是文集需要被调用两次，一次是创建词典，另一次是创建文档的特征向量。二是词典必须存储在内存当中，如果文集特别大就会非常消耗内存。在这里可以用哈希表来解决这个问题，用哈希函数来确定特征向量的索引位置，就不必创建词典，这成为哈希技巧<a href="https://en.wikipedia.org/wiki/Feature_hashing">(hashing trick)</a>。在scikit-learn中通过HashingVectorizer来实现：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+<span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'the'</span><span class="p">,</span> <span class="s1">'ate'</span><span class="p">,</span> <span class="s1">'bacon'</span><span class="p">,</span> <span class="s1">'cat'</span><span class="p">]</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 0.  0. -1.  0.]
+ [ 0.  0.  0.  1.]
+ [ 0.  0. -1.  0.]
+ [ 0.  0.  0.  1.]]
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>哈希技巧处理自然语言时用得不多，所以这就不再赘述了。如果以后碰到有关这方面的例子，我会再写上来。</p>
+<h3 id="总结">总结<a class="anchor-link" href="#总结">¶</a></h3><p>这篇文章中我们介绍了特征提取的一些方法，详细介绍了有关提取文档中的特征向量的方法。我们在开头介绍了分类数据的独热编码方法，并用scikit-learn的<strong>DictVectorizer</strong>类实现。然后，介绍了许多机器学习问题中常见的文档特征向量。通过词库模型将文档转换成词块的频率构成的特征向量，用<strong>CountVectorizer</strong>类计算基本单词频次的二进制特征向量。最后，通过停用词过滤，词根还原，词形还原进一步优化特征向量，并加入TF-IDF权重调整文集常见词，消除文档长度对特征向量的影响，在后面我们还通过一个小小的例子让我们更好的理解TF-IDF是如何实现的。</p>
+<p>下面一篇文章我讲介绍一下如何提取图片特征向量。根据不完全统计，现在我们的数据有$90\%$都是非结构化数据，很多都是日志、图片、音频等等。所以对提取图片中的特征变量也变得尤为重要，这对之后的模型训练有很大的影响。</p>
 </div>
 </div>
 </div>
