@@ -1527,7 +1527,7 @@ tnHHDSEf/9k=
 
 </code></pre>
 <p>当然，如果你没有anaconda的话，也可以用python来创建虚拟环境，但是前提是你已经安装了virtualenv依赖包。</p>
-<pre><code>sudo pip3 install virtualenv
+<pre><code>sudo pip install virtualenv
 
 virtualenv 环境名 --no-site-packages    #后面的参数代表这创建一个非常干净的Python环境，没有任何依赖包。
 
@@ -1567,7 +1567,11 @@ source 环境名/bin/active</code></pre>
 
 </code></pre>
 <p>在安装过程中，它可以自动安装其它依赖。安装完成之后可以测试一下：</p>
-<h4 id="测试">测试<a class="anchor-link" href="#测试">¶</a></h4>
+<pre><code>pip install --ignore-installed --upgrade $TF_BINARY_URL
+
+</code></pre>
+<p>安装完成之后会看到这几个依赖包也安装完成了：</p>
+<pre><code>six, funcsigs, pbr, mock, setuptools, protobuf, numpy, wheel, tensorflow</code></pre>
 </div>
 </div>
 </div>
@@ -1576,6 +1580,7 @@ source 环境名/bin/active</code></pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="测试">测试<a class="anchor-link" href="#测试">¶</a></h4>
 <pre><code>(tensorflow) sunnyin@sunnyin-win:~$ python
 Python 2.7.12 |Continuum Analytics, Inc.| (default, Jul  2 2016, 17:42:40) 
 [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux2

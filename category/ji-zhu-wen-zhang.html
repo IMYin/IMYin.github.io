@@ -77,6 +77,21 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-lg-12">
             <article>
+                <h2><a href="https://IMYin.github.io/2016/10/30/begin-tensorflow/">初识TensorFlow</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="什么是TensorFlow">什么是TensorFlow<a class="anchor-link" href="#什么是TensorFlow">¶</a></h3><p>上篇文章中我介绍了如何安装TensorFlow，之所以要分开写这两天文章，是为了以后如果换机器的话能够快速的在我的笔记中找到安装方法。哈哈，那么这篇文章我就详细介绍一下什么是TensorFlow，已经来同通过一个小例子说明它的神奇之处。</p>
+<p>它是一个可以用数据流图在学习模型的机器学习库，主要的目的是用来解决自然语言处理(NLP)以及图像识别任务。用户可以自己用TensorFlow为深度学习创建一个神经网络结构，并且TensorFlow还允许用户与统计机器学习算法一起使用。但是目前它的使用条件比较苛刻，必须是在它允许的依赖环境中开发程序。此外，Tensorflow是第二代机器学习系统，它已经建议完善并且取代了它的前身DistBelief.</p>
+<h3 id="什么是数据流图(data-flow-graph)">什么是数据流图(data flow graph)<a class="anchor-link" href="#什么是数据流图(data-flow-graph)">¶</a>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/30/begin-tensorflow/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/10/30/install-TensorFlow/">安装TensorFlow</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing code_cell rendered">
@@ -201,26 +216,6 @@ Yin's Blog            </a>
 <p>上篇文章中我们介绍了如何从文档中提取特征，在工作中还经常会遇到处理图片的问题，比如通过图片识别图片中花的种类。这篇文章我就来讲一下如何从图片中提取特征向量。</p>
 <h3 id="通过像素提取特征值">通过像素提取特征值<a class="anchor-link" href="#通过像素提取特征值">¶</a></h3><p>数字图像通常是一张光栅图或像素图，将颜色映射到网格坐标里，所以一张图片可以看成是有颜色值构成的矩阵。<a href="https://en.wikipedia.org/wiki/Optical_character_recognition">光学文字识别(Optical character recognition)</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/24/Extracting features from images/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing/">特征提取与处理</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>在之前<a href="http://imyin.xyz/2016/09/20/Linear%20Regression%20with%20scikit-learn/">线性回归</a>文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。</p>
-<h3 id="从分类变量中提取特征值">从分类变量中提取特征值<a class="anchor-link" href="#从分类变量中提取特征值">¶</a></h3><p>用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码</a>表示。<br>
-假如现在又三个城市的名字需要处理，我们试着用程序表示出来。</br></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/22/Feature Extraction and Preprocessing/">more ...</a>
                 </div>
             </article>
             <hr/>
