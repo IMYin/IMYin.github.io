@@ -976,7 +976,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="什么是TensorFlow"&gt;什么是TensorFlow&lt;a class="anchor-link" href="#什么是TensorFlow"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;上篇文章中我介绍了如何安装TensorFlow，之所以要分开写这两天文章，是为了以后如果换机器的话能够快速的在我的笔记中找到安装方法。哈哈，那么这篇文章我就详细介绍一下什么是TensorFlow，以及来通过一个小例子说明它的神奇之处。&lt;/p&gt;
+&lt;h3 id="什么是TensorFlow"&gt;什么是TensorFlow&lt;a class="anchor-link" href="#什么是TensorFlow"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;上篇文章中我介绍了如何安装TensorFlow，之所以要分开写这两篇文章，是为了以后如果换机器的话能够快速的在我的笔记中找到安装方法。哈哈，那么这篇文章我就详细介绍一下什么是TensorFlow，以及来通过一个小例子说明它的神奇之处。&lt;/p&gt;
 &lt;p&gt;它是一个可以用数据流图在学习模型的机器学习库，主要的目的是用来解决自然语言处理(NLP)以及图像识别任务。用户可以自己用TensorFlow为深度学习创建一个神经网络结构，并且TensorFlow还允许用户与统计机器学习算法一起使用。但是目前它的使用条件比较苛刻，必须是在它允许的依赖环境中开发程序。此外，Tensorflow是第二代机器学习系统，它已经建立完善并且取代了它的前身DistBelief.&lt;/p&gt;
 &lt;h3 id="什么是数据流图(data-flow-graph)"&gt;什么是数据流图(data flow graph)&lt;a class="anchor-link" href="#什么是数据流图(data-flow-graph)"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在TensorFlow中所有的计算都可以用有向图来表示，它们的computor都是各个节点，通过节点的边缘指向另一个节点。&lt;/p&gt;
 &lt;/div&gt;
@@ -2643,7 +2643,7 @@ BQKBQKBQKBQKBQKBQKBQKBQKBQKBQf/Z
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;可以看到，每次训练的结果都会越来越接近我们在最初定义的方程。当然，由于我设置的步数还不够多，所以你可以看到在参数还并没有对到达最优化的效果。&lt;/p&gt;
+&lt;p&gt;可以看到，每次训练的结果都会越来越接近我们在最初定义的方程。当然，由于我设置的步数还不够多，所以你可以看到参数还并没有到达最优化的效果。&lt;/p&gt;
 &lt;p&gt;好了，以上就是TensorFlow一个简单的应用，只能说，它真的是太强大了。在以后的文章中，我还会经常写一些有关TensorFlow的例子，感兴趣的朋友一起来学习吧。&lt;/p&gt;
 &lt;h3 id="参考"&gt;参考&lt;a class="anchor-link" href="#参考"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;[1] &lt;a href="http://www.datasciencecentral.com/profiles/blogs/google-open-source-tensorflow"&gt;http://www.datasciencecentral.com/profiles/blogs/google-open-source-tensorflow&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
