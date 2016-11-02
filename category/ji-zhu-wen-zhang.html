@@ -148,6 +148,28 @@ Yin's Blog            </a>
             </article>
             <hr/>
             <article>
+                <h2><a href="https://IMYin.github.io/2016/10/14/perceptron/">感知机</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="什么是感知机">什么是感知机<a class="anchor-link" href="#什么是感知机">¶</a></h3><p><a href="https://en.wikipedia.org/wiki/Perceptron">感知机(perceptron)</a>是二类分类的线性分类模型，其输入为实例的特征向量，输出为实例的类别，取$+1$和$-1$二值。感知机学习旨在求出将训练数据集进行线性划分的分类超平面，为此，导入基于误分类的损失函数，利用梯度下降法对损失函数进行极小化，从而求出感知机模型。感知机1957年由Rosenblatt提出，是神经网络与支持向量机的基础。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="感知机模型">感知机模型<a class="anchor-link" href="#感知机模型">¶</a></h3><h4 id="定义">定义<a class="anchor-link" href="#定义">¶</a></h4><p>假设输入空间(特征空间)是$\chi \subseteq R^n$,输出空间为$Y=\{+1,-1\}$.输入$x \subseteq \chi$表示实例的特征向量，对应于输入空间(特征空间)的点；输出$y\subseteq Y$表示实例的类别。由输入空间到输出空间的如下函数$$f(x)=sign(w*x+b)$$成为感知机。其中，$w$和$b$为感知机的模型参数，$w\subseteq R^n$叫做权值(weight)或权值向量(weight vector)，$b\subseteq R$叫作偏置(bias)，$w*x$表示$w$和$x$的内积。sign是符号函数。</p>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/14/perceptron/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/10/11/PCA/">主成分分析(PCA)</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -190,25 +212,6 @@ Yin's Blog            </a>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees/">决策树－非线性分类与回归</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="决策树简介　　">决策树简介　　<a class="anchor-link" href="#决策树简介　　">¶</a></h3><p>决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。</p>
-<p>这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。　　</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees/">more ...</a>
                 </div>
             </article>
             <hr/>
