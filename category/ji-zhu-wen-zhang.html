@@ -76,6 +76,90 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-lg-12">
             <article>
+                <h2><a href="https://IMYin.github.io/2016/11/03/KNN/">KNN算法</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="概述">概述<a class="anchor-link" href="#概述">¶</a></h3><p>k-近邻(KNN)算法应该是一个相当好理解的算法，说简单点，就是采用测量不同特征值之间的距离方法进行分类。</p>
+<p>算法性质：</p>
+<ul>
+<li><p>优点：精度高、对异常值不敏感、无数据输入设定</p>
+</li>
+<li><p>缺点：计算复杂度高、高空间复杂度高</p>
+</li>
+<li><p>适用数据范围：数值型和标称型</p>
+</li>
+</ul>
+<h3 id="工作原理">工作原理<a class="anchor-link" href="#工作原理">¶</a></h3><p>存在一个样本数据集合，也称作训练样本集，并且样本集中每个数据都存在标签，即我们知道样本集每一数据与所属分类的对应关系。输入没有标签的新数据后，将新数据的每个特征与样本集中数据对应的特征进行比较，然后算法提取样本集中特征最相似数据(最近邻)的分类标签。<strong>般来说，我们只选择样本数据中前k个最相似的数据，这就是k-近邻算法中k的出处，通常k是不大于20的整数。最后，选择k个最相似的数据中出现次数最多的分类，作为新数据的分类。</strong></p>
+<h3 id="k-近邻算法的一般流程">k-近邻算法的一般流程<a class="anchor-link" href="#k-近邻算法的一般流程">¶</a></h3><ol>
+<li><p>收集数据:可以使用任何方法。</p>
+</li>
+<li><p>准备数据:距离计算所需要的数值，最好是结构化的数据格式。</p>
+</li>
+<li><p>分析数据:可以使用任何方法。</p>
+</li>
+<li><p>训练算法:此步骤不适用于k-近邻算法。</p>
+</li>
+<li><p>测试算法:计算错误率</p>
+</li>
+<li><p>使用算法:首先需要输入样本数据和结构化的输出结果，然后运行k-近邻算法判定输入数据分别属于哪个分类，最后应用对计算出的分类执行后续的处理。</p>
+</li>
+</ol>
+<p>下面通过k-近邻算法来举个例子：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>海伦用在线约会网站寻找适合自己的约会对象。尽管约会网站推荐不同的人选，但她并不是喜欢每一个人。经过一番总结，她发现曾交往过三种类型的人:</p>
+<ul>
+<li><p>不喜欢的人</p>
+</li>
+<li><p>魅力一般的人</p>
+</li>
+<li><p>极具魅力的人</p>
+</li>
+</ul>
+<p>以上的描述就是类别。</p>
+<p>海伦收集约会数据已经有一段时间，她把这些数据存放在了文本文件中，每个样本数据占据一行，总共1000行，每行数据包括以下特征：</p>
+<ul>
+<li><p>每年获得的飞行常客里程数</p>
+</li>
+<li><p>玩视频游戏所耗时间百分比</p>
+</li>
+<li><p>每周消耗的冰淇淋公升数</p>
+</li>
+</ul>
+<p>好，至此数据有了，我们可以把这些数据整理成向量的形式，方便之后的计算，我们先来看一下部分数据：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<pre><code>40920    8.326976    0.953952    3
+14488    7.153469    1.673904    2
+26052    1.441871    0.805124    1
+75136    13.147394    0.428964    1
+38344    1.669788    0.134296    1
+72993    10.141740    1.032955    1
+35948    6.830792    1.213192    3
+42666    13.276369    0.543880    3
+67497    8.631577    0.749278    1
+35483    12.273169    1.508053    3</code>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/03/KNN/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/11/01/HiveSQL1101/">Hive回填表</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing code_cell rendered">
@@ -193,25 +277,6 @@ Yin's Blog            </a>
 <p>之前几篇文章我详细讲了一下分类和回归的问题，它们都是通过对带有标签的数据进行训练，然后得到一个模型，再通过模型对数据输入的信息进行预测。今天我们来讲一下聚类算法。</p>
 <p>聚类算法有很多种，比如K-Means，AP聚类，层次聚类(Hierarchical clustering)等等，我接触最多的就是K-Means，去年在公司还用mahout开发过K-Means算法，但是一次次的MR，效率确实不太高。现在mahout内部机制也换成spark了，效率应该提升了不少。今天我们依然先从K-Means开始，它很简单，之后我会在记录其它一些聚类算法的应用。</p>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/08/K-Means/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">聊聊随机森林</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>之前那篇<a href="http://imyin.xyz/2016/09/25/Nonlinear%20Classification%20and%20Regression%20with%20Decision%20Trees.html">《决策树-非线性分类与回归》</a>的文章中，重点介绍了决策树的用法，并且详细介绍了熵、信息增益以及基尼不纯度的概念，在文章的结尾，稍微提了一下随机森林，并将其结果与决策树作了简单的对比。那么这篇文章中我就仔细来聊一聊随机森林的用法。</p>
-<h3 id="还是从决策树开始">还是从决策树开始<a class="anchor-link" href="#还是从决策树开始">¶</a></h3><p>要介绍随机森林，逃离不了决策树，为了让这篇文章逻辑清晰一些，我先来用决策树做一个简单的例子。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">more ...</a>
                 </div>
             </article>
             <hr/>
