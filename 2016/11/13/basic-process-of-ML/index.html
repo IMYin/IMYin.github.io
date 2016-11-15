@@ -1138,7 +1138,7 @@ In this challenge, we ask you to complete the analysis of what sorts of people w
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [2]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -1154,7 +1154,7 @@ In this challenge, we ask you to complete the analysis of what sorts of people w
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <div>
 <table border="1" class="dataframe">
@@ -2335,7 +2335,7 @@ IzQAgDJCAwAoIzQAgDJCAwAoIzQAgDJCAwAocwM81C3m6kDbwAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [8]:</div>
+<div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">copy</span>
@@ -2343,10 +2343,13 @@ IzQAgDJCAwAoIzQAgDJCAwAoIzQAgDJCAwAocwM81C3m6kDbwAAAAABJRU5ErkJggg==
 <span class="n">data_ed</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'Name'</span><span class="p">,</span><span class="s1">'Ticket'</span><span class="p">,</span><span class="s1">'SibSp'</span><span class="p">,</span><span class="s1">'Parch'</span><span class="p">,</span><span class="s1">'Fare'</span><span class="p">,</span><span class="s1">'Cabin'</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">age_s</span> <span class="o">=</span> <span class="n">data_ed</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'Age'</span><span class="p">,</span><span class="s1">'Survived'</span><span class="p">])</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">age_s</span><span class="o">.</span><span class="n">count</span><span class="p">()[</span><span class="s1">'PassengerId'</span><span class="p">])</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">group</span> <span class="ow">in</span> <span class="n">age_s</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">'-----------------------------------------------------------------'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o"><</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">'-----------------------------------------------------------------'</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
@@ -2409,1091 +2412,6 @@ IzQAgDJCAwAoIzQAgDJCAwAoIzQAgDJCAwAocwM81C3m6kDbwAAAAABJRU5ErkJggg==
 (3.0, 0)
      PassengerId  Survived  Pclass     Sex  Age Embarked
 374          375         0       3  female  3.0        S
------------------------------------------------------------------
-(3.0, 1)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-43            44         1       2  female  3.0        C
-193          194         1       2    male  3.0        S
-261          262         1       3    male  3.0        S
-348          349         1       3    male  3.0        S
-407          408         1       2    male  3.0        S
------------------------------------------------------------------
-(4.0, 0)
-     PassengerId  Survived  Pclass   Sex  Age Embarked
-63            64         0       3  male  4.0        S
-171          172         0       3  male  4.0        Q
-850          851         0       3  male  4.0        S
------------------------------------------------------------------
-(4.0, 1)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-10            11         1       3  female  4.0        S
-184          185         1       3  female  4.0        S
-445          446         1       1    male  4.0        S
-618          619         1       2  female  4.0        S
-691          692         1       3  female  4.0        C
-750          751         1       2  female  4.0        S
-869          870         1       3    male  4.0        S
------------------------------------------------------------------
-(5.0, 1)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-58            59         1       2  female  5.0        S
-233          234         1       3  female  5.0        S
-448          449         1       3  female  5.0        C
-777          778         1       3  female  5.0        S
------------------------------------------------------------------
-(6.0, 0)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-813          814         0       3  female  6.0        S
------------------------------------------------------------------
-(6.0, 1)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-720          721         1       2  female  6.0        S
-751          752         1       3    male  6.0        S
------------------------------------------------------------------
-(7.0, 0)
-     PassengerId  Survived  Pclass   Sex  Age Embarked
-50            51         0       3  male  7.0        S
-278          279         0       3  male  7.0        Q
------------------------------------------------------------------
-(7.0, 1)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-535          536         1       2  female  7.0        S
------------------------------------------------------------------
-(8.0, 0)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-24            25         0       3  female  8.0        S
-787          788         0       3    male  8.0        Q
------------------------------------------------------------------
-(8.0, 1)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-237          238         1       2  female  8.0        S
-549          550         1       2    male  8.0        S
------------------------------------------------------------------
-(9.0, 0)
-     PassengerId  Survived  Pclass     Sex  Age Embarked
-147          148         0       3  female  9.0        S
-182          183         0       3    male  9.0        S
-480          481         0       3    male  9.0        S
-541          542         0       3  female  9.0        S
-634          635         0       3  female  9.0        S
-852          853         0       3  female  9.0        C
------------------------------------------------------------------
-(9.0, 1)
-     PassengerId  Survived  Pclass   Sex  Age Embarked
-165          166         1       3  male  9.0        S
-489          490         1       3  male  9.0        S
------------------------------------------------------------------
-(10.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-419          420         0       3  female  10.0        S
-819          820         0       3    male  10.0        S
------------------------------------------------------------------
-(11.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-59            60         0       3    male  11.0        S
-542          543         0       3  female  11.0        S
-731          732         0       3    male  11.0        C
------------------------------------------------------------------
-(11.0, 1)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-802          803         1       1  male  11.0        S
------------------------------------------------------------------
-(12.0, 1)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-125          126         1       3  male  12.0        C
------------------------------------------------------------------
-(13.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-446          447         1       2  female  13.0        S
-780          781         1       3  female  13.0        C
------------------------------------------------------------------
-(14.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-14            15         0       3  female  14.0        S
-683          684         0       3    male  14.0        S
-686          687         0       3    male  14.0        S
------------------------------------------------------------------
-(14.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-9             10         1       2  female  14.0        C
-39            40         1       3  female  14.0        C
-435          436         1       1  female  14.0        S
------------------------------------------------------------------
-(14.5, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-111          112         0       3  female  14.5        C
------------------------------------------------------------------
-(15.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-352          353         0       3  male  15.0        C
------------------------------------------------------------------
-(15.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-22            23         1       3  female  15.0        Q
-689          690         1       1  female  15.0        S
-830          831         1       3  female  15.0        C
-875          876         1       3  female  15.0        C
------------------------------------------------------------------
-(16.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-71            72         0       3  female  16.0        S
-86            87         0       3    male  16.0        S
-138          139         0       3    male  16.0        S
-266          267         0       3    male  16.0        S
-282          283         0       3    male  16.0        S
-333          334         0       3    male  16.0        S
-574          575         0       3    male  16.0        S
-746          747         0       3    male  16.0        S
-764          765         0       3    male  16.0        S
-791          792         0       2    male  16.0        S
-841          842         0       2    male  16.0        S
------------------------------------------------------------------
-(16.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-156          157         1       3  female  16.0        Q
-208          209         1       3  female  16.0        Q
-220          221         1       3    male  16.0        S
-329          330         1       1  female  16.0        C
-504          505         1       1  female  16.0        S
-853          854         1       1  female  16.0        S
------------------------------------------------------------------
-(17.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-114          115         0       3  female  17.0        C
-163          164         0       3    male  17.0        S
-433          434         0       3    male  17.0        S
-500          501         0       3    male  17.0        S
-532          533         0       3    male  17.0        C
-721          722         0       3    male  17.0        S
-844          845         0       3    male  17.0        S
------------------------------------------------------------------
-(17.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-68            69         1       3  female  17.0        S
-84            85         1       2  female  17.0        S
-307          308         1       1  female  17.0        C
-389          390         1       2  female  17.0        C
-550          551         1       1    male  17.0        C
-781          782         1       1  female  17.0        S
------------------------------------------------------------------
-(18.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-38            39         0       3  female  18.0        S
-49            50         0       3  female  18.0        S
-144          145         0       2    male  18.0        S
-175          176         0       3    male  18.0        S
-228          229         0       2    male  18.0        S
-371          372         0       3    male  18.0        S
-385          386         0       2    male  18.0        S
-424          425         0       3    male  18.0        S
-505          506         0       1    male  18.0        C
-654          655         0       3  female  18.0        Q
-675          676         0       3    male  18.0        S
-688          689         0       3    male  18.0        S
-702          703         0       3  female  18.0        C
-757          758         0       2    male  18.0        S
-775          776         0       3    male  18.0        S
-807          808         0       3  female  18.0        S
-834          835         0       3    male  18.0        S
------------------------------------------------------------------
-(18.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-204          205         1       3    male  18.0        S
-311          312         1       1  female  18.0        C
-417          418         1       2  female  18.0        S
-585          586         1       1  female  18.0        S
-651          652         1       2  female  18.0        S
-677          678         1       3  female  18.0        S
-700          701         1       1  female  18.0        C
-786          787         1       3  female  18.0        S
-855          856         1       3  female  18.0        S
------------------------------------------------------------------
-(19.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-27            28         0       1  male  19.0        S
-67            68         0       3  male  19.0        S
-143          144         0       3  male  19.0        Q
-145          146         0       2  male  19.0        S
-191          192         0       2  male  19.0        S
-238          239         0       2  male  19.0        S
-302          303         0       3  male  19.0        S
-372          373         0       3  male  19.0        S
-379          380         0       3  male  19.0        S
-566          567         0       3  male  19.0        S
-575          576         0       3  male  19.0        S
-646          647         0       3  male  19.0        S
-687          688         0       3  male  19.0        S
-715          716         0       3  male  19.0        S
-748          749         0       1  male  19.0        S
-877          878         0       3  male  19.0        S
------------------------------------------------------------------
-(19.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-44            45         1       3  female  19.0        Q
-136          137         1       1  female  19.0        S
-192          193         1       3  female  19.0        S
-226          227         1       2    male  19.0        S
-283          284         1       3    male  19.0        S
-291          292         1       1  female  19.0        C
-427          428         1       2  female  19.0        S
-546          547         1       2  female  19.0        S
-887          888         1       1  female  19.0        S
------------------------------------------------------------------
-(20.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-12            13         0       3    male  20.0        S
-91            92         0       3    male  20.0        S
-113          114         0       3  female  20.0        S
-131          132         0       3    male  20.0        S
-378          379         0       3    male  20.0        C
-404          405         0       3  female  20.0        S
-441          442         0       3    male  20.0        S
-640          641         0       3    male  20.0        S
-682          683         0       3    male  20.0        S
-725          726         0       3    male  20.0        S
-840          841         0       3    male  20.0        S
-876          877         0       3    male  20.0        S
------------------------------------------------------------------
-(20.0, 1)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-622          623         1       3  male  20.0        C
-664          665         1       3  male  20.0        S
-762          763         1       3  male  20.0        C
------------------------------------------------------------------
-(20.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-227          228         0       3  male  20.5        S
------------------------------------------------------------------
-(21.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-37            38         0       3    male  21.0        S
-51            52         0       3    male  21.0        S
-72            73         0       2    male  21.0        S
-102          103         0       1    male  21.0        S
-115          116         0       3    male  21.0        S
-120          121         0       2    male  21.0        S
-173          174         0       3    male  21.0        S
-402          403         0       3  female  21.0        S
-408          409         0       3    male  21.0        S
-421          422         0       3    male  21.0        Q
-436          437         0       3  female  21.0        S
-491          492         0       3    male  21.0        S
-494          495         0       3    male  21.0        S
-501          502         0       3  female  21.0        Q
-623          624         0       3    male  21.0        S
-624          625         0       3    male  21.0        S
-652          653         0       3    male  21.0        S
-836          837         0       3    male  21.0        S
-861          862         0       2    male  21.0        S
------------------------------------------------------------------
-(21.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-56            57         1       2  female  21.0        S
-106          107         1       3  female  21.0        S
-391          392         1       3    male  21.0        S
-627          628         1       1  female  21.0        S
-742          743         1       1  female  21.0        C
------------------------------------------------------------------
-(22.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-0              1         0       3    male  22.0        S
-60            61         0       3    male  22.0        C
-80            81         0       3    male  22.0        S
-112          113         0       3    male  22.0        S
-212          213         0       3    male  22.0        S
-225          226         0       3    male  22.0        S
-243          244         0       3    male  22.0        S
-287          288         0       3    male  22.0        S
-320          321         0       3    male  22.0        S
-373          374         0       1    male  22.0        C
-395          396         0       3    male  22.0        S
-474          475         0       3  female  22.0        S
-478          479         0       3    male  22.0        S
-521          522         0       3    male  22.0        S
-588          589         0       3    male  22.0        S
-882          883         0       3  female  22.0        S
------------------------------------------------------------------
-(22.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-141          142         1       3  female  22.0        S
-151          152         1       1  female  22.0        S
-289          290         1       3  female  22.0        Q
-323          324         1       2  female  22.0        S
-356          357         1       1  female  22.0        S
-376          377         1       3  female  22.0        S
-539          540         1       1  female  22.0        C
-553          554         1       3    male  22.0        C
-554          555         1       3  female  22.0        S
-608          609         1       2  female  22.0        C
-708          709         1       1  female  22.0        S
------------------------------------------------------------------
-(23.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-135          136         0       2    male  23.0        C
-350          351         0       3    male  23.0        S
-398          399         0       2    male  23.0        S
-529          530         0       2    male  23.0        S
-658          659         0       2    male  23.0        S
-733          734         0       2    male  23.0        S
-734          735         0       2    male  23.0        S
-753          754         0       3    male  23.0        S
-816          817         0       3  female  23.0        S
-833          834         0       3    male  23.0        S
------------------------------------------------------------------
-(23.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-88            89         1       1  female  23.0        S
-97            98         1       1    male  23.0        C
-393          394         1       1  female  23.0        C
-473          474         1       2  female  23.0        C
-649          650         1       3  female  23.0        S
------------------------------------------------------------------
-(23.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-296          297         0       3  male  23.5        C
------------------------------------------------------------------
-(24.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-89            90         0       3    male  24.0        S
-118          119         0       1    male  24.0        C
-139          140         0       1    male  24.0        C
-199          200         0       2  female  24.0        S
-210          211         0       3    male  24.0        S
-234          235         0       2    male  24.0        S
-293          294         0       3  female  24.0        S
-294          295         0       3    male  24.0        S
-499          500         0       3    male  24.0        S
-514          515         0       3    male  24.0        S
-565          566         0       3    male  24.0        S
-655          656         0       2    male  24.0        S
-743          744         0       3    male  24.0        S
-770          771         0       3    male  24.0        S
-864          865         0       2    male  24.0        S
------------------------------------------------------------------
-(24.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-127          128         1       3    male  24.0        S
-142          143         1       3  female  24.0        S
-247          248         1       2  female  24.0        S
-310          311         1       1  female  24.0        C
-316          317         1       2  female  24.0        S
-341          342         1       1  female  24.0        S
-345          346         1       2  female  24.0        S
-369          370         1       1  female  24.0        C
-394          395         1       3  female  24.0        S
-437          438         1       2  female  24.0        S
-600          601         1       2  female  24.0        S
-615          616         1       2  female  24.0        S
-641          642         1       1  female  24.0        C
-710          711         1       1  female  24.0        C
-858          859         1       3  female  24.0        C
------------------------------------------------------------------
-(24.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-676          677         0       3  male  24.5        S
------------------------------------------------------------------
-(25.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-75            76         0       3    male  25.0        S
-134          135         0       2    male  25.0        S
-246          247         0       3  female  25.0        S
-343          344         0       2    male  25.0        S
-353          354         0       3    male  25.0        S
-442          443         0       3    male  25.0        S
-498          499         0       1  female  25.0        S
-666          667         0       2    male  25.0        S
-685          686         0       2    male  25.0        C
-693          694         0       3    male  25.0        C
-703          704         0       3    male  25.0        Q
-728          729         0       2    male  25.0        S
-729          730         0       3  female  25.0        S
-784          785         0       3    male  25.0        S
-785          786         0       3    male  25.0        S
-794          795         0       3    male  25.0        S
-884          885         0       3    male  25.0        S
------------------------------------------------------------------
-(25.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-267          268         1       3    male  25.0        S
-271          272         1       3    male  25.0        S
-370          371         1       1    male  25.0        C
-484          485         1       1    male  25.0        C
-580          581         1       2  female  25.0        S
-880          881         1       2  female  25.0        S
------------------------------------------------------------------
-(26.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-69            70         0       3    male  26.0        S
-73            74         0       3    male  26.0        C
-93            94         0       3    male  26.0        S
-162          163         0       3    male  26.0        S
-312          313         0       2  female  26.0        S
-401          402         0       3    male  26.0        S
-617          618         0       3  female  26.0        S
-619          620         0       2    male  26.0        S
-628          629         0       3    male  26.0        S
-704          705         0       3    male  26.0        S
-810          811         0       3    male  26.0        S
-870          871         0       3    male  26.0        S
------------------------------------------------------------------
-(26.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-2              3         1       3  female  26.0        S
-207          208         1       3    male  26.0        C
-290          291         1       1  female  26.0        S
-315          316         1       3  female  26.0        S
-509          510         1       3    male  26.0        S
-889          890         1       1    male  26.0        C
------------------------------------------------------------------
-(27.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-41            42         0       2  female  27.0        S
-221          222         0       2    male  27.0        S
-321          322         0       3    male  27.0        S
-377          378         0       1    male  27.0        C
-551          552         0       2    male  27.0        S
-620          621         0       3    male  27.0        C
-886          887         0       2    male  27.0        S
------------------------------------------------------------------
-(27.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-8              9         1       3  female  27.0        S
-146          147         1       3    male  27.0        S
-216          217         1       3  female  27.0        S
-607          608         1       1    male  27.0        S
-681          682         1       1    male  27.0        C
-717          718         1       2  female  27.0        S
-724          725         1       1    male  27.0        S
-804          805         1       3    male  27.0        S
-821          822         1       3    male  27.0        S
-823          824         1       3  female  27.0        S
-866          867         1       2  female  27.0        C
------------------------------------------------------------------
-(28.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-34            35         0       1    male  28.0        C
-83            84         0       1    male  28.0        S
-100          101         0       3  female  28.0        S
-105          106         0       3    male  28.0        S
-169          170         0       3    male  28.0        S
-200          201         0       3    male  28.0        S
-281          282         0       3    male  28.0        S
-313          314         0       3    male  28.0        S
-342          343         0       2    male  28.0        S
-355          356         0       3    male  28.0        S
-392          393         0       3    male  28.0        S
-403          404         0       3    male  28.0        S
-423          424         0       3  female  28.0        S
-508          509         0       3    male  28.0        S
-562          563         0       2    male  28.0        S
-756          757         0       3    male  28.0        S
-848          849         0       2    male  28.0        S
-883          884         0       2    male  28.0        S
------------------------------------------------------------------
-(28.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-23            24         1       1    male  28.0        S
-399          400         1       2  female  28.0        S
-426          427         1       2  female  28.0        S
-430          431         1       1    male  28.0        S
-443          444         1       2  female  28.0        S
-635          636         1       2  female  28.0        S
-874          875         1       2  female  28.0        C
------------------------------------------------------------------
-(28.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-57            58         0       3  male  28.5        C
-735          736         0       3  male  28.5        S
------------------------------------------------------------------
-(29.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-90            91         0       3    male  29.0        S
-117          118         0       2    male  29.0        S
-231          232         0       3    male  29.0        S
-242          243         0       2    male  29.0        S
-251          252         0       3  female  29.0        S
-336          337         0       1    male  29.0        S
-361          362         0       2    male  29.0        C
-422          423         0       3    male  29.0        S
-477          478         0       3    male  29.0        S
-567          568         0       3  female  29.0        S
-713          714         0       3    male  29.0        S
-782          783         0       1    male  29.0        S
------------------------------------------------------------------
-(29.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-53            54         1       2  female  29.0        S
-66            67         1       2  female  29.0        S
-81            82         1       3    male  29.0        S
-133          134         1       2  female  29.0        S
-255          256         1       3  female  29.0        C
-455          456         1       3    male  29.0        C
-510          511         1       3    male  29.0        Q
-730          731         1       1  female  29.0        S
------------------------------------------------------------------
-(30.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-157          158         0       3    male  30.0        S
-178          179         0       2    male  30.0        S
-213          214         0       2    male  30.0        S
-219          220         0       2    male  30.0        S
-244          245         0       3    male  30.0        C
-253          254         0       3    male  30.0        S
-308          309         0       2    male  30.0        C
-365          366         0       3    male  30.0        S
-418          419         0       2    male  30.0        S
-452          453         0       1    male  30.0        C
-488          489         0       3    male  30.0        S
-534          535         0       3  female  30.0        S
-606          607         0       3    male  30.0        S
-798          799         0       3    male  30.0        C
-799          800         0       3  female  30.0        S
------------------------------------------------------------------
-(30.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-79            80         1       3  female  30.0        S
-257          258         1       1  female  30.0        S
-286          287         1       3    male  30.0        S
-309          310         1       1  female  30.0        C
-322          323         1       2  female  30.0        Q
-520          521         1       1  female  30.0        S
-537          538         1       1  female  30.0        C
-726          727         1       2  female  30.0        S
-747          748         1       2  female  30.0        S
-842          843         1       1  female  30.0        C
------------------------------------------------------------------
-(30.5, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-767          768         0       3  female  30.5        Q
-814          815         0       3    male  30.5        S
------------------------------------------------------------------
-(31.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-18            19         0       3  female  31.0        S
-396          397         0       3  female  31.0        S
-439          440         0       2    male  31.0        S
-637          638         0       2    male  31.0        S
-671          672         0       1    male  31.0        S
-749          750         0       3    male  31.0        Q
-805          806         0       3    male  31.0        S
-817          818         0       2    male  31.0        C
-867          868         0       1    male  31.0        S
------------------------------------------------------------------
-(31.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-215          216         1       1  female  31.0        C
-318          319         1       1  female  31.0        S
-328          329         1       3  female  31.0        S
-673          674         1       2    male  31.0        S
-690          691         1       1    male  31.0        S
-744          745         1       3    male  31.0        S
-797          798         1       3  female  31.0        S
-801          802         1       2  female  31.0        S
------------------------------------------------------------------
-(32.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-70            71         0       2    male  32.0        S
-206          207         0       3    male  32.0        S
-382          383         0       3    male  32.0        S
-519          520         0       3    male  32.0        S
-636          637         0       3    male  32.0        S
-657          658         0       3  female  32.0        Q
-665          666         0       2    male  32.0        S
-769          770         0       3    male  32.0        S
-890          891         0       3    male  32.0        Q
------------------------------------------------------------------
-(32.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-74            75         1       3    male  32.0        S
-190          191         1       2  female  32.0        S
-218          219         1       1  female  32.0        C
-429          430         1       3    male  32.0        S
-543          544         1       2    male  32.0        S
-569          570         1       3    male  32.0        S
-579          580         1       3    male  32.0        S
-632          633         1       1    male  32.0        C
-838          839         1       3    male  32.0        S
------------------------------------------------------------------
-(32.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-122          123         0       2  male  32.5        C
------------------------------------------------------------------
-(32.5, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-123          124         1       2  female  32.5        S
------------------------------------------------------------------
-(33.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-103          104         0       3  male  33.0        S
-130          131         0       3  male  33.0        C
-239          240         0       2  male  33.0        S
-285          286         0       3  male  33.0        C
-548          549         0       3  male  33.0        S
-719          720         0       3  male  33.0        S
-752          753         0       3  male  33.0        S
-872          873         0       1  male  33.0        S
-881          882         0       3  male  33.0        S
------------------------------------------------------------------
-(33.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-85            86         1       3  female  33.0        S
-412          413         1       1  female  33.0        Q
-472          473         1       2  female  33.0        S
-506          507         1       2  female  33.0        S
-759          760         1       1  female  33.0        S
-809          810         1       1  female  33.0        S
------------------------------------------------------------------
-(34.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-99           100         0       2  male  34.0        S
-202          203         0       3  male  34.0        S
-405          406         0       2  male  34.0        S
-461          462         0       3  male  34.0        S
-476          477         0       2  male  34.0        S
-616          617         0       3  male  34.0        S
-722          723         0       2  male  34.0        S
-758          759         0       3  male  34.0        S
-800          801         0       2  male  34.0        S
------------------------------------------------------------------
-(34.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-21            22         1       2    male  34.0        S
-98            99         1       2  female  34.0        S
-416          417         1       2  female  34.0        S
-447          448         1       1    male  34.0        S
-516          517         1       2  female  34.0        S
-576          577         1       2  female  34.0        S
------------------------------------------------------------------
-(34.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-843          844         0       3  male  34.5        C
------------------------------------------------------------------
-(35.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-4              5         0       3  male  35.0        S
-20            21         0       2  male  35.0        S
-363          364         0       3  male  35.0        S
-590          591         0       3  male  35.0        S
-614          615         0       3  male  35.0        S
-812          813         0       2  male  35.0        S
-847          848         0       3  male  35.0        C
------------------------------------------------------------------
-(35.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-3              4         1       1  female  35.0        S
-211          212         1       2  female  35.0        S
-230          231         1       1  female  35.0        S
-258          259         1       1  female  35.0        C
-269          270         1       1  female  35.0        S
-279          280         1       3  female  35.0        S
-383          384         1       1  female  35.0        S
-486          487         1       1  female  35.0        S
-604          605         1       1    male  35.0        C
-701          702         1       1    male  35.0        S
-737          738         1       1    male  35.0        C
------------------------------------------------------------------
-(36.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-179          180         0       3  male  36.0        S
-189          190         0       3  male  36.0        S
-265          266         0       2  male  36.0        S
-292          293         0       2  male  36.0        C
-344          345         0       2  male  36.0        S
-450          451         0       2  male  36.0        S
-583          584         0       1  male  36.0        C
-595          596         0       3  male  36.0        S
-605          606         0       3  male  36.0        S
-663          664         0       3  male  36.0        S
-741          742         0       1  male  36.0        S
------------------------------------------------------------------
-(36.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-325          326         1       1  female  36.0        C
-327          328         1       2  female  36.0        S
-387          388         1       2  female  36.0        S
-390          391         1       1    male  36.0        S
-512          513         1       1    male  36.0        S
-518          519         1       2  female  36.0        S
-540          541         1       1  female  36.0        S
-559          560         1       3  female  36.0        S
-572          573         1       1    male  36.0        S
-679          680         1       1    male  36.0        C
-763          764         1       1  female  36.0        S
------------------------------------------------------------------
-(36.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-148          149         0       2  male  36.5        S
------------------------------------------------------------------
-(37.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-104          105         0       3    male  37.0        S
-137          138         0       1    male  37.0        S
-273          274         0       1    male  37.0        C
-503          504         0       3  female  37.0        S
-594          595         0       2    male  37.0        S
------------------------------------------------------------------
-(37.0, 1)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-248          249         1       1  male  37.0        S
------------------------------------------------------------------
-(38.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-108          109         0       3    male  38.0        S
-332          333         0       1    male  38.0        S
-357          358         0       2  female  38.0        S
-465          466         0       3    male  38.0        S
-471          472         0       3    male  38.0        S
-822          823         0       1    male  38.0        S
------------------------------------------------------------------
-(38.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-1              2         1       1  female  38.0        C
-25            26         1       3  female  38.0        S
-61            62         1       1  female  38.0      NaN
-224          225         1       1    male  38.0        S
-716          717         1       1  female  38.0        C
------------------------------------------------------------------
-(39.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-13            14         0       3    male  39.0        S
-528          529         0       3    male  39.0        S
-610          611         0       3  female  39.0        S
-705          706         0       2    male  39.0        S
-795          796         0       2    male  39.0        S
-806          807         0       1    male  39.0        S
-808          809         0       2    male  39.0        S
-811          812         0       3    male  39.0        S
-885          886         0       3  female  39.0        Q
------------------------------------------------------------------
-(39.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-400          401         1       3    male  39.0        S
-558          559         1       1  female  39.0        S
-577          578         1       1  female  39.0        S
-581          582         1       1  female  39.0        C
-835          836         1       1  female  39.0        C
------------------------------------------------------------------
-(40.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-30            31         0       1    male  40.0        C
-40            41         0       3  female  40.0        S
-188          189         0       3    male  40.0        Q
-263          264         0       1    male  40.0        S
-360          361         0       3    male  40.0        S
-561          562         0       3    male  40.0        S
-661          662         0       3    male  40.0        C
------------------------------------------------------------------
-(40.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-161          162         1       2  female  40.0        S
-209          210         1       1    male  40.0        C
-319          320         1       1  female  40.0        C
-346          347         1       2  female  40.0        S
-609          610         1       1  female  40.0        S
-670          671         1       2  female  40.0        S
------------------------------------------------------------------
-(40.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-153          154         0       3  male  40.5        S
-525          526         0       3  male  40.5        Q
------------------------------------------------------------------
-(41.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-254          255         0       3  female  41.0        S
-638          639         0       3  female  41.0        S
-761          762         0       3    male  41.0        S
-860          861         0       3    male  41.0        S
------------------------------------------------------------------
-(41.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-272          273         1       2  female  41.0        S
-337          338         1       1  female  41.0        C
------------------------------------------------------------------
-(42.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-35            36         0       1  male  42.0        S
-149          150         0       2  male  42.0        S
-197          198         0       3  male  42.0        S
-217          218         0       2  male  42.0        S
-349          350         0       3  male  42.0        S
-699          700         0       3  male  42.0        S
-845          846         0       3  male  42.0        S
------------------------------------------------------------------
-(42.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-288          289         1       2    male  42.0        S
-380          381         1       1  female  42.0        C
-432          433         1       2  female  42.0        S
-621          622         1       1    male  42.0        S
-707          708         1       1    male  42.0        S
-865          866         1       2  female  42.0        S
------------------------------------------------------------------
-(43.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-314          315         0       2    male  43.0        S
-668          669         0       3    male  43.0        S
-678          679         0       3  female  43.0        S
-818          819         0       3    male  43.0        S
------------------------------------------------------------------
-(43.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-779          780         1       1  female  43.0        S
------------------------------------------------------------------
-(44.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-160          161         0       3    male  44.0        S
-236          237         0       2    male  44.0        S
-245          246         0       1    male  44.0        Q
-603          604         0       3    male  44.0        S
-696          697         0       3    male  44.0        S
-854          855         0       2  female  44.0        S
------------------------------------------------------------------
-(44.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-194          195         1       1  female  44.0        C
-414          415         1       3    male  44.0        S
-523          524         1       1  female  44.0        C
------------------------------------------------------------------
-(45.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-62            63         0       1    male  45.0        S
-129          130         0       3    male  45.0        S
-167          168         0       3  female  45.0        S
-276          277         0       3  female  45.0        S
-339          340         0       1    male  45.0        S
-362          363         0       3  female  45.0        C
-536          537         0       1    male  45.0        S
------------------------------------------------------------------
-(45.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-187          188         1       1    male  45.0        S
-338          339         1       3    male  45.0        S
-440          441         1       2  female  45.0        S
-706          707         1       2  female  45.0        S
-856          857         1       1  female  45.0        S
------------------------------------------------------------------
-(45.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-203          204         0       3  male  45.5        C
-331          332         0       1  male  45.5        S
------------------------------------------------------------------
-(46.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-92            93         0       1  male  46.0        S
-397          398         0       2  male  46.0        S
-789          790         0       1  male  46.0        C
------------------------------------------------------------------
-(47.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-110          111         0       1    male  47.0        S
-132          133         0       3  female  47.0        S
-462          463         0       1    male  47.0        S
-515          516         0       1    male  47.0        S
-586          587         0       2    male  47.0        S
-592          593         0       3    male  47.0        S
-662          663         0       1    male  47.0        S
-873          874         0       3    male  47.0        S
------------------------------------------------------------------
-(47.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-871          872         1       1  female  47.0        S
------------------------------------------------------------------
-(48.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-463          464         0       2    male  48.0        S
-736          737         0       3  female  48.0        S
-771          772         0       3    male  48.0        S
------------------------------------------------------------------
-(48.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-460          461         1       1    male  48.0        S
-556          557         1       1  female  48.0        C
-645          646         1       1    male  48.0        C
-712          713         1       1    male  48.0        S
-754          755         1       2  female  48.0        S
-862          863         1       1  female  48.0        S
------------------------------------------------------------------
-(49.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-597          598         0       3  male  49.0        S
-698          699         0       1  male  49.0        C
------------------------------------------------------------------
-(49.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-52            53         1       1  female  49.0        C
-453          454         1       1    male  49.0        C
-599          600         1       1    male  49.0        C
-796          797         1       1  female  49.0        S
------------------------------------------------------------------
-(50.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-177          178         0       1  female  50.0        C
-434          435         0       1    male  50.0        S
-482          483         0       3    male  50.0        S
-544          545         0       1    male  50.0        C
-723          724         0       2    male  50.0        S
------------------------------------------------------------------
-(50.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-259          260         1       2  female  50.0        S
-299          300         1       1  female  50.0        C
-458          459         1       2  female  50.0        S
-526          527         1       2  female  50.0        S
-660          661         1       1    male  50.0        S
------------------------------------------------------------------
-(51.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-150          151         0       2  male  51.0        S
-155          156         0       1  male  51.0        C
-222          223         0       3  male  51.0        S
-406          407         0       3  male  51.0        S
-631          632         0       3  male  51.0        S
------------------------------------------------------------------
-(51.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-765          766         1       1  female  51.0        S
-857          858         1       1    male  51.0        S
------------------------------------------------------------------
-(52.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-262          263         0       1  male  52.0        S
-695          696         0       2  male  52.0        S
-714          715         0       2  male  52.0        S
------------------------------------------------------------------
-(52.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-449          450         1       1    male  52.0        S
-591          592         1       1  female  52.0        C
-820          821         1       1  female  52.0        S
------------------------------------------------------------------
-(53.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-571          572         1       1  female  53.0        S
------------------------------------------------------------------
-(54.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-6              7         0       1  male  54.0        S
-124          125         0       1  male  54.0        S
-249          250         0       2  male  54.0        S
-317          318         0       2  male  54.0        S
-582          583         0       2  male  54.0        S
------------------------------------------------------------------
-(54.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-496          497         1       1  female  54.0        C
-513          514         1       1  female  54.0        C
-774          775         1       2  female  54.0        S
------------------------------------------------------------------
-(55.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-492          493         0       1  male  55.0        S
------------------------------------------------------------------
-(55.0, 1)
-    PassengerId  Survived  Pclass     Sex   Age Embarked
-15           16         1       2  female  55.0        S
------------------------------------------------------------------
-(55.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-152          153         0       3  male  55.5        S
------------------------------------------------------------------
-(56.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-174          175         0       1  male  56.0        C
-467          468         0       1  male  56.0        S
------------------------------------------------------------------
-(56.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-647          648         1       1    male  56.0        C
-879          880         1       1  female  56.0        C
------------------------------------------------------------------
-(57.0, 0)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-626          627         0       2    male  57.0        Q
-772          773         0       2  female  57.0        S
------------------------------------------------------------------
-(58.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-487          488         0       1  male  58.0        C
-659          660         0       1  male  58.0        C
------------------------------------------------------------------
-(58.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-11            12         1       1  female  58.0        S
-195          196         1       1  female  58.0        C
-268          269         1       1  female  58.0        S
------------------------------------------------------------------
-(59.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-94            95         0       3  male  59.0        S
-232          233         0       2  male  59.0        S
------------------------------------------------------------------
-(60.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-684          685         0       2  male  60.0        S
-694          695         0       1  male  60.0        S
------------------------------------------------------------------
-(60.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-366          367         1       1  female  60.0        C
-587          588         1       1    male  60.0        C
------------------------------------------------------------------
-(61.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-170          171         0       1  male  61.0        S
-326          327         0       3  male  61.0        S
-625          626         0       1  male  61.0        S
------------------------------------------------------------------
-(62.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-252          253         0       1  male  62.0        S
-555          556         0       1  male  62.0        S
------------------------------------------------------------------
-(62.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-570          571         1       2    male  62.0        S
-829          830         1       1  female  62.0      NaN
------------------------------------------------------------------
-(63.0, 1)
-     PassengerId  Survived  Pclass     Sex   Age Embarked
-275          276         1       1  female  63.0        S
-483          484         1       3  female  63.0        S
------------------------------------------------------------------
-(64.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-438          439         0       1  male  64.0        S
-545          546         0       1  male  64.0        S
------------------------------------------------------------------
-(65.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-54            55         0       1  male  65.0        C
-280          281         0       3  male  65.0        Q
-456          457         0       1  male  65.0        S
------------------------------------------------------------------
-(66.0, 0)
-    PassengerId  Survived  Pclass   Sex   Age Embarked
-33           34         0       2  male  66.0        S
------------------------------------------------------------------
-(70.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-672          673         0       2  male  70.0        S
-745          746         0       1  male  70.0        S
------------------------------------------------------------------
-(70.5, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-116          117         0       3  male  70.5        Q
------------------------------------------------------------------
-(71.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-96            97         0       1  male  71.0        C
-493          494         0       1  male  71.0        C
------------------------------------------------------------------
-(74.0, 0)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-851          852         0       3  male  74.0        S
------------------------------------------------------------------
-(80.0, 1)
-     PassengerId  Survived  Pclass   Sex   Age Embarked
-630          631         1       1  male  80.0        S
 -----------------------------------------------------------------
 </pre>
 </div>
@@ -5391,6 +4309,150 @@ onIa3NucMoIAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>所以，其实到了这一步我们仅仅只是搭建了一个非常简陋的模型。我们还有很多事情要做，比如<strong>特征值的优化(我们预测的年龄值并非准确)、交叉验证、网格搜索来确定超参、模型融合</strong>等等.</p>
+<p>后来我通过网格搜索得到一些比较好的超参数。忘记截图了，我把参数贴上来。</p>
+<pre><code>rfc = RandomForestClassifier(n_estimators=200,n_jobs=-1,criterion='entropy',max_depth=150,min_samples_leaf=2,min_samples_split=1)</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="s1">'icons/Titanic_score.png'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+<div class="output_png output_subarea output_execute_result">
+<img src="data:image/png;base64,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
+AABJRU5ErkJggg==
+">
+</img></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>在后面的文章中我会再继续深入地讲解，尤其在<strong>提取特征值</strong>这一块，很重要！</p>
 </div>
 </div>
