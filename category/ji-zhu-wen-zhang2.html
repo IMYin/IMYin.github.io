@@ -76,6 +76,30 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-lg-12">
             <article>
+                <h2><a href="https://IMYin.github.io/2016/10/30/begin-tensorflow/">初识TensorFlow</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="什么是TensorFlow">什么是TensorFlow<a class="anchor-link" href="#什么是TensorFlow">¶</a></h3><p>上篇文章中我介绍了如何安装TensorFlow，之所以要分开写这两篇文章，是为了以后如果换机器的话能够快速的在我的笔记中找到安装方法。哈哈，那么这篇文章我就详细介绍一下什么是TensorFlow，以及来通过一个小例子说明它的神奇之处。</p>
+<p>它是一个可以用数据流图在学习模型的机器学习库，主要的目的是用来解决自然语言处理(NLP)以及图像识别任务。用户可以自己用TensorFlow为深度学习创建一个神经网络结构，并且TensorFlow还允许用户与统计机器学习算法一起使用。但是目前它的使用条件比较苛刻，必须是在它允许的依赖环境中开发程序。此外，Tensorflow是第二代机器学习系统，它已经建立完善并且取代了它的前身DistBelief.</p>
+<h3 id="什么是数据流图(data-flow-graph)">什么是数据流图(data flow graph)<a class="anchor-link" href="#什么是数据流图(data-flow-graph)">¶</a>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/30/begin-tensorflow/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/10/30/install-TensorFlow/">安装TensorFlow</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/30/install-TensorFlow/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/10/30/Ubuntu-dpkg/">处理Ubuntu中的dpkg错误</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing code_cell rendered">
@@ -207,39 +231,6 @@ Yin's Blog            </a>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/06/聊聊随机森林/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees/">决策树－非线性分类与回归</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="决策树简介　　">决策树简介　　<a class="anchor-link" href="#决策树简介　　">¶</a></h3><p>决策树就像一个树状的决策模型。它通常将解释变量递归地切分成子集来学习，如下图所示。决策树的节点用方块表示，用来测试解释变量。</p>
-<p>这些节点通过边缘连接来指定输出。比如用某个节点来测试解释变量是否超出了阈值，如果没有超过，就指向左边的节点，如果超过了，就指向右边节点。就这样重复这一过程，到达终止条件即停止。在分类问题中，叶子节点就代表着类别；在回归问题中，所有响应变量的值取平均值来作为响应变量的估计值。　　</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/28/Nonlinear Classification and Regression with Decision Trees/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/25/From Linear Regression to Logistic Regression/">从线性回归到逻辑回归：解决二元分类问题</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="从线性回归到逻辑回归">从线性回归到逻辑回归<a class="anchor-link" href="#从线性回归到逻辑回归">¶</a></h3><p>之前在线性回归的文章中，我们聊过一元线性回归以及多项式回归，虽然并没有太多的文字说明，但是很简单，相信一眼就可以看懂什么意思。在这篇文章中，我们来聊一聊广义线性回归模型另外一种具体形式——<a href="https://en.wikipedia.org/wiki/Logistic_regression">逻辑回归</a></p>
-<p>首先需要清楚地是，逻辑回归和线性回归是不一样的，它是用来处理分类问题的。分类任务的目标就是找到一个函数，将观测值匹配到正确的类别上。它需要成对的特征向量和对应的标签来估计匹配函数的参数，这也就是所谓的<a href="https://en.wikipedia.org/wiki/Supervised_learning">监督学习</a>。在<a href="https://en.wikipedia.org/wiki/Binary_classification">二元分类(binary classification)</a>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/25/From Linear Regression to Logistic Regression/">more ...</a>
                 </div>
             </article>
             <hr/>
