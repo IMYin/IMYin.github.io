@@ -3381,7 +3381,7 @@ SOT/Ar8YL6+kx1WcAAAAAElFTkSuQmCC
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="发送图片">发送图片<a class="anchor-link" href="#发送图片">¶</a></h3><p>如果要把一个图片嵌入到邮件正文中怎么做？直接在HTML邮件中链接图片地址行不行？答案是，大部分邮件服务商都会自动屏蔽带有外链的图片，因为不知道这些链接是否指向恶意网站。</p>
 <p>要把图片嵌入到邮件正文中，我们只需按照发送附件的方式，先把邮件作为附件添加进去，然后，在HTML中通过<strong>src="cid:0"</strong>就可以把附件作为图片嵌入了。如果有多个图片，给它们依次编号，然后引用不同的<strong>cid:x</strong>即可。</p>
-<p>把上面代码加入 <strong>MIMEMultipart</strong> 的 <strong>MIMEText</strong> 从 <strong>plain</strong> 改为 <strong>html</strong> ，然后在适当的位置引用图片：</p>
+<p>把上面代码加入 <strong>MIMEMultipart</strong> 的 <strong>MIMEText</strong> 从 <strong>plain</strong> 改为 <strong>html</strong> ，然后在适当的位置引用图片.</p>
 </div>
 </div>
 </div>
@@ -3390,22 +3390,11 @@ SOT/Ar8YL6+kx1WcAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<pre><code>msg.attach(MIMEText('<html><body><h1>Hello</h1>' +
-    '<p><img src="cid:0"></p>' +
-    '', 'html', 'utf-8'))
-
-
-
-
-
-
-
-
-参考¶[1] http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832745198026a685614e7462fb57dbf733cc9f3ad000
-[2] https://docs.python.org/2/library/email-examples.html
-
-
-
+<h3 id="参考">参考<a class="anchor-link" href="#参考">¶</a></h3><p>[1] <a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832745198026a685614e7462fb57dbf733cc9f3ad000">http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386832745198026a685614e7462fb57dbf733cc9f3ad000</a></p>
+<p>[2] <a href="https://docs.python.org/2/library/email-examples.html">https://docs.python.org/2/library/email-examples.html</a></p>
+</div>
+</div>
+</div>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
