@@ -1090,7 +1090,7 @@ h6:hover .anchor-link {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="NumPy-Arrays">NumPy Arrays<a class="anchor-link" href="#NumPy-Arrays">¶</a></h3><p>Numpy is the <u>fundamental</u>(基本的) Python package for scientific computing. It adds the capabilities of N-dimensional arrays,element-by-element operations(broadcasting),core mathematical operations like linear algebra,and the ability to <u>wrap</u>(包裹、包扎) C/C++/Fortran code. We will cover most of these aspects in this chapter by first covering what Numpy arrays are,and their advantages versus Python lists and dictionaries.</p>
 <p>Python stores data in several different ways,but the most popular methods are <em>lists</em> and <em>dictionaries</em>.The Python list object can store nearly any type of Python object as an element.But operating on the elements in a list can only be done through iterative loops,which is computationally <u>inefficient</u>(低效率的) in Python.The Numpy package enables users to overcome the shortcomings of the Python lists by providing a data sotrage object called <strong>ndarray</strong>.</p>
-<p><u>The **ndarray** is similar to lists,but rather than being highly flexible by storing different types of objects in one list,only the same type of element can be stored in each column</u>(ndarray就像一些list的集合，通过存储不同类型的对象可以使这个list很复杂，但是每一列中的元素类型都要是一样的). For example,with a Python list,you could make the first element a list and the second another list or dictionary.With Numpy arrays,you can only store the same type of element,e.g.,all elements must be floats,integers,or strings.Despite this <u>limitation</u>(局限性),<strong>ndarray</strong> wins hands down when it comes to operation times, as the operations are <u>sped up</u>(加快) <u>significantly</u>(显著得). Using the <strong>%timeit</strong> magic command in IPython,we compare the power of Numpy ndarray <u>versus</u>(与) Python lists in terms of speed.</p>
+<p><u>The</u> <strong><u>ndarray</u></strong> <u>is similar to lists,but rather than being highly flexible by storing different types of objects in one list,only the same type of element can be stored in each column</u>(ndarray就像一些list的集合，通过存储不同类型的对象可以使这个list很复杂，但是每一列中的元素类型都要是一样的). For example,with a Python list,you could make the first element a list and the second another list or dictionary.With Numpy arrays,you can only store the same type of element,e.g.,all elements must be floats,integers,or strings.Despite this <u>limitation</u>(局限性),<strong>ndarray</strong> wins hands down when it comes to operation times, as the operations are <u>sped up</u>(加快) <u>significantly</u>(显著得). Using the <strong>%timeit</strong> magic command in IPython,we compare the power of Numpy ndarray <u>versus</u>(与) Python lists in terms of speed.</p>
 </div>
 </div>
 </div>
@@ -1852,6 +1852,16 @@ class enumerate(object)
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">
+                            Numpy ---> Read and Write
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2016/11/27/boolean statements of python/">
+                            Numpy ---> Boolean Statements and Numpy Arrays
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2016/11/26/PRIDE-AND-PREJUDICE-1/">
                             Chapter 1
                         </a>
@@ -1864,16 +1874,6 @@ class enumerate(object)
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2016/11/25/hive-tech/">
                             Hive技巧(1)
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2016/11/20/欢乐颂有感/">
-                            彻夜未眠，下床有感
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2016/11/18/lambda-in-python/">
-                            Lambda Expressions in Python
                         </a>
                     </li>
                 </ul>

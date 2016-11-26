@@ -70,6 +70,57 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="https://IMYin.github.io/2016/10/20/ftp2hive/">FTP数据入库Hive(shell实现)</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>今天聊一聊我们公司辽宁项目中是怎样做数据处理的。
+先来看一下处理数据的架构，非常之简单：</p>
+<p>当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。</p>
+<p>先简单说一下我们这个loooooooooow架构：</p>
+<center>FTP共享平台</center>
+<center>$\Downarrow$</center>
+<center>4台交换机</center>
+<center>$\Downarrow$</center>
+<center>17台规模的Hadoop集群</center><p>其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 
+为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 
+代码如下：</p>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/20/ftp2hive/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/10/16/SVM/">浅谈支持向量机</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>讲支持向量机的文章真的太多了，我觉得讲得最全面的要属<a href="http://blog.csdn.net/macyang/article/details/38782399/">这一篇</a>了.我是没有那么深厚的数学功底，写不出那么多理论知识。ok,我是一个崇尚实践的孩子，所以在这里，今天我就以一个实践者的眼光，来浅陋地聊一聊支持向量机，也是为了让自己日后根据这么一种思维来更加方便得理解这个算法。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="什么是支持向量机(SVM)">什么是支持向量机(SVM)<a class="anchor-link" href="#什么是支持向量机(SVM)">¶</a></h3><p>在<a href="http://imyin.xyz/2016/10/14/perceptron/">《感知机》</a>那篇文章中提到过，感知机是理解支持向量机与神经网络的基础，所以在我看来，支持向量机与其类似，要时刻牢记两个字儿：<strong>让分类最优</strong>以及<strong>让损失最小</strong>。</p>
+<p>首先如何理解让分类最优。假如一个二维平面中有一些点，我们用一个超平面将这些点分为两类，那么感知机求的是什么，是要求最大间隔，因为只有求出最大间隔，才代表分类效果最好。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/10/16/SVM/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/10/14/perceptron/">感知机</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -204,24 +255,11 @@ Yin's Blog            </a>
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/09/20/Linear Regression with scikit-learn/">线性回归</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>这篇文章中介绍如何用线性模型处理回归问题。<br>
-首先从简单开始，处理一元问题，之后1个响应变量(response variable)和1个解释变量(explanatory variable)</br>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/09/20/Linear Regression with scikit-learn/">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pager">
                 <li class="previous"><a href="https://IMYin.github.io/category/ji-zhu-wen-zhang2.html">&larr; Newer</a></li>
-                <li class="next disabled"><a href="#">Older &rarr;</a></li>
+                <li class="next"><a
+                        href="https://IMYin.github.io/category/ji-zhu-wen-zhang4.html">Older &rarr;</a></li>
         </ul>
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -232,6 +270,16 @@ Yin's Blog            </a>
 
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">
+                            Numpy ---> Read and Write
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2016/11/27/boolean statements of python/">
+                            Numpy ---> Boolean Statements and Numpy Arrays
+                        </a>
+                    </li>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2016/11/26/numpy-array/">
                             Numpy ---> Numpy Array
@@ -245,16 +293,6 @@ Yin's Blog            </a>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2016/11/18/lambda-in-python/">
                             Lambda Expressions in Python
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2016/11/17/DistributedCacheInHadoop/">
-                            DistributedCache in Hadoop
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2016/11/16/send-mail-with-python/">
-                            Send mail with Python
                         </a>
                     </li>
                 </ul>
