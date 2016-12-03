@@ -70,6 +70,32 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">Scraping with __doPostBack</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>这几天在做自己的项目，其中有一项任务是爬虫。但是中途发现了一个比较棘手的问题，当我想爬取第二页的内容时，发现点进去之后网站的url不会发生改变。并且要想爬去第二页的内容也必须要触发点击事件之后才可以进入网页，在源码中显示的是</p>
+<pre><code>href="javascript:__doPostBack('pagerQuestion','2')"
+
+</code></pre>
+<p>之后我在源码中看到了这样的代码：</p>
+<pre><code>function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+
+</code>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">Scipy ---> Integration</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -221,15 +247,6 @@ STORED AS TEXTFILE;</code>
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/11/17/DistributedCacheInHadoop/">DistributedCache in Hadoop</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/17/DistributedCacheInHadoop/">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pager">
                 <li class="previous disabled"><a href="#">&larr; Newer</a></li>
@@ -245,6 +262,11 @@ STORED AS TEXTFILE;</code>
 
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">
+                            Scraping with __doPostBack
+                        </a>
+                    </li>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">
                             Scipy ---> Integration
@@ -263,11 +285,6 @@ STORED AS TEXTFILE;</code>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2016/11/27/math-in-numpy/">
                             Numpy ---> Math
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">
-                            Numpy ---> Read and Write
                         </a>
                     </li>
                 </ul>
