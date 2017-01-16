@@ -67,6 +67,51 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="https://IMYin.github.io/2017/01/16/python-requests-cannot-get-response-location/">python requests cannot get response location</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>最近想通过python的<strong>urllib</strong>库来下载一些文件，但是结果不如愿，因为下载下来的文件并不是想要的，看看原因发现，网页在过程中发生了重定向(状态码为<em>302</em>)</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/01/16/python-requests-cannot-get-response-location/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">shell if 语句在cron中不生效</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>背景：</strong>想要执行一个shell脚本，做个定时任务，但是在shell中用了<strong>if</strong>语句却不生效，但是手动执行这个shell就生效。</p>
+<p>shell:</p>
+<pre><code>export PYTHON_HOME="/home/imyin/anaconda2/bin/python"
+
+my_path="$(cd "$(dirname "$0")"; pwd)"
+cd ${my_path}
+
+TODAY_DATE=`date +%Y-%m-%d`
+trade_date=`cat ${my_path}/trade_date.csv`
+
+if [[ ${trade_date} == *${TODAY_DATE}* ]]; then
+echo "Yes..."
+else
+echo "No..."
+fi</code>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2017/01/09/matplotlib-with-cron/">matplotlib savefig doesn't work when run with crontab</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -179,32 +224,6 @@ Ubuntu 16.04.1 LTS
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">Numpy ---> Read and Write</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Reading-and-Write">Reading and Write<a class="anchor-link" href="#Reading-and-Write">¶</a>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/11/27/boolean statements of python/">Numpy ---> Boolean Statements and Numpy Arrays</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Boolean-Statements-and-Numpy-Arrays">Boolean Statements and Numpy Arrays<a class="anchor-link" href="#Boolean-Statements-and-Numpy-Arrays">¶</a>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/boolean statements of python/">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pager">
                 <li class="previous disabled"><a href="#">&larr; Newer</a></li>
@@ -221,6 +240,16 @@ Ubuntu 16.04.1 LTS
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/01/16/python-requests-cannot-get-response-location/">
+                            python requests cannot get response location
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">
+                            shell if 语句在cron中不生效
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/01/09/matplotlib-with-cron/">
                             matplotlib savefig doesn't work when run with crontab
                         </a>
@@ -233,16 +262,6 @@ Ubuntu 16.04.1 LTS
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2016/12/11/work-record/">
                             工作回忆录1（20161130-20161209）
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">
-                            Scraping with __doPostBack
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">
-                            Scipy ---> Integration
                         </a>
                     </li>
                 </ul>
