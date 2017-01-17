@@ -3293,51 +3293,31 @@ LIIgCIIgyH8HGpNFkP91lpaWnLULCIIgyL8d6rdDEARBEAT570BtOwRBEARBkP8O1LZDEARBEAT5
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [3]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">u"http://ggjd.cnstock.com/ggjd/download/2000684852.PDF"</span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
-<span class="n">req</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="n">req</span><span class="o">.</span><span class="n">status_code</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s2">u"http://ggjd.cnstock.com/ggjd/download/2000684852.PDF"</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>200</pre>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [5]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">req</span><span class="o">.</span><span class="n">history</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">req</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>[]</pre>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [8]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span>
@@ -3350,7 +3330,7 @@ LIIgCIIgyH8HGpNFkP91lpaWnLULCIIgyL8d6rdDEARBEAT570BtOwRBEARBkP8O1LZDEARBEAT5
 <div class="output">
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{'X-Via': '1.1 iazai238:0 (Cdn Cache Server V2.0)', 'X-Powered-By': 'PHP/5.3.25', 'Transfer-Encoding': 'chunked', 'Content-Encoding': 'gzip', 'Server': 'nginx', 'Connection': 'keep-alive', 'Date': 'Mon, 16 Jan 2017 15:45:28 GMT', 'Content-Type': 'text/html; charset=utf-8'}
+<pre>{'X-Via': '1.1 iazai238:0 (Cdn Cache Server V2.0)', 'X-Powered-By': 'PHP/5.3.25', 'Transfer-Encoding': 'chunked', 'Content-Encoding': 'gzip', 'Server': 'nginx', 'Connection': 'keep-alive', 'Date': 'Tue, 17 Jan 2017 13:20:29 GMT', 'Content-Type': 'text/html; charset=utf-8'}
 http://ggjd.cnstock.com/ggjd/download/2000684852.PDF
 </pre>
 </div>
@@ -3916,7 +3896,7 @@ EQh58n+Yz9kAakQmuAAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [10]:</div>
+<div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">url1</span> <span class="o">=</span> <span class="s2">u"http://ggjd.cnstock.com/ggdl/download/2000684852.PDF"</span>
