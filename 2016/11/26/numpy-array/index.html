@@ -268,6 +268,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -288,11 +289,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -1030,8 +1026,10 @@ h6:hover .anchor-link {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -1042,9 +1040,11 @@ h6:hover .anchor-link {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
 <style type="text/css">
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
@@ -1133,7 +1133,8 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Help on class enumerate in module __builtin__:
 
@@ -1192,7 +1193,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1 loop, best of 3: 313 ms per loop
 </pre>
@@ -1213,7 +1215,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1 loop, best of 3: 861 ms per loop
 </pre>
@@ -1336,7 +1339,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[5]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([ 0.,  0.], dtype=float32)</pre>
 </div>
@@ -1378,7 +1382,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(10000,)
 </pre>
@@ -1424,7 +1429,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[7]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([99999,     1,     2,     3,     4,     5,     6,     7,     8,     9])</pre>
 </div>
@@ -1455,7 +1461,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[8]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</pre>
 </div>
@@ -1489,7 +1496,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(0, 0.0, '') (0, 0.0, '')]
 [(1, 2.0, 'Hello') (2, 3.0, 'World')]
@@ -1534,7 +1542,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[10]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([(1, 0.0, 'Hello'), (2, 1.0, 'World')], 
       dtype=[('f0', '<i4&#x27;), (&#x27;f1&#x27;, &#x27;&lt;f4&#x27;), (&#x27;f2&#x27;, &#x27;s10&#x27;)])&lt; pre>
@@ -1563,7 +1572,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[11]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([1, 2], dtype=int32)</pre>
 </div>
@@ -1597,7 +1607,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[12]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>2</pre>
 </div>
@@ -1649,17 +1660,20 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>2</pre>
 </div>
 </div>
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([2, 4])</pre>
 </div>
 </div>
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([3, 4])</pre>
 </div>
@@ -1704,7 +1718,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>(array([3, 4]),)
 </pre>
@@ -1727,7 +1742,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[17]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([3, 4])</pre>
 </div>
@@ -1758,7 +1774,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[18]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([0, 1, 2])</pre>
 </div>
@@ -1790,7 +1807,8 @@ class enumerate(object)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[False False False  True  True]
 [3 4]
@@ -1809,6 +1827,7 @@ class enumerate(object)
 </div>
 </div>
 </div>
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -1852,6 +1871,11 @@ class enumerate(object)
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
+                            update ssh for red-hat
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/02/17/hey-guys/">
                             hey,guys
                         </a>
@@ -1869,11 +1893,6 @@ class enumerate(object)
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">
                             shell if 语句在cron中不生效
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/09/matplotlib-with-cron/">
-                            matplotlib savefig doesn't work when run with crontab
                         </a>
                     </li>
                 </ul>

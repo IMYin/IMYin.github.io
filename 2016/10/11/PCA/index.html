@@ -268,6 +268,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -288,11 +289,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -1030,8 +1026,10 @@ h6:hover .anchor-link {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -1042,9 +1040,11 @@ h6:hover .anchor-link {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
 <style type="text/css">
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
@@ -1139,7 +1139,8 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[[ 0.04916667  0.01416667  0.01916667]
  [ 0.01416667  0.00916667 -0.00583333]
@@ -1259,7 +1260,8 @@ $$</p>
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[2]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>array([-0.82797018,  1.77758031, -0.99219749, -0.27421042, -1.67580141,
        -0.9129491 ,  0.09910944,  1.14457216,  0.43804613,  1.22382055])</pre>
@@ -1295,7 +1297,8 @@ $$</p>
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[3]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>{'DESCR': 'Iris Plants Database\n\nNotes\n-----\nData Set Characteristics:\n    :Number of Instances: 150 (50 in each of three classes)\n    :Number of Attributes: 4 numeric, predictive attributes and the class\n    :Attribute Information:\n        - sepal length in cm\n        - sepal width in cm\n        - petal length in cm\n        - petal width in cm\n        - class:\n                - Iris-Setosa\n                - Iris-Versicolour\n                - Iris-Virginica\n    :Summary Statistics:\n\n    ============== ==== ==== ======= ===== ====================\n                    Min  Max   Mean    SD   Class Correlation\n    ============== ==== ==== ======= ===== ====================\n    sepal length:   4.3  7.9   5.84   0.83    0.7826\n    sepal width:    2.0  4.4   3.05   0.43   -0.4194\n    petal length:   1.0  6.9   3.76   1.76    0.9490  (high!)\n    petal width:    0.1  2.5   1.20  0.76     0.9565  (high!)\n    ============== ==== ==== ======= ===== ====================\n\n    :Missing Attribute Values: None\n    :Class Distribution: 33.3% for each of 3 classes.\n    :Creator: R.A. Fisher\n    :Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)\n    :Date: July, 1988\n\nThis is a copy of UCI ML iris datasets.\nhttp://archive.ics.uci.edu/ml/datasets/Iris\n\nThe famous Iris database, first used by Sir R.A Fisher\n\nThis is perhaps the best known database to be found in the\npattern recognition literature.  Fisher\'s paper is a classic in the field and\nis referenced frequently to this day.  (See Duda & Hart, for example.)  The\ndata set contains 3 classes of 50 instances each, where each class refers to a\ntype of iris plant.  One class is linearly separable from the other 2; the\nlatter are NOT linearly separable from each other.\n\nReferences\n----------\n   - Fisher,R.A. "The use of multiple measurements in taxonomic problems"\n     Annual Eugenics, 7, Part II, 179-188 (1936); also in "Contributions to\n     Mathematical Statistics" (John Wiley, NY, 1950).\n   - Duda,R.O., & Hart,P.E. (1973) Pattern Classification and Scene Analysis.\n     (Q327.D83) John Wiley & Sons.  ISBN 0-471-22361-1.  See page 218.\n   - Dasarathy, B.V. (1980) "Nosing Around the Neighborhood: A New System\n     Structure and Classification Rule for Recognition in Partially Exposed\n     Environments".  IEEE Transactions on Pattern Analysis and Machine\n     Intelligence, Vol. PAMI-2, No. 1, 67-71.\n   - Gates, G.W. (1972) "The Reduced Nearest Neighbor Rule".  IEEE Transactions\n     on Information Theory, May 1972, 431-433.\n   - See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al"s AUTOCLASS II\n     conceptual clustering system finds 3 classes in the data.\n   - Many, many more ...\n',
  'data': array([[ 5.1,  3.5,  1.4,  0.2],
@@ -1511,7 +1514,8 @@ $$</p>
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_png output_subarea ">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXwAAAEACAYAAACwB81wAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAALEgAACxIB0t1+/AAAIABJREFUeJzt3X2MHPWZJ/Dv0902bjDxDbZnMIzwvmQRmNNdkj/wePBL
@@ -1703,7 +1707,8 @@ AI4BuFJEfisid0bcnusAfBHADeawvlfNRCJqywCMmv+//RzAs6r6VMRtiqMeAEfNvo6fATioqs81
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[5]:</div>
 <div class="output_png output_subarea output_execute_result">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAABwCAAAAAC26kjJAAAABGdBTUEAALGOfPtRkwAAAAlwSFlz
 AAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUATWljcm9zb2Z0IE9mZmljZX/tNXEAACMZSURB
@@ -1909,7 +1914,8 @@ zO9ez3b2HZCKxN1S2S83jCTd3R3Srr/K/BgLGPZejwR9Hr8HwYCot6xoNYsTI8DywcHBm2DduPPg
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/home/sunnyin/anaconda2/lib/python2.7/site-packages/sklearn/preprocessing/data.py:184: UserWarning: Numerical issues were encountered when scaling the data and might not be solved. The standard deviation of the data is probably very close to 0. 
   warnings.warn("Numerical issues were encountered "
@@ -1918,7 +1924,8 @@ zO9ez3b2HZCKxN1S2S83jCTd3R3Srr/K/BgLGPZejwR9Hr8HwYCot6xoNYsTI8DywcHBm2DduPPg
 </pre>
 </div>
 </div>
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>The original dimensions of the training data were:(300, 10304)
 The reduced dimensions of the training data are(300, 150)
@@ -1945,7 +1952,8 @@ The reduced dimensions of the training data are(300, 150)
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Cross validation accuracy: 0.800696509279 [ 0.79824561  0.79207921  0.81176471]
              precision    recall  f1-score   support
@@ -1995,7 +2003,8 @@ avg / total       0.97      0.95      0.95       100
 </pre>
 </div>
 </div>
-<div class="output_area"><div class="prompt"></div>
+<div class="output_area">
+<div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/home/sunnyin/anaconda2/lib/python2.7/site-packages/sklearn/metrics/classification.py:1076: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples.
   'recall', 'true', average, warn_for)
@@ -2038,6 +2047,7 @@ avg / total       0.97      0.95      0.95       100
 </div>
 </div>
 </div>
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -2081,6 +2091,11 @@ avg / total       0.97      0.95      0.95       100
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
+                            update ssh for red-hat
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/02/17/hey-guys/">
                             hey,guys
                         </a>
@@ -2098,11 +2113,6 @@ avg / total       0.97      0.95      0.95       100
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">
                             shell if 语句在cron中不生效
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/09/matplotlib-with-cron/">
-                            matplotlib savefig doesn't work when run with crontab
                         </a>
                     </li>
                 </ul>

@@ -265,6 +265,7 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
+  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -285,11 +286,6 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
-}
-@-moz-document url-prefix() {
-  div.inner_cell {
-    overflow-x: hidden;
-  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -1027,8 +1023,10 @@ h6:hover .anchor-link {
 .highlight .mh { color: #666666 } /* Literal.Number.Hex */
 .highlight .mi { color: #666666 } /* Literal.Number.Integer */
 .highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
 .highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
 .highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
 .highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
@@ -1039,9 +1037,11 @@ h6:hover .anchor-link {
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
 .highlight .vc { color: #19177C } /* Name.Variable.Class */
 .highlight .vg { color: #19177C } /* Name.Variable.Global */
 .highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
 <style type="text/css">
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
@@ -1136,7 +1136,7 @@ h6:hover .anchor-link {
 <span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="s2">"This e-mail is sent by Python."</span><span class="p">,</span><span class="s2">"plain"</span><span class="p">,</span><span class="s2">"utf-8"</span><span class="p">)</span>　<span class="c1"># 邮件正文</span>
 <span class="n">msg</span><span class="p">[</span><span class="s2">"From"</span><span class="p">]</span> <span class="o">=</span> <span class="n">_format_addr</span><span class="p">(</span><span class="s2">"Hero<</span><span class="si">%s</span><span class="s2">>"</span> <span class="o">%</span> <span class="n">from_addr</span><span class="p">)</span>　　　
 <span class="n">msg</span><span class="p">[</span><span class="s2">"To"</span><span class="p">]</span> <span class="o">=</span> <span class="n">_format_addr</span><span class="p">(</span><span class="s2">"Sweety<</span><span class="si">%s</span><span class="s2">>"</span> <span class="o">%</span> <span class="n">to_addr</span><span class="p">)</span>
-<span class="n">msg</span><span class="p">[</span><span class="s1">'Subject'</span><span class="p">]</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="s2">u"from yous</span><span class="se">\'</span><span class="s2"> hero"</span><span class="p">,</span><span class="s1">'utf-8'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+<span class="n">msg</span><span class="p">[</span><span class="s1">'Subject'</span><span class="p">]</span> <span class="o">=</span> <span class="n">Header</span><span class="p">(</span><span class="sa">u</span><span class="s2">"from yous</span><span class="se">\'</span><span class="s2"> hero"</span><span class="p">,</span><span class="s1">'utf-8'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
 
 <span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="n">smtp_server</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span>　<span class="c1"># SMTP协议默认端口是25</span>
 <span class="n">server</span><span class="o">.</span><span class="n">set_debuglevel</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># 打印出和SMTP服务器交互的所有信息.</span>
@@ -1170,7 +1170,8 @@ h6:hover .anchor-link {
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[1]:</div>
 <div class="output_png output_subarea output_execute_result">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABXkAAAMOCAIAAADEAJK4AAAAA3NCSVQICAjb4U/gAAAgAElEQVR4
 nOzdd3wc1b3//8/M9l31LsuSLdlyNxg3DAYMNqGEElpCwiVcCCmkkHKT3OSb8Lvh3iSEXNLvTQgh
@@ -2086,7 +2087,8 @@ AAAAQElkDQAAAAAAQElkDQAAAAAAQElkDQAAAAAAQEn/D+isRHHMrL1fAAAAAElFTkSuQmCC
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[13]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>(221, 'smtp-2-31.smtpsmail.fmail.yf.sinanode.com')</pre>
 </div>
@@ -2115,7 +2117,8 @@ AAAAQElkDQAAAAAAQElkDQAAAAAAQElkDQAAAAAAQEn/D+isRHHMrL1fAAAAAElFTkSuQmCC
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
 <div class="output_png output_subarea output_execute_result">
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABWwAAAH/CAIAAABM1gOBAAAAA3NCSVQICAjb4U/gAAAgAElEQVR4
 nOzdeZgdVZ3/8VN73bW3pJPO1iEhC+kIIUQIaMIWgYwMBFARcAM3mAFBQBYfBAZE4UF0HlCHIDjK
@@ -3389,6 +3392,7 @@ SOT/Ar8YL6+kx1WcAAAAAElFTkSuQmCC
 </div>
 </div>
 </div>
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var mathjaxscript = document.createElement('script');
     mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
@@ -3432,6 +3436,11 @@ SOT/Ar8YL6+kx1WcAAAAAElFTkSuQmCC
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
+                            update ssh for red-hat
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/02/17/hey-guys/">
                             hey,guys
                         </a>
@@ -3449,11 +3458,6 @@ SOT/Ar8YL6+kx1WcAAAAAElFTkSuQmCC
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">
                             shell if 语句在cron中不生效
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/09/matplotlib-with-cron/">
-                            matplotlib savefig doesn't work when run with crontab
                         </a>
                     </li>
                 </ul>
