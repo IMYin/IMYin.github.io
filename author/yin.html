@@ -67,6 +67,20 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">sshfs to mount remote file system</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="通过sshfs来将远程目录挂载到本地">通过sshfs来将远程目录挂载到本地<a class="anchor-link" href="#通过sshfs来将远程目录挂载到本地">¶</a></h3><p>sshfs，就是可以把ssh连接到的主机资源，映射到本机的文件系统当中，然后用户可以像操作本地文件一样操作，而实际的文件改动将通过ssh传输到远程主机当中。类似于mount了一个windows共享目录，或者另外一台linux主机的samba共享，或者是nfs共享，只是“共享协议”变成了ssh通道罢了</p>
+<p>ubuntu源中已经包含了sshfs了，以及所需的fuse包，直接apt安装就可以了，一共是三个包：“<strong>fuse-utils libfuse2 sshfs</strong>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">update ssh for red-hat</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -208,19 +222,6 @@ Ubuntu 16.04.1 LTS
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">Scipy ---> Integration</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Intergration">Intergration<a class="anchor-link" href="#Intergration">¶</a></h3><p>Integration is a crucial tool in math and science, as differentiation and integration are the two key components of calculus. Given a curve from a function or a dataset, we can calculate the area below it. In the traditional classroom setting we would integrate a function analytically, but data in the research setting is rarely given in this form, and we need to <u>approximate</u>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pager">
                 <li class="previous disabled"><a href="#">&larr; Newer</a></li>
@@ -236,6 +237,11 @@ Ubuntu 16.04.1 LTS
 
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">
+                            sshfs to mount remote file system
+                        </a>
+                    </li>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
                             update ssh for red-hat
@@ -254,11 +260,6 @@ Ubuntu 16.04.1 LTS
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/01/16/python-requests-cannot-get-response-location/">
                             python requests cannot get response location
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">
-                            shell if 语句在cron中不生效
                         </a>
                     </li>
                 </ul>
