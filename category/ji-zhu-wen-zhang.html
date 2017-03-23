@@ -70,6 +70,31 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">setup and configure ganglia on CentOS</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="今天介绍一下如何在CentOS服务器中部署Ganglia">今天介绍一下如何在CentOS服务器中部署Ganglia<a class="anchor-link" href="#今天介绍一下如何在CentOS服务器中部署Ganglia">¶</a></h3><p>至于什么是ganglia，就不在这里装逼赘述了，给个<a href="http://ganglia.sourceforge.net/">官网地址</a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="预装软件">预装软件<a class="anchor-link" href="#预装软件">¶</a></h3><p>安装ganglia需要不少预装软件，最好自己在本地配置一个yum源，以方便安装。yum源就不在这里描述如何配置了，比较简单，<a href="http://www.cnblogs.com/mchina/archive/2013/01/04/2842275.html">看这里，写的比较全的一篇</a></p>
+<pre><code>yum -y install apr-devel apr-util check-devel cairo-devel pango-devel libxml2-devel rpmbuild glib2-devel dbus-devel freetype-devel fontconfig-devel gcc-c++ expat-devel python-devel libXrender-devel 
+
+</code>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">sshfs to mount remote file system</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -216,19 +241,6 @@ Ubuntu 16.04.1 LTS
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">Scipy ---> Integration</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Intergration">Intergration<a class="anchor-link" href="#Intergration">¶</a></h3><p>Integration is a crucial tool in math and science, as differentiation and integration are the two key components of calculus. Given a curve from a function or a dataset, we can calculate the area below it. In the traditional classroom setting we would integrate a function analytically, but data in the research setting is rarely given in this form, and we need to <u>approximate</u>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pager">
                 <li class="previous disabled"><a href="#">&larr; Newer</a></li>
@@ -244,6 +256,11 @@ Ubuntu 16.04.1 LTS
 
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">
+                            setup and configure ganglia on CentOS
+                        </a>
+                    </li>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">
                             sshfs to mount remote file system
@@ -262,11 +279,6 @@ Ubuntu 16.04.1 LTS
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/01/16/python-requests-cannot-get-response-location/">
                             python requests cannot get response location
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">
-                            shell if 语句在cron中不生效
                         </a>
                     </li>
                 </ul>

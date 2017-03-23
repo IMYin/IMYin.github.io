@@ -67,6 +67,31 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">setup and configure ganglia on CentOS</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="今天介绍一下如何在CentOS服务器中部署Ganglia">今天介绍一下如何在CentOS服务器中部署Ganglia<a class="anchor-link" href="#今天介绍一下如何在CentOS服务器中部署Ganglia">¶</a></h3><p>至于什么是ganglia，就不在这里装逼赘述了，给个<a href="http://ganglia.sourceforge.net/">官网地址</a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="预装软件">预装软件<a class="anchor-link" href="#预装软件">¶</a></h3><p>安装ganglia需要不少预装软件，最好自己在本地配置一个yum源，以方便安装。yum源就不在这里描述如何配置了，比较简单，<a href="http://www.cnblogs.com/mchina/archive/2013/01/04/2842275.html">看这里，写的比较全的一篇</a></p>
+<pre><code>yum -y install apr-devel apr-util check-devel cairo-devel pango-devel libxml2-devel rpmbuild glib2-devel dbus-devel freetype-devel fontconfig-devel gcc-c++ expat-devel python-devel libXrender-devel 
+
+</code>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">sshfs to mount remote file system</a></h2>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered">
@@ -196,32 +221,6 @@ Ubuntu 16.04.1 LTS
                 </div>
             </article>
             <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">Scraping with __doPostBack</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>这几天在做自己的项目，其中有一项任务是爬虫。但是中途发现了一个比较棘手的问题，当我想爬取第二页的内容时，发现点进去之后网站的url不会发生改变。并且要想爬去第二页的内容也必须要触发点击事件之后才可以进入网页，在源码中显示的是</p>
-<pre><code>href="javascript:__doPostBack('pagerQuestion','2')"
-
-</code></pre>
-<p>之后我在源码中看到了这样的代码：</p>
-<pre><code>function __doPostBack(eventTarget, eventArgument) {
-    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
-        theForm.__EVENTTARGET.value = eventTarget;
-        theForm.__EVENTARGUMENT.value = eventArgument;
-        theForm.submit();
-    }
-}
-
-</code>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">more ...</a>
-                </div>
-            </article>
-            <hr/>
 
         <ul class="pager">
                 <li class="previous disabled"><a href="#">&larr; Newer</a></li>
@@ -237,6 +236,11 @@ Ubuntu 16.04.1 LTS
 
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">
+                            setup and configure ganglia on CentOS
+                        </a>
+                    </li>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">
                             sshfs to mount remote file system
@@ -255,11 +259,6 @@ Ubuntu 16.04.1 LTS
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/01/20/xpdf/">
                             Install xpdf on ubuntu
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/16/python-requests-cannot-get-response-location/">
-                            python requests cannot get response location
                         </a>
                     </li>
                 </ul>
