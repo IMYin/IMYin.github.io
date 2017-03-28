@@ -83,9 +83,21 @@ Yin's Blog            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="预装软件">预装软件<a class="anchor-link" href="#预装软件">¶</a></h3><p>安装ganglia需要不少预装软件，最好自己在本地配置一个yum源，以方便安装。yum源就不在这里描述如何配置了，比较简单，<a href="http://www.cnblogs.com/mchina/archive/2013/01/04/2842275.html">看这里，写的比较全的一篇</a></p>
-<pre><code>yum -y install apr-devel apr-util check-devel cairo-devel pango-devel libxml2-devel rpmbuild glib2-devel dbus-devel freetype-devel fontconfig-devel gcc-c++ expat-devel python-devel libXrender-devel 
+<h3 id="预装软件">预装软件<a class="anchor-link" href="#预装软件">¶</a></h3><p>安装ganglia需要不少预装软件，最好自己在本地配置一个yum源，以方便安装。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="配置yum源">配置yum源<a class="anchor-link" href="#配置yum源">¶</a></h4><p>将光盘镜像中的文件放置<code>/mnt/cdrom</code>下。</p>
+<pre><code>ls /mnt/cdrom
 
+CentOS_BuildTag  GPL       Packages                  RPM-GPG-KEY-CentOS-6           RPM-GPG-KEY-CentOS-Testing-6
+EFI              images    RELEASE-NOTES-en-US.html  RPM-GPG-KEY-CentOS-Debug-6     TRANS.TBL
+EULA             isolinux  repodata                  RPM-GPG-KEY-CentOS-Security-6
 </code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">more ...</a>
                 </div>
