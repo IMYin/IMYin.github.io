@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Lambda Expressions in Python - Yin's Blog</title>
+    <title>撒点负能量 - Yin's Blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,21 +9,18 @@
 
 
 
-<link rel="canonical" href="https://IMYin.github.io/2016/11/18/lambda-in-python/">
+<link rel="canonical" href="https://IMYin.github.io/2017/07/17/negative-energey/">
 
         <meta name="author" content="Yin" />
-        <meta name="keywords" content="python,lamdba" />
-        <meta name="description" content="精气神挺足，继续！ 这篇文章中我将套用别人的例子记录一下我所了解的匿名函数----&gt;lambda.当然想了解更多的话，在网上你可以找到更多的例子。 lambda表达式¶当我们需要写一个函数，而这个函数又并不被多个地方调用，或者只被一个地方所调用时，我们不需要在费心思为其命名、浪费篇幅定义方法，我们可以使用匿名函数来完成我们想要的操作。" />
+        <meta name="description" content="" />
 
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Lambda Expressions in Python"/>
-        <meta property="og:url" content="https://IMYin.github.io/2016/11/18/lambda-in-python/"/>
-        <meta property="og:description" content="精气神挺足，继续！ 这篇文章中我将套用别人的例子记录一下我所了解的匿名函数----&gt;lambda.当然想了解更多的话，在网上你可以找到更多的例子。 lambda表达式¶当我们需要写一个函数，而这个函数又并不被多个地方调用，或者只被一个地方所调用时，我们不需要在费心思为其命名、浪费篇幅定义方法，我们可以使用匿名函数来完成我们想要的操作。"/>
-        <meta property="article:published_time" content="2016-11-18" />
-            <meta property="article:section" content="技术文章" />
-            <meta property="article:tag" content="python" />
-            <meta property="article:tag" content="lamdba" />
+        <meta property="og:title" content="撒点负能量"/>
+        <meta property="og:url" content="https://IMYin.github.io/2017/07/17/negative-energey/"/>
+        <meta property="og:description" content=""/>
+        <meta property="article:published_time" content="2017-07-17" />
+            <meta property="article:section" content="个人" />
             <meta property="article:author" content="Yin" />
 
 
@@ -39,8 +36,8 @@
 
 
 
-        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Yin's Blog 技术文章 ATOM Feed"/>
+        <link href="https://IMYin.github.io/feeds/ge-ren.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog 个人 ATOM Feed"/>
 
 </head>
 <body>
@@ -79,10 +76,10 @@ Yin's Blog            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="https://IMYin.github.io/2016/11/18/lambda-in-python/"
+                    <a href="https://IMYin.github.io/2017/07/17/negative-energey/"
                        rel="bookmark"
-                       title="Permalink to Lambda Expressions in Python">
-                        Lambda Expressions in Python
+                       title="Permalink to 撒点负能量">
+                        撒点负能量
                     </a>
                 </h1>
             </header>
@@ -92,7 +89,7 @@ Yin's Blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-11-18T00:15:00+08:00"> 2016-11-18</time>
+        <i class="fa fa-calendar"></i><time datetime="2017-07-17T20:15:00+08:00"> 2017-07-17</time>
     </span>
 
 
@@ -101,10 +98,6 @@ Yin's Blog            </a>
 
 
 
-<span class="label label-default">Tags</span>
-	<a href="https://IMYin.github.io/tag/python.html">python</a>
-        /
-	<a href="https://IMYin.github.io/tag/lamdba.html">lamdba</a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
@@ -1080,37 +1073,12 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>精气神挺足，继续！</p>
-<p>这篇文章中我将套用别人的例子记录一下我所了解的匿名函数---->lambda.当然想了解更多的话，在网上你可以找到更多的例子。</p>
-<h3 id="lambda表达式">lambda表达式<a class="anchor-link" href="#lambda表达式">¶</a></h3><p>当我们需要写一个函数，而这个函数又并不被多个地方调用，或者只被一个地方所调用时，我们不需要在费心思为其命名、浪费篇幅定义方法，我们可以使用匿名函数来完成我们想要的操作。</p>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#python3</span>
-<span class="k">def</span> <span class="nf">find_special_numbers</span><span class="p">(</span><span class="n">special_selector</span><span class="p">,</span><span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">found</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="o"><</span> <span class="n">limit</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">special_selector</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-            <span class="n">found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">found</span>
-
-<span class="k">def</span> <span class="nf">check_for_odd</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span><span class="mi">1</span>
-
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">find_special_numbers</span><span class="p">(</span><span class="n">check_for_odd</span><span class="p">,</span><span class="mi">25</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s2">","</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="p">(</span><span class="s2">"I want be your man."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1120,75 +1088,7 @@ h6:hover .anchor-link {
 <div class="output_area">
 <div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>在上面的代码中，我定义了两个方法，其中check_for_odd()放在将在find_special_numbers()方法中被调用。但是这样看起来会显得代码比较臃肿，这时我们可以定义一个匿名函数，来实现check_for_odd()。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [2]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">find_special_numbers</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s2">","</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1,3,5,7,9,11,13,15,17,19,</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>可以看出效果完全一样。这样的话就会省去重新定义一个方法的时间，并且没有了所谓的垃圾函数(只被调用一次)。
-上面的那个例子可能效果并非多么明显，再来看一个：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [3]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Sorted list of words: "</span><span class="p">)</span>
-<span class="n">list_of_words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'CPython'</span><span class="p">,</span> <span class="s1">'read'</span><span class="p">,</span> <span class="s1">'improvements,'</span><span class="p">,</span> <span class="s1">'issues.'</span><span class="p">,</span> <span class="s1">'on'</span><span class="p">,</span> <span class="s1">'comprehensive'</span><span class="p">,</span> <span class="s1">'porting'</span><span class="p">,</span> <span class="s1">'potential'</span><span class="p">,</span>
-                     <span class="s1">'user-facing'</span><span class="p">,</span> <span class="s1">'of'</span><span class="p">,</span> <span class="s1">'other'</span><span class="p">,</span> <span class="s1">'for'</span><span class="p">,</span> <span class="s1">'smaller'</span><span class="p">,</span> <span class="s1">'deprecations,'</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">,</span> <span class="s1">'optimizations,'</span><span class="p">,</span> <span class="s1">'changes,'</span><span class="p">,</span>
-                     <span class="s1">'including'</span><span class="p">,</span> <span class="s1">'and'</span><span class="p">,</span> <span class="s1">'Please'</span><span class="p">,</span> <span class="s1">'many'</span><span class="p">,</span> <span class="s1">'list'</span><span class="p">]</span>
-<span class="n">list_of_words</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">list_of_words</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sorted list of words: 
-['CPython', 'Please', 'a', 'and', 'changes,', 'comprehensive', 'deprecations,', 'for', 'improvements,', 'including', 'issues.', 'list', 'many', 'of', 'on', 'optimizations,', 'other', 'porting', 'potential', 'read', 'smaller', 'user-facing']
+<pre>I want be your man.
 </pre>
 </div>
 </div>
@@ -1200,32 +1100,15 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>上面的例子中，我想讲list中的单词按照首字母排序，咦，发现结果竟然并非是我想想的那样。</p>
-<p>哦，原来是因为机器在对字母排序时是按照字母所对应的ASCII码来比较大小的，比如：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [4]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s2">"C"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s2">"c"</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>67
-99
-</pre>
-</div>
-</div>
+<h2 id="从自己开始说起">从自己开始说起<a class="anchor-link" href="#从自己开始说起">¶</a></h2><p>这个博客很长一段时间没有动静了，前几天才想起来。确实，近几个月自己也忘记了写博客的习惯，逮着什么地方就记在什么地方。前两天把博客介绍给了同事，让她多看看我学习数据的笔记，不过我想她应该没有看，因为我给她的权威的资料太多了，根本看不过来，哪里还有心思揣摩我的笔记。其实这也正好合了我的心意，毕竟是我的私人空间，当时告诉她之后还有点小后悔。</p>
+<p>我又回北京了，回到了这个一切都看起来拥挤的地方。上海和北京确实不一样，上海很时尚，无论是街景还是人景，都让人觉得自身处在一个时尚的都市。但是生活在上海的群众素质普遍很低，就单单从坐地铁这件小事上就可以看得出来。而且我本人还在上海经历了一场车祸，肇事者还逃逸了，心灵有了创伤，之后也就断掉了每月的捐款。这些都是不美好的回忆，都发生在上海。</p>
+<p>这天我仔细翻了翻我的个人文章，发现总是写着写着就变成了正能量（对我来说），虽然看起来是好事，但是却违背了我的初衷，我想也许当时我是找个地方记录一下我糟糕的心情，以后再回来看时就成了一段有趣的回忆，但是却都变成了自我鼓励的的文章。那么今天我就要好好记录一下，写点负能量，也该给这个博客适当点缀一下。</p>
+<h2 id="疼没事">疼没事<a class="anchor-link" href="#疼没事">¶</a></h2><p>打我记事起，我身上就不断得添加新的伤疤。我不清楚其他人是否能记起自己小时候的事情，或者说最小是几岁的事情。不过我觉得如果能够有三岁的记忆，那么这个人应该是挺牛逼的，这个人恰好是我。其实并非是我的记忆力很好，而是因为在我三岁的时候发生了一件意外，也让我至今记忆犹新。</p>
+<h3 id="烫伤">烫伤<a class="anchor-link" href="#烫伤">¶</a></h3><p>当天的背景我忘记了，只是知道那是在一个冬天的晚上，妈妈在厨房下面条，那时候家里面都用的炉子，就是往里面装煤球的炉子。当时路子上面已经烧开了一锅水，妈妈正要往里面放面条。小时候的我很调皮，闲不住就自己也抓了一小把面条站在了妈妈的面前，伸手放了进去。其实这是一个很简单的动作，但是对于一个三岁的小朋友来说，炉子的高度加上一口锅的高度就快要过头顶了。结果可想而知，在手放下来时，把锅也一块带了下来，整锅的汤全都扣在了我的腿上。当时妈妈身后有一口大水缸，里面还有很多水。如果在热汤刚刚扣在身上的5秒中之内把我扔进缸里，也许也就不会出现太大的问题。可是当时妈妈吓傻了，第一反应是赶紧给我脱裤子。当时正值寒冬，里三层外三层地穿着衣服，等把衣服全部脱下来的时候，腿上已经被烫熟了，皮都掉了。</p>
+<p>以上是第一个三岁的记忆场景，接下来我就忘记发生了什么事情。第二个记忆场景是我已经坐在的沙发上，下身赤裸着，阵阵的剧痛不断得刺激着我的大脑，嚎啕大哭。我的身边还为了不少人，不知道他们是来看热闹的还是来给我上药的。妈妈跪在我的面前，也是痛哭着，越哭越越伤心。我当时应该是看到妈妈哭得太伤心了，我忍着疼痛，去抓住妈妈的手说，妈妈我不疼，你别哭了，我不疼，你别哭了。其实到底疼不疼呢？到现在我都记得那是怎样的一种疼，但是当时我忍住了。</p>
+<h3 id="坠刀">坠刀<a class="anchor-link" href="#坠刀">¶</a></h3><p>那年６岁，我还上着幼儿园。中午正吃着饭呢，我要去那什么东西，拿什么东西我忘记了，并不重要，重要的是东西拿到的时候顺手也把菜刀从桌上带了下来，正好切在了我穿着黑色拖鞋的脚上。当时爸妈什么都不知道，我也一声没有吭，连哼都没哼，就在那里站着。一般拖鞋中间都是设计成凹的，鲜血很快填满了拖鞋，马上就要漫出来，我还是一声不吭，一动不动。因为当时我觉得如果我动的话，血会撒到地上，弄脏了地，真是奇葩的想法。爸妈是因为我一动不动才注意到有异常，也才注意到红红的血正沿着鞋帮往外流。</p>
+<h3 id="我与车轱辘的斗争">我与车轱辘的斗争<a class="anchor-link" href="#我与车轱辘的斗争">¶</a></h3><p>那年我也是很小，听妈妈说是4、5岁的样子。妈妈骑车带着我去找爸爸，我坐在后座扶着妈妈。期间可能是走神了，我的脚一下子伸到了车轱辘里面，妈妈赶紧下来，可是悲剧已经发生了。整个脚已经血肉模糊，那次的疼我记得很清楚，疼得很清脆，一阵一阵的，但是我没有哭，只看见妈妈站在门诊的门口，眼睛闪闪发光。</p>
+<p>以后是我对小时候最深刻的疼痛记忆。当然，在之后成长的过程中，也经历了许许多多的磕磕碰碰，有的也养了几个月或者半年才好。我觉得有些吃亏，因为这些伤并非是像成龙一样拍戏造成的，连说出去吹牛比的价值都没有，只是让自己深切的体会。</p>
 </div>
 </div>
 </div>
@@ -1234,30 +1117,16 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>所以，"C"开头的字母要在前面咯。那么在这里如何通过lambda函数来排序呢？</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [5]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">list_of_words</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">list_of_words</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>['a', 'and', 'changes,', 'comprehensive', 'CPython', 'deprecations,', 'for', 'improvements,', 'including', 'issues.', 'list', 'many', 'of', 'on', 'optimizations,', 'other', 'Please', 'porting', 'potential', 'read', 'smaller', 'user-facing']
-</pre>
-</div>
-</div>
+<h2 id="痛不行">痛不行<a class="anchor-link" href="#痛不行">¶</a></h2><p>我非常确信自己是非常感性的人。我从小学四年级就开始住宿，也奇怪，小时候的适应能力非常强，到任何一个地方，没几天就玩得非常熟，这应该是人天生的适应能力吧。自己受到再大的委屈，也不会哭哭啼啼。但是从自己步入青春期之后，我却因为感情的事情，哭过不止一次。</p>
+<h3 id="那个她">那个她<a class="anchor-link" href="#那个她">¶</a></h3><p>她从长相来说，在我的审美观里算是很漂亮的，尤其喜欢她的嘴唇。我记得在看吴奇隆版的《萧十一郎》时，就注意到了连城璧妹妹的嘴唇非常好看，像果冻一样，感觉滑滑润润的，她的也一样。我不记得第一次因为她哭是什么时候了，但是我知道我哭得最伤心的一次。</p>
+<p>2014年的五一，她从她上学的城市来到了我上学的城市，做了一晚上的火车，我很心疼。几天的游玩非常开心，非常惬意，我们像情侣一样一起看海，一起吃烧烤，一起赏樱花。第四天她要走了，前一天下午她躺在床上睡午觉，我陪着她，静静地看着她。也不知道为何突然来了一股非常伤心的感觉，跑出门外，点着了一根烟，猛烈地吸允起来，楼道窗边的海风很大，阵阵发冷，我趁着风声，竟然大声痛哭起来。如果让我说出痛哭的原因，我还真说不清楚，只是感觉有位亲人要永远离开自己了，那种感觉非差熟悉，并且记忆深刻，就是爷爷去世时的心情。不知为何，会在她身上有产生一种这样的感觉。</p>
+<p>实在太冷，海风不断地吹。我进了屋，她并没有醒来。她很喜欢睡觉，尤其午觉，一旦不睡午觉，会有偏头痛的风险。我看着她，那种奇怪的感觉再次袭来，我冲进的卫生间，打开水的阀门，捂着嘴再次哭起来，看着镜子里自己的眼泪不断的流，自己的样子时而清晰时而模糊。这样反复折腾了将近一个小时，心情才稍微平复下来。</p>
+<p>到了火车站，我帮她取了票，看着票，又开始哽咽了，我点上一支烟，转了身过去，以为这样可以掩饰一下。可是她的觉察能力很强，她知道我哭了，过来安抚我。候车时，她一直试图安慰我，并分散我的注意力，可是在送她进车站的时候还是没有忍住。</p>
+<p>我就站在候车厅外，一直看着她，直到看不到她。厕所在候车厅内一进大门的地方，她进入候车厅折进厕所，快要看不到她时，她回了头，发现我还在看她，冲着我摆摆手，示意再见。我并没有走，我打赌当她从厕所出来是还会回头向我这边看过来。果然，她出来后看我还站在原处，她就不动了，一直看着我，不过由于距离较远，根本看不到我脸上的抽搐。我担心耽误她上车，扭头下了楼。从那天起，我戒了烟，到今天已经3年2个多月了。</p>
+<h3 id="这个她">这个她<a class="anchor-link" href="#这个她">¶</a></h3><p>有不少朋友评价我是个非常专一的人，当然在我自己看来也是这样，至今我只喜欢过两个女生，她是第二个。在我遇到这个她之前是从来不相信一见钟情的事情会发生在我的身上，直到那天中午，我改变这了一谬论。起初我并没有注意过她，即使我们俩的工位紧挨着，但是来了一个星期我都没有跟她说过话，甚至不清楚她的模样。</p>
+<p>我很喜欢自己吃饭。因为我吃饭比较慢，不愿意让别人等。我应该算是个相当节俭的人，之前的一家公司午饭也是自助餐，20元一位，随便吃，4肉4素，并且每天不重样，还有各地的风味美食。应该说这样的伙食能够养胖大部分人，确实，从单位的工牌就能看出来，很长的绳，但是很多人带起来还是显得较短，因为长得实在太胖。我的几位同事总是一下子盛很多，之后吃不了就丢掉了，很浪费。并非是说我多么懂得爱惜粮食，只是看到别人浪费心里觉得怪怪的，说不出来的一种感觉。所以，我更愿意自己单独坐在窗边，细嚼慢咽，把盘子吃得干干净净，看着就舒服，这应该是强迫症的表现。</p>
+<p>那天同事叫我一起吃饭，她也在。我很不情愿的跟了去。阴差阳错地坐在了她的对面，她主动跟我说了话，我也是第一次认真得看了下她的容颜，第一感觉是淑贤如静山，豁达如春水。我喜欢上了她，但是当时并不知道她的情感生活，觉得她应该是结了婚的，也就没有什么想法。但是之后知道她的年龄与我相仿并且未结婚时，我就开始蠢蠢欲动了。</p>
+<p>跟她表白的那天我受挫了。人就是这样，想得到的东西总是变得尤其困难。我总是这么心急，越是自己喜欢的越是心急，于是关系从火热状态瞬间降到了冰点。很困，很累，很想哭，我应该是遭受到诅咒了，在我上初中的时候。</p>
 </div>
 </div>
 </div>
@@ -1266,8 +1135,7 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Bingo!时间不早了，早点睡，明早起床研究kaggle，学习英语、算法...</p>
-<h3 id="参考">参考<a class="anchor-link" href="#参考">¶</a></h3><p>[1] <a href="http://www.datadependence.com/2016/08/pythonic-code-video-series-lambda-expressions/">http://www.datadependence.com/2016/08/pythonic-code-video-series-lambda-expressions/</a></p>
+<p><strong>今天先写到这，明天继续，好困</strong></p>
 </div>
 </div>
 </div>
