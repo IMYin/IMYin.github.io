@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Yin's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="https://IMYin.github.io">
+        <meta name="author" content="Yin" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="Yin's Blog" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Yin's Blog"/>
+        <meta property="og:url" content="https://IMYin.github.io"/>
+        <meta property="og:description" content="Yin's Blog"/>
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://IMYin.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://IMYin.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://IMYin.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://IMYin.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog ATOM Feed"/>
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://IMYin.github.io/" class="navbar-brand">
+Yin's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/archives.html">Archives</a></li>
+                         <li><a href="https://IMYin.github.io/pages/about-me.html">
+                             About Me
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/12/11/work-record/">工作回忆录1（20161130-20161209）</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/12/11/work-record/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">Scraping with __doPostBack</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>这几天在做自己的项目，其中有一项任务是爬虫。但是中途发现了一个比较棘手的问题，当我想爬取第二页的内容时，发现点进去之后网站的url不会发生改变。并且要想爬去第二页的内容也必须要触发点击事件之后才可以进入网页，在源码中显示的是</p>
+<pre><code>href="javascript:__doPostBack('pagerQuestion','2')"
+
+</code></pre>
+<p>之后我在源码中看到了这样的代码：</p>
+<pre><code>function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+
+</code>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">Scipy ---> Integration</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Intergration">Intergration<a class="anchor-link" href="#Intergration">¶</a></h3><p>Integration is a crucial tool in math and science, as differentiation and integration are the two key components of calculus. Given a curve from a function or a dataset, we can calculate the area below it. In the traditional classroom setting we would integrate a function analytically, but data in the research setting is rarely given in this form, and we need to <u>approximate</u>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/28/Interpolation-with-scipy/">Scipy ---> Interpolation</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Data that contains information usually has a functional form, and as analysts we want to model it. Given a set of sample data, obtaining the intermediate values between the points is useful to understand and predict what the data will do in the non-sampled domain. Scipy offers well over a dozen different functions for interpolation, <u>ranging</u>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/28/Interpolation-with-scipy/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/27/Optimization-and-Minization-with-scipy/">Scipy ---> Optimization and Minimization</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With Numpy we can achieve fast solutions with simple code. Where does Scipy come into the picture? It's a package that utilizes Numpy arrays and manipulations to take on standard problems that scientists and engineers commonly face: <u>integration</u>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/Optimization-and-Minization-with-scipy/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/27/math-in-numpy/">Numpy ---> Math</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Math">Math<a class="anchor-link" href="#Math">¶</a></h3><p>Python comes with its own math module that works on Python <u>native</u>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/math-in-numpy/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">Numpy ---> Read and Write</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reading-and-Write">Reading and Write<a class="anchor-link" href="#Reading-and-Write">¶</a>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/27/boolean statements of python/">Numpy ---> Boolean Statements and Numpy Arrays</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Boolean-Statements-and-Numpy-Arrays">Boolean Statements and Numpy Arrays<a class="anchor-link" href="#Boolean-Statements-and-Numpy-Arrays">¶</a>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/boolean statements of python/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/26/PRIDE-AND-PREJUDICE-1/">Chapter 1</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/26/PRIDE-AND-PREJUDICE-1/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="https://IMYin.github.io/2016/11/26/numpy-array/">Numpy ---> Numpy Array</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="NumPy-Arrays">NumPy Arrays<a class="anchor-link" href="#NumPy-Arrays">¶</a>
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/26/numpy-array/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
+        <ul class="pager">
+                <li class="previous"><a href="https://IMYin.github.io/index.html">&larr; Newer</a></li>
+                <li class="next"><a
+                        href="https://IMYin.github.io/index3.html">Older &rarr;</a></li>
+        </ul>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/17/negative-energey/">
+                            撒点负能量
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/17/house-price/">
+                            kaggle-->预测房价
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">
+                            setup and configure ganglia on CentOS
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">
+                            sshfs to mount remote file system
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
+                            update ssh for red-hat
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://IMYin.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/category/ge-ren.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 个人
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 技术文章
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/category/pride_and_prejudiceyi.html">
+                            <i class="fa fa-folder-open fa-lg"></i> Pride_and_Prejudice(译)
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 Yin
+            &middot; <a href="" target="_blank">IMYin</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://IMYin.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://IMYin.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://IMYin.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-86179791-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+</body>
+</html>

@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Python-Mysql - Yin's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="https://IMYin.github.io/2016/11/10/python-mysql/">
+
+        <meta name="author" content="Yin" />
+        <meta name="keywords" content="pymyql,python,mysql" />
+        <meta name="description" content="这篇文章我会介绍如何在Python中操作Mysql。 我之所以会用到Mysql，是因为之前我爬虫的时候会用一些网上免费的代理ip(并没什么卵用)，构建一个自己的代理ip池。 安装Mysql。在Ubuntu上安装Mysql非常简单，可以参考这里，也可以在官网上寻找指南. sudo apt-get install mysql-server" />
+
+        <meta property="og:site_name" content="Yin's Blog" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Python-Mysql"/>
+        <meta property="og:url" content="https://IMYin.github.io/2016/11/10/python-mysql/"/>
+        <meta property="og:description" content="这篇文章我会介绍如何在Python中操作Mysql。 我之所以会用到Mysql，是因为之前我爬虫的时候会用一些网上免费的代理ip(并没什么卵用)，构建一个自己的代理ip池。 安装Mysql。在Ubuntu上安装Mysql非常简单，可以参考这里，也可以在官网上寻找指南. sudo apt-get install mysql-server"/>
+        <meta property="article:published_time" content="2016-11-10" />
+            <meta property="article:section" content="技术文章" />
+            <meta property="article:tag" content="pymyql" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="mysql" />
+            <meta property="article:author" content="Yin" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://IMYin.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://IMYin.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://IMYin.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://IMYin.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://IMYin.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog ATOM Feed"/>
+
+
+
+        <link href="https://IMYin.github.io/feeds/ji-zhu-wen-zhang.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Yin's Blog 技术文章 ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://IMYin.github.io/" class="navbar-brand">
+Yin's Blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                    <li><a href="/archives.html">Archives</a></li>
+                         <li><a href="https://IMYin.github.io/pages/about-me.html">
+                             About Me
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://IMYin.github.io/2016/11/10/python-mysql/"
+                       rel="bookmark"
+                       title="Permalink to Python-Mysql">
+                        Python-Mysql
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-11-10T20:15:00+08:00"> 2016-11-10</time>
+    </span>
+
+
+            <span class="label label-default">By</span>
+            <a href="https://IMYin.github.io/author/yin.html"><i class="fa fa-user"></i> Yin</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://IMYin.github.io/tag/pymyql.html">pymyql</a>
+        /
+	<a href="https://IMYin.github.io/tag/python.html">python</a>
+        /
+	<a href="https://IMYin.github.io/tag/mysql.html">mysql</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>这篇文章我会介绍如何在Python中操作Mysql。</p>
+<p>我之所以会用到Mysql，是因为之前我爬虫的时候会用一些网上免费的代理ip(并没什么卵用)，构建一个自己的代理ip池。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>安装Mysql。在Ubuntu上安装Mysql非常简单，可以参考<a href="http://wiki.ubuntu.org.cn/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97">这里</a>，也可以在<a href="http://dev.mysql.com/doc/">官网</a>上寻找指南.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<pre><code>sudo apt-get install mysql-server</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>我用的Mysql版本是：</p>
+<pre><code>mysql  Ver 14.14 Distrib 5.7.16, for Linux (x86_64) using  EditLine wrapper
+
+</code></pre>
+<p>在安装过程中，会自动弹出一个窗口提示我设置root用户的密码。</p>
+<p>安装完成之后，创建一个用户，在其用户下再创建一个针对项目的库以及创建表：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<pre><code>mysql> CREATE USER 'mypro'@'sunnyin-win' IDENTIFIED BY 'hello';
+
+mysql> CREATE DATABASE 'ipproxy';
+
+mysql> GRANT ALL ON 'ipproxy'.* TO 'mypro'@'%';
+
+<ctrl> + D 退出
+
+mysql> mysql -u mypro -h sunnyin-win -p ipproxy
+
+输入密码
+
+mysql> create table ips (ip varchar(15),port varchar(4));</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="构建代理ip池">构建代理ip池<a class="anchor-link" href="#构建代理ip池">¶</a></h3><p>ip地址的来源中在：<a href="http://www.mimiip.com/gngao/">http://www.mimiip.com/gngao/</a></p>
+<p>上面的内容可以爬去下来，不用复杂，爬一页就行。页面更新较频繁，可以用shell做定时任务。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">requests.exceptions</span> <span class="kn">import</span> <span class="n">ProxyError</span><span class="p">,</span><span class="n">ConnectionError</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pymysql.cursors</span>
+
+<span class="k">def</span> <span class="nf">ipList</span><span class="p">():</span>
+    <span class="n">url_raw</span> <span class="o">=</span> <span class="n">url</span> <span class="o">=</span> <span class="s2">"http://www.mimiip.com/gngao/"</span>
+    <span class="n">urlList</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">ipDicts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="c1">#添加请求头</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'User-Agent'</span><span class="p">:</span><span class="s1">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11'</span><span class="p">}</span>
+
+    <span class="n">req</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">bsObj</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="s2">"html.parser"</span><span class="p">)</span>
+        <span class="c1"># print(bsObj)</span>
+
+    <span class="n">ipField</span> <span class="o">=</span> <span class="n">bsObj</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"table"</span><span class="p">,{</span><span class="s2">"class"</span><span class="p">:</span><span class="s2">"list"</span><span class="p">})</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">"tr"</span><span class="p">)</span>
+        <span class="c1"># print(ipField)</span>
+        <span class="c1">#找出所有的IP和PORT</span>
+    <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">ipField</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">ip</span> <span class="o">=</span>   <span class="n">content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"td"</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"(\d{1,4}.*)"</span><span class="p">))</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"td"</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">"^(\d{1,4})$"</span><span class="p">))</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+
+        <span class="n">ipDicts</span><span class="p">[</span><span class="n">ip</span><span class="p">]</span> <span class="o">=</span> <span class="n">port</span>
+
+    <span class="k">return</span> <span class="n">ipDicts</span>
+
+<span class="k">def</span> <span class="nf">insertTable</span><span class="p">(</span><span class="n">ipDicts</span><span class="p">):</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'localhost'</span><span class="p">,</span>
+                                 <span class="n">user</span><span class="o">=</span><span class="s1">'mypro'</span><span class="p">,</span>
+                                 <span class="n">password</span><span class="o">=</span><span class="s1">'hello'</span><span class="p">,</span>
+                                 <span class="n">db</span><span class="o">=</span><span class="s1">'ipproxy'</span><span class="p">,</span>
+                                 <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">ipDicts</span><span class="p">:</span>
+                <span class="n">sql</span> <span class="o">=</span> <span class="s1">'INSERT INTO ips (ip,port) VALUES (</span><span class="si">%s</span><span class="s1">,</span><span class="si">%s</span><span class="s1">)'</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,(</span><span class="n">ip</span><span class="p">,</span><span class="n">ipDicts</span><span class="p">[</span><span class="n">ip</span><span class="p">]))</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        
+<span class="n">ipDicts</span> <span class="o">=</span> <span class="n">ipList</span><span class="p">()</span>
+<span class="n">insertTable</span><span class="p">(</span><span class="n">ipDicts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>现在Mysql中已经存入了一些ip地址以及对应的端口号，来看一下：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">'localhost'</span><span class="p">,</span>
+                                 <span class="n">user</span><span class="o">=</span><span class="s1">'mypro'</span><span class="p">,</span>
+                                 <span class="n">password</span><span class="o">=</span><span class="s1">'hello'</span><span class="p">,</span>
+                                 <span class="n">db</span><span class="o">=</span><span class="s1">'ipproxy'</span><span class="p">,</span>
+                                 <span class="n">cursorclass</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">cursors</span><span class="o">.</span><span class="n">DictCursor</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">"SELECT ip,port FROM ips"</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchmany</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 光标函数，用完要关闭，不然会导致连接泄露(connection leak),造成一种未关闭的现象。</span>
+        <span class="n">ipList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">word</span><span class="p">:</span>
+                <span class="n">ipList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">[</span><span class="s1">'ip'</span><span class="p">]</span><span class="o">+</span><span class="s2">":"</span><span class="o">+</span><span class="n">word</span><span class="p">[</span><span class="s1">'port'</span><span class="p">])</span>
+        <span class="k">print</span> <span class="n">ipList</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>['121.61.102.63:8118', '121.61.102.63:8118', '60.31.185.90:8080', '60.31.185.90:8080', '118.161.65.113:8888']
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>其中有一个函数需要注意，fetchmany(),它可以保存多条查询结果；fetchone()可以保存一条结果，以字典类型存储。 </strong></p>
+<p>看一下库里面效果图：</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="s1">'icons/ips.png'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[3]:</div>
+<div class="output_png output_subarea output_execute_result">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOsAAAF4CAIAAAA67ZnbAAAAA3NCSVQICAjb4U/gAAAAGXRFWHRT
+b2Z0d2FyZQBnbm9tZS1zY3JlZW5zaG907wO/PgAAIABJREFUeJzsnXl8I3X9/99zJZNM2qRpmzRt
+0vtu94Cv+AUB8cSDQ0UBl4VFBIEF5CvICj/1K7DCArLIvQsIyiUiIF/kq/AV5Kug6FcFlj17JL2b
+JmmbNvc11++P6aZpkpkk0/TceT54aDefzOfzmc98MpnMPOc1yAkf/SgcZfrsqbFvj206ezMaRUFB
+LuFwmKKopa5TditiW7mITeSkiJ1XZqrC2gZJ3QcrFIVVtQ9m6ViC4VGVRo0tVRMyyKdmNuoZG/NG
+mLl/4mUNLRYNkvE2vPi9UxCDjzrtQ34m/WUVRanJimozlWuOFQ4bHLOPRQBAU93aYCjyxmbpaCyB
+4CSZ88Mho+6oZ3jIm0AQTU1rgx7jQyN2L5v1ncoMXkY4hobS2jp8YmSGAcCNjS1VuH9oKGqqKQs7
+x9xgqyr6JOb4o//PF7VePj49ODAZBwAAVF1WU2spIRa+gY6GWZWOlLNCbNQzPDyDmups8YnplCoZ
+Os5xwt8YrsaFqhccB0+fPbXvzQ84DSejVYVCmf9CRDCyoraKmBnzxIo7z7JSjK3Mx2dn42pLS2dn
+Z1ujWRUcG5mOJwvZqG/a4w2zEJ4YD2Z84+SEnh0d9rIlVSYKGGb+g8eGx+z2EcfH7Qf/dGBksn/o
+aINF2AdH2iO9D/dYnqq2PG1JvshpubGrR6fPmubUHDlGWvfayt4qE4pmTve6trkiLREA0O3X1d1d
+r7Vrc7YS2hwa3z4W3BQEBKjDVN1P6qleKmeRRA/lrddcUWvEvcUVODHA4/zGL23CIhgA8CjvumTC
+vdXNUqzukK7+tgbNkCZLvSgizF3aNz4cRaLHMcwdvePHBQEB4v1p6v7Wyr4s66U5qGnY3Zi2XmIw
+Ia83RPMAwMfntjPtn3THMQBACCb7t7EoWbcXUaJBZ6Yn/dpqPan6uCby2JDrabr+6YqQbybMaQ3l
+pmjb2OC3A/ETXK6MjcJpOfd1Lt9XfJlzAwDiM94YpiZp36QbAKHKtBjwcZ83jqtQhqiuNEfHsbG6
+SvWYj+cBkEWei6CN9Oh3Rg4/dYjVLRwVBEZ2DHu/4G28tanzm13UYcqxyx5tigqFPM4b/lzWel1b
+w86GRHXCfk8/p86xP+AJfvS6EZVH3XxjS+MtTQlTwn5vv7AXkSiS6qG89QIABNwXuHp+dgQL4fV3
+NrRd047F5r4oJ8/zOC93mp+rsl1Xy2rZvj29TEmWPRBCmhqaGhsaGhrqasw2C3cfS02pm29sabzZ
+ylaz4/dlXy/aTKeul3T3gx6Pd2ZmZmZmZjY8twAX8QuveD3+aGH7xazbC6Nq6i1kmHbs37bvyPMu
+vpSP+f1ubxgrMZvLybhvYuSmADWrzbJREBjZMew705d1bgDwPA+qytoGgfoaA8EEJyZCutr6SnXm
+zzhY5D7YfaErtDnUfGPL4M0Dqa9zas5/ot/0sln4bNX+tM57ujfSEtEMaACg/LWK+XeS3Mj3RliK
+ReNSnyWERjou7USYuVVAE4hjlyNRkSDHSIkiiR7KWy8ACB4fcF3i6trWTY6QaavsutBlfKO85oma
+cChsGDccfPGA7+O+it9XQDoIriaT4951Wddc53nV7Ehg9slA1vWig4mxe8aS6yUJknVLzxeDdHk6
+ItuLIMtsmm8P08dxlutrxn88wmJqnEFwPuQZ86sqqzdeXp11owhzw/hCeda5kQntGxvzx9Dg8ADP
+oaVZjqoXNYNtD9YCD6w2fUeF0IjKo/KdMmv5uQWLYJG2MCCQ2cVofXTqnKmSD0vxQO5uJIcDAGI1
+MTSK4n48Z5FYD+WtF6DgvMwJPPQ91JswJcgxsuYRq/GPRgCgK2i6kjb+0ei8dNzzNU/XZd3qCbX/
+JH+WGZzwDQ9NRNJ2poS+rsHANLBi6xW3xlOLJMH1tQ14nAUAYEMu5wwNALi+2qLHEQDAwlRoIu+h
+SCV9e7FR3Q+QRJD0lwT4H4OWYGg+6vVThgoqHItxpCY53VI3ijA3gqcF2GdYiblxFD4ehPKGlgoV
+AoBiGDINofS1lbUuyfqzv4ywSMNtjX0P9R54eb/hb4aZz87U3V2vdcwf7Mat8QO/2Q8AeADvuKk5
+dVPlJNwZdn7Lad1ry5z3WYrk/TISWYrVsOGusP7vBtMLJiyCTZ0zOXC7Q+3sonooRk8DADFLxGvi
+bBnLqTjchydMCUDSa+OZGEPWtNXr5/cnfMw14Ap2xII3hU17a7Ou19TVU1lXOSsIodEJZwZYFgeg
+AQDTUiVzr8WQ9EmQkyzbiwmOD44F0VJjRSWOTft5oFHSREIgzvIqQzkRmp32acoMJJa+UYS50ftg
+j9jcyARDcUz8lMZSXZNLmOMcwZleMmNhjAd++qwppnT+8EvlVnVd2N30/WbVhKrnF0cSVYk8qw1t
+DvY+0lP5isn8vDn/omLBallOzRnfMJa+X0r1ULb7arEg5v2iN/U9DbsaWz/TRg7n/K5fQPzExPgT
+Q9qntGXPZV+vspeMS7deOcncXrTfE0CMDU1Wc5lBrycRADWBU2VVlkoyPu1yB5GSMk18dtrTHcjc
+KJJzA8HUWMJlPzJHz2iusxlLcj6YLWEHdg7UPGE1P2cGgKpfWg4+f8B9gdu61zrXTQbR2rVau7Zk
+X8n+333o/azX8kzuswSBE/z99/ebn6uy7rEiHJJnURFBWAQA6HJa+CdKo7gPj5vjAID7CQBgyhiE
+RnAfDmXAGBjqsC6fL4HACcHp+/2GZyvI/4ciDQhgqUVz62XcbUTIwtcLxQkUohwgOL6YfVXm9qo4
+DMDS4VAonvBPRfyAIITQO4w0mC1szD896Qt/LDHz2HTaRhHmhmmvuealGsg2N4iyho75MxN8aGw4
+Jtm3JZnBtIFmdWzy4IaYJtRudawuW094AD69F/6T/aENIfMvzXhwviBuidt3202/Ntv22GDhQaRE
+UU6ytiUGFsaIacL/Mb/5JTNwwGpY2kSX/0ErrCMxRcx8esbwjgEA4uZ4vDpe/XjNgrZOjcW3eEfu
+w5EI0nfEKbzI1XLRuyPEI6rED2I0bqxImWip6xVmw4WtmABCWds75SwoxtHtRRitlsj41Pg4EBqq
+rt6P9KR+vDBSbzieHH/yYOZGEeaG2q4W/ik1N/JjUTOYU3NxW5zVsDzO0xV0pDmimlbhPlw1pVJ5
+VCPXD9f9tJ7wErOfmIk2RC1PVwMAj/HubW7VhIrwEoyB8Zzn5nHe8GfDfJ1abmCng9WxSByp/kV1
+8vWJy51oDC1/qzzSGBFeIfwEMUVIF4n1ULotsaXQOGr6jcl5hdO91V3yfol7q4vH+IrXKgAAjaOW
+X1pGvzNKjpLoIdT77WlihhBm83xbPx5ldWwNVZna1tDNg3Qi0bKvBTkTAQAOInS29YpFY4gGSa7X
+siG6vRCyzNasPzpQrozhFdsowtxw3TRB3kemzY2s4AQ7NXBk8ug/mY/QLMs63LTOgAufmUXN4Ehr
+uOfxHuFvz/luz/lu68M2y9MWNIa2Xts2umOk74FeACC8hHWPzfg/RgAAFOLVMfcWF6NngAfdfl37
+VR2pZ/6ROFL6z1LfKb6SD0vmx5HgQ90hxsAceeJw8sXKV031t9dLFEn0UKIt6aUsT1dzKm7iEid7
+DasZ1rRd2652zu1OTC+YWYp1bZ3gtBx1iGq7uj11v17c9Vo+JLeX2EBJdF6YG0PXD2aZG1lAyKrm
+jqr5f09XT41hYx0drUm7ElH84KKzqty0TBQ/WEFhFaHMYIW1jWK4F59oNKpSqTCJs/AFwrJsIpHQ
+aBZcuCpuK8vQRCpFPD5R/ODiQ5JkLBbjuKJJqiiKkmT6JZLitpK1CZVKlUgkirgiqYTDss4PZqDM
+4OKDIEjazmyNtoJh2DKsyCJRDPdjjjW9lTM7v1SGe07rHACCmwN9e/uoA7qOKztyXn2VUOYlinJ3
+PsNV57Tch/+9L80Mpnp1HZd05HO9OnM0FlnhipPP8GZuSnn3MchgUTOYNtKubROeLZ601wU7mxzR
+NN9YJay//d7+jedsSj0BGe4I99/bD3lqjwiM7BiePW228dYmlVvlOc/t2GXvvmCDZkAjVZSrTvcW
+l/MKZ8WrlfV3NqjcKsFVR2No2zXtvGruIxWriQ7dPGR4x5BztomNhuwKVwV5DG/WTSl48dY9Nros
+4dzutN/Tv+HcjdIWuDyWxHCXts4BgC6n7bv7rXtts5+a4fPYjhLKvLRNL4GYqw4cUD1zXxc8zo9d
+O0od1uUjHol68XIrXA3kHF6xTSnjPgZ54InEnNnI8zzDMDzPx+PxPFsy7TabeLNggjMME4/P3+0H
+KX+GzCE0irKTrPAGHueHfjRY8pdS/S/13tOmeRTi8bj0UQTP8ISbmD15xrjXiEWwUGMQEMB6sHg8
+LlEkVSMKY98c4zm+98Ee2kyrR9Xmh6oMbxjS3uX7+GyoO9Ty9dZ4IJ4cpdQ/VCpV8s2We6stR714
+juMYJl0LHJjl6C/ORrtD1Flt/U66qWxlTsYL5xYYhkGZ3B3go3PDW/lYJRbBgs0BQEDVrxLWjsf5
+gZsdpX/VG583znzCy6PAMEzKpuRjHt9wdSJ+xhTxfgnMQOaYpLUWnph1RgEA0VUbqrOEQ2TpPI4g
+iLAxEAQR/hfJdpdK1hcBAJAcC0a6Ip7tnqoHLUSQEG5v8Z4znbAl6nc0oDwqseCCRjjEdkvtwCOO
+vt/3lv611Pc5X80dVq1DC4hUkQSslo1uiJa8W1r+q3Isgnm/Nj36kxG1U609MnesxvM8r+I93/aU
+vqPX9GuE2nieF7qanMfpPUfmX8myUmqI3+DG/1eP9WpT37kiZBt2PuScdUZSX8GqGvR1O+sde+1H
+Xj2sf1c/e/qs7a7a5PBOf2UqYUs03tgkbEpYuNZxa6Ln/SEAwAN4y8W1KIsCAhwdn56OBSIsywGC
+YyVGyqTHj55wRnQ15W1sYnQwBJKzIrXzaGqrqX+kIT0WYkWR48MDTzjKX66ofK5SeIUxMe5vu613
+2LAQJr1sGnRVglfx5b+uQEMoD/zsl2dYPZuzSAyO4jg1Z/gfQ8l7Jdoj2pqfWrEgNnvmbOpKRTaE
+47Vx0y9MCJ8+FJnjk88b2M1hrj6ufrQKOCRXHUtIcgUzQCmzvr5OX12KAkpYbPr6upISAqGrEhzB
+Vb5oEoR079nTrJ5FEIQxMRNXT9jurMXDeNZq1R5V4+k16m/VEROq/qf7aAuNIAgfT0SBKDeX1NpK
+qkqQ4FTQFeLT+gGI6PhktoInX0rdeMjRHXPqizknWdp7gh8NDD48WPmsyfKgBeHn7i8M/nuALWEH
+H1pwpHj4z4c6v9iFRkS/1NgSdmTXSNVjlspnKwHA9Iy59zc9kxdOVj9cLVEk1VUWAQCmghH6jNIo
+NoslqhLJVeB5fuZrM4SH0Pak/4LOHJw8SWzxom4VenCFz7BKbEqUwEngERzhEVRF4iQCbAk7dNuQ
++UGjb3eJqYTX3aYO/mO8/yuutidtgY/62RLW8YA9tYb9f/xww1kbhU2JMAh5RI3t1zWOGg6/dmDm
+9Jmqp6vwktL6pJynQeMhvzfAciXo/LYX7svK0keeYXgu42cTLrY98pmyEiSqE0P3DVX8qrL6wepU
+wVn/tqHt/Pk5MXrLCGBI3ffr0Nj8KgRPDYY3hiufqcQCc18vTBnD6ljSMfeTi5gmVC5VvD4uXSRR
+oeCqB08JVr5QCRxwWo4xM9r/me8Yr+WDJwUNb5ahCTTzECL08VB4Y7j8qXIkkT5KiMhRBKfhmFMD
+xGtG5GiFixzhRZK6S0svmn/L0eHtVwFDB/HSppLSXtckbQtPxcH0F6P2gvkzpMM/GgIMafhhAxbH
+Fsw/BAFABC8+vUUOOB5wIq0rSLKDC96ciAwPReNBNq3zOGQMZf4jy5N80gRnKploS1Q1rcJmMQBw
+X+lCY2jZm2XJKADCT+CTOBbENMH5nRAWwXgUyCEyefjPU/zw7UOCdW5+fO7mKtWUinAT4zvGbLtr
+8Wnc/ylfrDFmfrJKukiiQjSOVrxY4drumto2Rf2LmrzIw2O88XfzlmrCkmAMTOm7panDInzUeYof
+vWNEqJB6en4TpnrxTCWTZtPHq+J8GYO/XZp197IKEWaBIKQ7fzgJ/qpSFTP5qclYU7zsHn00zmNB
+TBuc/8wLm1IzrAF+3ovn+qOsnh262pt2H4MAHYz4WLzKSOT9kzbL0GU/m5bnJI60hft/0S/8PbVl
+cmrLZPWDNeYnzTzBhzeEGQPT/1Rf8s3lr1TU/rg2d3NxKPlHif9Uv26fbn5/FkOar2kZv3HM8bAd
+AAgvUf1QTdnrZQiCSBRJVAgA5ierOBXnvtTFXsuSQ2Tz1S1qpzo5RHR1AgBUTlXqd5TwNxJHdP+n
+C3w8QH2w4BpNtC2SqXtXPVWVWiEyps5nYJeUXBt3QTkaQ1u+3Tpy/UDo5bEhGCO8hHVPDfIbVahU
+vAIAQCFRE/dc4Ba8eDzjPgYA4KLhUQ9XWm0oS7vp5OguOL1OFdXSRnkN02Npbz/u+OOT/5j5stf5
+H86uL3YrhnsaaSfRhD94ns+0YSTo8y64kNtWvjKDnOs+Bj4+NeuYJRqaS7RHyxO+Wfs00dio06AA
+wHgGfIGyshZjTmeNj0x4h+iS9rr0dEs2EhoeixNVhlp9RiVsfMgexGrLa7VZPmmK4S6TrEe3K3sg
+u7QgWb6xM49V865rAWw0PDwWx6sM1szpm95OKjxDsyyX/psty1HEet4wi0D2KYg1BE8zcQ7iDADH
+JWIMiiKEGsOyztd8J0n62/h4eHgkyupLLCSfiDMAAChGEmkfjmyVJyKDg9F4IF1IWjCDja+UG18p
+z69nCmuVilcrK16tzFbCh92+kTlrl3OO+ADwmmZDcYOzmVAiBgD+4JD/6Eukrq2ezLMR/Nfl3e9U
+pU5wxQ9WSILobBVd2QoIQ1nX/IkE3NxUITs+iCgv65K3k1RRre1ZbutQZrDCEhMN9PYiOpuxjsp5
+4MGHxmZGwjwAos+7+gW/5Ga+7D34pwO8dp0f7R3jLKPhjmiry7vaK7ray/OYvgCA6Gxz77dmOxEB
+RTfcw8eFJ652hjaHAAHtIa3tzlrhGixP8QdfO5DmdGt7qLaL26SFYLEKk0Q7ovZH+s2/qDI/Of89
+xpVw4zvGZr4ww6M8dYCq3VVH2nOf5MrdVlt0cqsneFKQx/nOM7qEoPacZI13FyTp4JnTPMmhw6T6
+Hivxevrp/VWLvHsLluiOhEwWcTZNBePfHVN51I07mup/1ECb6cEHBoT9NxJFmre3tF7aJvxXd3Md
+AOjf1ufw2cUrBACmnBm/fqz32Z70XHUMhm8b8n3SV//9huYrWoAF+2P9bFkuc16yLUBg8kJP/8/7
+0CBmu722eXtLMqhdCrF496OJ9uSORuqrHdh+bfRBB9sazVXd6kAijr/oRbJYxD44AW2XtMNcjiOg
+CWTwzsFERUI9qgYOkpoiEOD8zrj2EFX1dJVYTbkrBPBc5A4fF27c0TR861DqQkw54z/Fb7ur1vCm
+AQDI/2w89LuD/lP9xlfFgoxytxX6t6DnUk/71g71cAGX0CTi3QVJPPy6AQDI22rps2a4jij8dUni
+cIqLvHsLluKOBDEWd0WDnv8zLTw9ie8Ts+EN4do7akHSOM9ZYc391raL2kv+UZK2BEdyAEB45y5N
+4rM4MUWEu/O4k1usLRRcl7uAB8de+773PzjyX4dnPzsrVsc8KfHu//rHPw++dGDmMzNCSTLRnqdY
+AGA7w4AA2l9YwPBKkey8YO6nRq4XvUgexTkXEemKuK5wVT9cg/kXftuqYeKqCf1fDJr+wrqYpUKR
+n5fEFEFMEe5tbmo/hc/g8Zo4r+J5soAfo2ltcVou0h0p/Zu+4vkKQX4fvnMoVX7PikS8ezLRPvan
+g/if9cwZs+QtdVivFiS/JFYJEnH8RS+SRxGuKoePC9l/1l/xX5WmX5nSikJdwXht3PykuaBYX4kK
+M0GiSMNNjbQlcfAPB/b964OeF44weoaYyDeiNLMtIai97A9lgvxefU8NFsRmzpiRrkc63l1ILVc9
+a0JCGI/w9NemeUPhD1pbISQi14teJIPFzuDgRwP2R+0Vz1da77Fm/lDzftWrmlRlSuKyK8wK9SHV
+/bkN3Wds6D5rQ/MVzQCg+0Anu63MoHZBfpeuSiLePZlor36gmtxZq/vMBq4pGv9m+i3Nq5Nk52se
+r6m9p27juZui9VH3Be6lKJLHomZwojoxeO9gxa8qax6qyZxtvJYPnBjQv2NA4lnO7QVOCbiucrGl
+CxaTrlAKHgg3gQUx5w1O9Zhad3DBDC6oLUF+D5wcEMZGkN/TjoKCpwY913hSHxeXjHcXlhLi3YWE
+hLREe2SKQCbUXKP81PLlRCKOv+hF8ljc3fZXutAYavyjMU1jF/6OV8XTJPEkqdZ51RNV+VSYatPT
+FXSqTU9b6JgtFt4Umj5/miO4lstakSgiuy0khgjy++RFk7r3dJnyO0/xI7uGWR0LMaCemTufIBHv
+nky0RwO1yBTBnD7LNUfVj66Nu+0l4viLXiSPRcxgFQg53X1P9iZfq/htpW2nTfg7YYkDgMqpylwU
+iSNJ6zzPCiOt2W16AHBf6pr+yrR6SG18udz8nBnzYYtsq+opSxb5PaVCwXBfUKF4vHsy0T7wZD8A
+IFOEercVf7UM1sI1DYk4/qIXySOL4d59xgYkogiWWZi7yyjlf9XqAk4YrxHDfVWjGO4K6w1lBius
+bRYcRShIsz6OItYZyiAqrG2UGaywtlEM92MOJcN9HglJXKLI9/lZ98XuaGsUAKgPKdtdtfl7P1kN
+97miFCG968xuNJzj60VG5zktd/h/DslOY2e7I5Fn+lSPWNSPzl9YYXXs6HdHvJ/38iivO6irv7NB
+45gbjWWLQZdGQkjnUd51yYR7q5ulWN0hXf1tDclYE3lLyWBJDHdpf5zHef2fDE3XNtfdUkfX0IP3
+DeSjkoka7jAvpGMhvHZXXfP2ltxnOvPofMMNjcki4UOPxtCmK5tbvtnafElL8yUt1h9aASDPePfR
+74yEXznClyzoPI/ygzsHZj8x2/jDprar2oGF3r09zFHpR4hBb72urWFnQ6I6Yb+nn1Mv+45TUkif
+PM/jvNxpfq6q+aYWVsv27emdu9IubylZLI3hLumPl6VcoeVIbuymMZZi8ViOnogZ7iBPSM+780gc
+hu4amgug50B7RCucheAwbuI6Z0Hx7pqrmmN3D6a+zpQzvpN9dXfXG98yAgB5c/P+337oO8VX8bsK
+WMYYdAmkXXXXhS7jG+U1T9QAD5oBzcEXD/g+7qv4fYW8peT1cMkM9zzk91hDbPqr07p9JXgg9wdJ
+zHDPFNJ9p/uK2Pm4NZ618/5P+iIbI/V31WfGV2Zie7C28xtd+Lt56fmhrlDa26L10alzpko+LM1n
+oIqLhJBOV9B0JW38o9F56fi+P3yAcIh6Qu0/yS97KXksseEuUpSwJQ6/cggA8ADe8L3G1BkjisiB
+RqaQPnTHYNt4u7SQXmjn06ZOMt493wNTST3fdZFLd0BHzBKZen7cGj/wm/0AgAfwjpuak48mWTYk
+hHRGTwOA0G3GwHAqDvfhCVMCEJlL5XyeVVaW1nAXK1K5Ve1bOhpuaiSchJDuLbv1NCFdSGPPKaTn
+3/nUAPr5ou5QvDZe+fPKgsz9TNAY2vyDlkRV/MPX9v3r7/889KuDjJ5RueZdKJVb1XVhd9P3m1UT
+qp5fHMmpKS8FOYX0hl2Nm87aTA6Ti19KBktouEu56jRo+jWGNw3N/9HCatmZ0/OdcJlkVcvz3NJ5
+dj7zh5oQ7645UoQ0dt1+3eYzjtt09uZNX97cdlUbAJTsmz/YQBhEa9ca3zK2XtfGalnvZ72Lb7Eg
+JIR03E8AAFPGIDSimlQBDoyBUU2qgJe5lDyWynDP11XnQUj3TiWrkC5GmpAuqOVpp+cKtelTizKn
+rxDvXvq2Hk1kGT3/yX7nlc7CflzzoPKosCA2dv1Ypp6ffE/mQC0DEkI6MU0QU8TMp2eEnL64OR6v
+juv/rpe9lDyWynAXLcLBc7FHNaHCp3G2jJ0838PjvP5P8ysgJqSLGe5ZhfTy35fnrLCgzuM+nJia
++70lmPslf834TQnAabmBnQ6hrepfzFvbQrw7R9M8wfMmmm2PoJMqABUAJKoSMVsstDE4ee4kR3Dt
+V3QID2RIxqATXoIxMJ7z3Flj0JcaCSEdjaOWX1pGvzNKjpIau2bicicxQxjeMcheSh5LY7hLFKGQ
+qIlPbvUI6d7Uh1TLFa3k4PzBUHYhXdJwzxTSVeOqHBUW2PnUAPpkvHvmkCBxpPSfpb5TfCUfLpjf
+kdZwMt49cbEncbFHfbcVXqoGgIlLnFNfniKHyYpXKqt+VTV/0gOFeHXMvcUlDJQuWwz6MiAtpJte
+MLMU69o6wWk56hDVdnU7HsRlLyUPxXAvgPXhpimGu4LCKkKZwQprG8VwL4D1cRSxzlAGUWFto8xg
+hbWNYrgfcyiGezpZrfOcCekAEDou6HjMod1PtX6rNedFRZ7ind8e957t5dScelRds8eqf1Ofsyh3
+5zO8eLEA+tZtrdJBWBJCemhzaHz7WHBTEBDA9lPkzbXYoTUQHiyQM3I90h7pfbjH8lS15ekVCCJa
+1Axmyhn3xa6prVPpBSoY/+4YOaJp3GHmtJzz2+ODDwx0fak79TRzpDMy8MBAvuFoCIzdOOr7hK/+
+5gbCRUx9fXLwzoGOoU7SQUoV5apzcqvHtd1V/tuK2l11hIsQTjEKAfS8au4jFbfGRm4d0b+tRziE
+l/ycCUK6dY+NLks4tzvt9/RvOHcjGkd5gh+9boQc0WiuMgPFxXaMRR536D61YW0cwiEwsmN49rTZ
+xlubVG6V5zy3Y5e9+4INc6qkkXZtm/BsWckUw0XNYFHrXNJwBwCmghm8d6D64Rrfp2f5PC6e8CQf
+OClQ8VKlsHO17rbNfG4m2holHaSSRjZrAAAgAElEQVREkXSdol58SgA9j/NCAL35qdyPnxIT0hEa
+6bi0E2GQuXMRcST64ABvSsAiLkQtG9KR64K533xjy+DNAyvVw0UNYs39VuCBo7IdUUn44wQM7xzS
+v2uofLHS96nZfB5witAI4Sb8p/qqnqhCw6hgTAtzVKJIihQvPmFKqEfV1XtrDG+kX533f9IX3hBu
+39qRj8aeJFNIT/V6udoYEkERHw55PVlmhUm66pafW7AIlha5bnuwFngQNPaVYnG7gTx+8mX649Nf
+nkrYEo03NhWQr8pA3c56x1774d8e0r+rnz191nZXrcauyVEkTj5ePK/iCw2gzymksxvD8f+YIO+x
+Ij4c1sLTU3NErq+C3/xLeyiW6Y8zJmbi6gnrHTY0WFjTgjFd8UIlGkJ54L1nT7N6NmeRGPl48YLG
+XlAAvbSQzp4QjDzXp3q+kngydzb96qG4ketFZwlncFZ/PPBRP1vCDjzo2Pf+B/ve/yD0b6HwcaGD
+/3uAp6Q+zlwpN3z7sOVn1ZbHLNa7bV3ndMcaYp6tHukiCfLx4oUA+oI0dgkhPXCCP/xsP/GMSX27
+TWh9TVD0yPWis1Q/Jhb44yn7MMM7ZZqvz39Tj9w8DBhS/4P61MzqwCmB8Maw6VkTFpg78BCM6eTR
+LTFNqFyqeH1cukiiwqQXX/lCJXBzXnzZ6yk3UWu4wIkBw5tlWTX24KnB8MZw+VPl6oTIVeWFQnrc
+ErfvtqueMpF3Wxd5Y9IyU/TI9aKzqBkskasu5o+jAVQTmN+rYRGMR4EcIpNHVFmFdMGYHrth1La7
+lvASvk/OxhpjVU9ZpIskKszpxScsCYkA+swMd2khfeJyJxpDideMbGtkrgOzBDAFOBUrhXTkumDu
+JydApDmimlbhvmU9x7KoxkSt81zx7hJkFdKRKNJ0dfP4jWOOh+0AQHiJ6odqyl4vky6SqBByefFC
+AL16Issky57hLi6k8wQvjAbzUk/y7cSLlbC7IedorDjSrnqque853+0532192LbM1zUUw70A1oeb
+phjuCgqrCGUGK6xtFMO9ANbHUcQ6QxlEhbWNMoMV1jaK4X7MoRju6RRquMvLcOdJ/vArh+jKeeet
+9ZI26gAlJqS3XdwmbQ4tsofh40ODjw9SB3QdV3bkKbhkzXCX8OIl4t2Xk5xR8lkN91SpnzpM1f2k
+nuqdu/qTU5kviBUw3IUM9+qHahgj7braNXjfQOc5XUgs1xloDDiSq36gpvRvpQCAAKIeU4O4kJ5D
+fCuwhx1f6UyNno50RoYeGsrfrRNM8HA2E1zUi0f5wZ0DweOCjT9swn248/Lx3r09G87duMxXvCR6
+COKGe1Lqb76xSpiv9nv7N56zCY2i0sq8DFbAcJeX4c6jPKfmtH3adHMyRUgHAgQhverpqswaFtnD
+5AxmKpih+warHrT4P+PL0/EVy3AHcS9eOt59OZGIkhcz3JNSv/BPNIE4djmEHHxpZV4GK2G4J18v
+JMOdpVjAgdNyHMWJPeXF94lZQUiHeNbyIvSQx/nR20b07xrKf13u/3R+YfFHTfDemFRMcpoXLxbv
+vvwzWKyHIGm4p7rRqcMrrczLYAUMd5CV4c5SLOElBn8yAAioh9TWe2ylf1+o3aihUCE9/x4mt4f3
+K9Nxa7zuhvp8Hl40j+RAZfXic8a7Lyei5n4e3Ql3hp3fclr32oR5n0OZL5zlNtwFZGS4kwNk1+e7
+j/vI8Z3ndJEj5MBDjljjAscv1BUsVEiX6CHhIlJ7KKjDjIlxXeOy3mHDQsW8QyirF58z3n05kR0l
+H9oc7H2kp/IVk/n5+V/5xVXml9twn2MRGe7qEXXdbfUIg/g/seDxIYKQnnlPv7weIgyS2sPZz83C
+UT1/8KGB/fs+PPDh/vBHwqHNwX1vfMBpF3VmSsyLl453X07kRckHTvD37uk1vWCuvbc2+ZVVdGV+
+uQ33dEQy3NOE9PSFkPRvL17LB04MlP3RiMSzfLlnrVBGD/VvG9rO1yavKo/vHENwtPE/G4XMagH/
+yf7QhpD5l2Y5mbiZo8GDyqNidaxUvPtykneUvCD1m35ttu2xpQ5v0ZX55TbcZWa4IzB5kQcPEMQE
+wZaxk1s8PM7r355fSshVFxPSC8twF+8hFsQ0QU1yBqNhFMFRzbAmeThYaIa7tBcvFu++nEj3UMJw
+F6T+8rfKI41zUj/hJ4gpQlqZl8GyG+7yMtxRoMtpzzYPU8YAAHWAat7eQg7MLyUI6WK56oVluOfq
+oQQFZ7hLBrWLxrsvJ5I9FDPck1L/kScOJ2uqfNVUf3u9tDIvA8VwL4D14aYphruCwipCmcEKaxvF
+cC+A9XEUsc5QBlFhbaPMYIW1jWK4H3Mohns6hRru+cS7pyGtscuoECQ1dhkVclruw//el9ZDqlfX
+cUkHwiGpkjj2vo68pRYr5Or3yiIhpPMo77pkwr3VzVKs7pCu/raG5X/q6LIb7nnEu2cipbHLqhAk
+RPujFTbcYBKebzD4wEDn2V3SZ0/RGNp2TXuyh7Ga6NDNQ4Z3DIIPIEjicJeVNybi352IPuagPtu9
+Ng7hJIX0yfM8zsud1T+r0Q5onZeP9+3p7T5vw2IeMSuDZTfcc8W7Z0dCY5dXoYRov7BCJA5Ddw0J
+drZ0D6meoxlqOD927Sh1WGd5Zu6uG0ESD3k5AOA1XOzWUV7HAr+2M9w5Nee60GV8o7zmiRrgQTOg
+OfjiAd/HfRW/X1aDeVG7gZr7rW0XtZf8I5swJeGP56GWSyBo7LV31M5r7IurMIton1Jh3BovtMLZ
+02ZC3aH6u+ozk9/Zpii9ZRr7VwmyIpeICycppAsae6qQTlfQdCVt/KPReen4vj98gHCIekLtP8mf
+q8oiszKGe84iUSQ19kIrzCnaJyvM5y4SAV7FO7c7DX8tS7sdMm6NB/6xHwAQP05d047Qa+O6vYSQ
+zuhpABDse8bAcCoO9+EJUwKQZc12XxnDXbpIAgmNXUaF0qK9UGH5yxWVz1UW1MOYLWZ52pLWQ5Vb
+RZ3Vqbm2CR1ThV/u5arzlcRXnJxCesOuxk1nbSaH85Kfis7KGO5S8rskYhq7zArFRfvUCgu6oWjq
+K1NZe4gwCNajJV4r01zWwlMsfWYBUv8KIiGk434CAJgyBqER1aQKcGAMjGpStcwP11iqGbzAH2fz
+LRIInBJwXeViS9PLBI1d/44hTWOXXWFK1QvE7dQKs07f4KlBzzUepiT93hhOw/n/3W/4S/bk96xt
+rXIkhHRimiCmiJlPzwhPo4qb4/HquP7v+T6Lslgsu+EuWQTiQjqIa+xyKpQU7TMrxH04MUUkK8zM
+cE/tof5vC7ZiUhJnhjDeyCa2eQDn8TeWe0vLQ0JIR+Oo5ZeW0e+MkqOkxq6ZuNxJzBCGd9KfaLbU
+LLvhniveXSxyHcQ0dnkVSmjs2Sosf6Wi9se1yQqzZLin9DA9+X2hJI69r9Ne2IY5NGviaVzSQrrp
+BTNLsa6tE5yWow5RbVe3L/PJYFAM94JYH26aYrgrKKwilBmssLZRDPcCWB9HEesMZRAV1jbKDFZY
+2yiG+zGHYrjPk9MEzyq/5yySIOtSEq66IPh6z/Zyak49qq7ZY9W/me+lhGhbdHKrJ3hSkMf5zjO6
+sMi8LRTtiA485qh8wmR7LvdTSmFhoDm2nyJvrsUOHQ00V3MHfrM/NZu+47LOlU+XSkGe4b5sXvwi
+jiJUMP7dMZVH3bijqf5HDbSZHnxgILn/ZsqZ8evHep/tSbttQbpIAomlBFe96drmulvq6Bp68L6B
+uZRSBMZuHJ354kz9zQ1tF7dTh6nBOwdizXlEdCEweaGn/+d9aBCz3V7bvL0Fix19RrmRnrjB2f9c
+X/6dFwLNVR615qpmzQ2NXFUi8riDT4YFYsCRnPUhW9fW7q6t3d1bN2j7V9PtGwiM7Bj2fsHbeGtT
+5ze7qMOUY5c9ealSMNzNz1U139TCatm+Pb1zV9rlLSWLReyDJdVyUfldskgCiaXEXHWe5AMnBSpe
+qhT2u9bdtpnPzURbo6Qjh0UV+reg51JP+9YO9XD6qYapiyfDx4Xrv9sw+uORPHueDDSfOxcRR6IP
+DvCmBARxOJpNT/VTi8nQXTrkGe7L6cUv7hqguFouEe8ulfwuTj5LpbnqCI0QbsJ/qq/qiSo0jAp2
+ds7pCyi4LncBD4699oQpoR5VW/ZUl7059w1YfV8Nz/FZU8slSA0052pjSARFfLjwBAMhm57VsKyW
+TT1QWSVIRK6nGu6T5052XtolGO4Vv6+Qt5S8HhbnKnYWtVzi16C8H4qSS2V31Rmo21nv2Gs//NtD
++nf1s6fP2u6qTX8MRwaclot0R0r/pq94vgKLYN6vTQ/fOaR2quduc1rcr1x2Yzj+HxPkPVbEhwte
+hJBN77jTDgiQw2TtvXX6/1tF0o88w305vfginE2T56oXFzFXXbCzK16oREMoD7z37GlWn2P3yWpZ
+Ts2V/aGs5L0S7RFt9T01WBCbOaMIOi97QjDyXJ/q+UriyfmB0gxqNp25+YQTP7rh3I3kCNl/f1+0
+Ibr4toqIPMN92bz4xc5g2a56kcnmqnOl3PDtw5afVVses1jvtnWd0x1riHm2ZnkkVioIiwAAXT73
+GUBpFJvF8s/dFyNwgj/8bD/xjEl9u01oIg1ylGzY1YgwiO+0fB8wswzIM9yX04tf1AzOqZbLI7eQ
+LkGKPy7Y2ckDX2KaULlU8foFzznKbAsLY8Q0ETg5IIwNp+UYM5P/02X8J/udVzrTflwLgeaqp0zk
+3das03eu7xnZ9CuOPMN9Ob34RR0HS6jlEvK7RBGIG+6iS4m76oKdPXbDqG13LeElfJ+cjTXGqp6a
+f+5k1raQGFLxYoVru2vyoknde7rJizw8xhuPnu5ITS1nKpnU1HIQz3AXAs2J14xs61ygOTJLAKMG
+BNxbXXiAULlUjIHxfN3N4/zyS+ISyDPcl9OLX8QMllTLReV3ySIQN9xFlxJ31ZEo0nR18/iNY46H
+7QBAeInqh2rKXp9/AKpYW1VPWTgV577UxV7LkkNk89UtaufcabVoW8T+pF34e/qCqekLpoTU8mSF
+mRnuyUBz5qWe5IvEi5Wwu4FHeLqcdl3oErLpdQd1bde0awZX4NGzYsgz3JfTi1cM9wJYH26aYrgr
+KKwilBmssLZRDPcCWB9HEesMZRAV1jbKDFZY2yiG+zGHYrino2S4Q64M9+QrzAmByC/t2Ac6aktb
+zh6uEpQMdyXDfQ52Qzj6uGMl7REZKBnuoGS4AwAAXU5HHnWo77HSn59ZQ78+lAx3ACXDHYDH+cFb
+BvC3DcQvK5c5nHSRKBnuSoY7AMDUlybj1jh5RZOEmLY6UTLclQx3oCvp8e3jdT+pR4Kr7iaifFAy
+3I/1DHf/CT62hO2/ry/geC/geI/99xD7kWDwvQ857Ro4n7X6M9yX6mfjAvmdy7dIIHBKILwxbHrW
+hAUW7LSEDPeyPxqlMtwLqTClatEM96wVBk8NhjeGy58qVycW/F4UMtyNb5WnZriX/cWo3UoBwLCf
+A4DYncOAIeR19WhsDfygy8dVN7xjAH7OVa9+vGaZe6hkuC95hjsWxLRBLQBgghcRRgFDsAENGGH1
+o2S4Kxnuaxslw31dsT7cNMVwV1BYRSgzWGFtoxjuBbA+jiLWGcogKqxtlBmssLZRDPdjDsVwT0cx
+3CGX4Z4Z1E6d1w4j6ZdmVieK4a4Y7nNB7eqfWPF3SgEAeAQdUQMlXt3qQTHcQTHcjwa1Y0e0WG/K
+vnwtzGDFcAdQDPejQe28luOptXWPkWK4K4Y7ABwNao8+7AAE0AGSvL127nBi1aMY7orhDnA0qL20
+5SO6z3ajg+rIz/vZ5tUV1C6BYrgf64Z7KugQqflBAzAI89nl/raVx+o33JdqBkvEu+dMfhfLcBcM
+d/07BinDvZAKU6oWNdyzTt/gqUHPNZ7Mp6AJhrvhL2Wphnt6U6svqF2C5Uxjl4diuC+54Z4Mamf6
+cN7IJr7hAZzH/7iKHlgkgWK4K4Y7pAW1Y/t02m2tmF0jPI1rlaMY7uuK9eGmKYa7gsIqQpnBCmsb
+xXAvgPVxFLHOUAZRYW2jzGCFtY1iuB9zKIb7PFImOAbub7omL5pkKZY6SNXurJs72yqploshbbhL
+tJWTrHp+ziIJIu2R3od7LE9VJx/0CUcl8eCZ0zzJocOk+h4r8fqCM/+R1oh7iytwYoDH+Y1f2oRF
+VlFG4Co33BdxFKGC8e+OqTzqxh1N9T9qoM304AMDyf331PmTritdlc+aGr/XxGpZx6P25EVdQS1v
+ura57pY6uoYevG+AJ3Ps9QXDvfXSNuG/upvrAGDOcJdsSwKmnBm/fqz32Z60D4Z0kQS0kR79zsjh
+pw6lL4XAyI5h7xe85I5G6qsd2H5t9EEH2xpNlrovcPX87AgWwuvvbGi7ph2LraLpm+x8461Nnd/s
+og5Tjl325KVKwXA3P1fVfFMLq2X79vRmXmlfahaxDxZXy3mS92zzlP3BaPmZBXggHeSRlw/7T/Mb
+/9sIEmq5BOKGu3RbEojq+UeLGm5oHNk5nP94uC90hTaHmm9sGbx5YEHfj0ri4dcNAEDeVkufNcN1
+ROGvFAAEjw+4LnF1besmR1bG7ZJmnRvuYmq54D6XvVnm+tbEwbcOCO5z4GOBtKWzqOV5kGa459lW
+JhJ6vpS5L47twdrOb3SV/jNd20hK4oLeznaGAQG0nwQAQMF5mRN46Huo91//+OfBlw7MfGYms+YV
+ZL0b7kdJU8sF9xmfwRPWhOA+Y7NYqvucUy0XJcNwz9mWKBKl8n7KiiyVlMRjfzqI/1nPnDFL3lKH
+9WrBCKyGDXeF9X83mF4wYRFs6pzJgdsdamdX8oalFeeYMNwl1PK62+q7v7gh032WVsslkDDcxdpa
+DQiSuOpZExLCeISnvzbNGxgAYLUsp+aMbxhL3y+leijbfbVYEPN+0bvS/V3AOjfcs6rlgvvMGllI
+AOEhAAe2jF3gPour5dJkGu6521ppkpK4+oFqcmet7jMbuKZo/JseABAeq0GXz32AURrFfXjcHJeq
+bnlZ54a7mFouuM+zn5lNdZ9L/5btzrCFarlAQYZ7Pm3lNtwLRMxwz0qaJI5MEciEmmuMAQAWxohp
+wv8xv7AdWA1Lm+jUG+xWnHVuuIup5UgMMT9jHr9+XD2i1tg1rismiBlC/7ZeaFBCLYfCDXeptiQr
+lNDzM4uIKQL3zSvzWQ13Ts2lLhVpjqimVbgPT0riaKAWmSKY02e55qj6UQsAoHHU9BuT8wqne6u7
+5P0S91YXj/EVry3rb3lp1rXhLqmWV/7axFKs5yI3p+W0B7XNV7bMPcNCQi0HABmGu0RbkhWK6vmS
+RSBuuEdawz2P9wh/e853e853Wx+2WZ62JCXxwJP9AIBMEerdVvzVMjAAAFieruZU3MQlTvYaVjOs
+abu2Xe1cRRHwiuG+rlgfbppiuCsorCKUGaywtlEM9wJYH0cR6wxlEBXWNsoMVljbKIb7MYdiuM8j
+z3CXF7kukGmd55DfRZaSvV6cmjvy28OMaf5qXMdlnbqDOgCYOd3r2uaKtEQAQLdfV3d3fc6ra9LJ
+76HNofHtY8FNQUCAOkzV/aSe6l0B42eVG+6LuqIhEZ4uWOdVj1q0A9qJK5yOR+0dX+3EApjsyHWx
+vHipeHeJlPk81it7hjsGvIa33F+t+6sOANQqtXps7sccj/OGP5dZ99josoRzu9N+T/+GczeicZnJ
+7zzBj143Qo5omm+sEuaQ/d7+jedsWu6TuOs5w12e4S43cl1USJeId5fU2PNcr7QMdyGNXdun1dg1
+sPBcRHnK1WCO5Ea+N8JSrPQMlkh+R2ik49JOhJn7YKMJxLHLkTtKvtgohns261xW5Ho+1nlmvLs8
+V10iw11IY2c1LEeJHkdG66NT50yVfFhakLmfmfyenL4gK5u+KCiGu5R1Xljkes6fl1nj3Rf3ozQz
+w53Tcfg0Prx7CBBQD6nr7qvX/9+8RRS3xg/8Zj8A4AG846bm1CkoTdbk9yThzrDzW07rXltBH4mi
+oBjuota5vAx3CSTkd3lkzXAnB8jOz3VtOn5z25fa1cPq/vv7og3zaewqt6rrwu6m7zerJlQ9vziS
+qErk3/nM5Pe5os3B3kd6Kl8xmZ8v4JbpIqIY7lmsc9kZ7hKIxbvLI2eGu3pEbb3VhjCI7zRf8kWE
+QbR2rfEtY+t1bayW9X4237stxJLfAyf4e/f0ml4w195bW1CUfLFQDHeADOu8CJHrGYjFu+cka1s5
+M9znGpVIY89m7jOfDMSvn+D1+Sa/xy1x+2676ddm2x7bikxfUAz3rNa5vAx3CSEdxOPdpZcSa0s0
+wx2ByYs8eIAgJghaT09vneJxXnC6eYx3b3OrJlSEl2AMjOc8N4/zhj/P696clov+dIAvYSGGqPdY
+UvookvwOMHG5E42h5W+VRxojyYFKRskvD4rhnmGdy81wl7bOxeT3nK56lrbEM9x5hGcqmMmLJ4U0
+du1+bds17ZpBDQAACvHqmHuLSzD3dft17Vd1pJ7eR+II9m4J8yk/9l5+ye8EL3TjyBOHky9Wvmqq
+v70elhHFcF9XrA83TTHcFRRWEcoMVljbKIZ7AayPo4h1hjKICmsbZQYrrG0Uw/2YQzHc05Edgx46
+Luh4zKHdT7V+qzXnpcicXnzWtniSP/zKIbpyXjZrvaSNOpCXJ569QpT3XOqe2jbFUqz2gLZxV1Oa
+0501wz0fgpsDfXv7qAO6jis7hNFYJYZ7TnM/6ypLdF5CmZfBomawhD+eUy2PdEYGHhjIV4qQ9OKl
+2sKAI7nqB2qEa9oIIEkhXd56TX99yr3dbX6kirSTnqvcqU43baRd2yY8Wzz5rdICwh3h/nv7U0dj
+tRjukua+2CpLdV5SmZfBomZwzhh0MbWcqWAG7x2ofrjG9+lZPp+LJ5JevERbaUJ6QeuVmeHOqbnJ
+iycN/1NW9VgVz/Gkg+z7bW/S6RbLcM8JXU7bd/db99pmPzWTHI1VYriDpLkvtsoSnZdQ5uV1b1Ez
+uOZ+K/CQ1fWWKAIChncO6d81VL5Y6fvUnP2TG3EvXqItQUjntBxHcWg4372XUKHgdKfCVDJ0JW14
+w+C+3DV9/nTLtlbB6RZmsO3B2qxLScPj/OAtA4a/lZleMs1+ciZ1NFaD4Z5KprkvscpinU8q85af
+W7AIlqrMy2NxIyIrBn36y1MJW6LxxiZ5XmUWL168LZZiCS8x+JMBQUi33mMr/Xu2ENg0RCpMOt1+
+a4ItY9Odblk/gKe+NBm3xpv/X4uEfbaChruAqLmfxyqndV5CmZfHch9UMSZm4uoJ6x02NCin6UK9
+eHKA7Pp893EfOb7znC5yhBx4yBFrjMloNw3bztqOz3WqhxYbMklX0uPbx+t+Uo+FRO9SWXHDHRZj
+7mfrfE5lviCW+zMd+KifLWEHHnSkvnjwfw90n7kBCec4ngh+NDDw0EDls6aah7OLxRKoR9R1t9Uf
+POWA/xP+/J82l0aq0014CF7FMwaGOqyT7XT7T/CxJWz/fX2pL+5744NNX9qMRlAACJzg77+/3/xc
+lXVPdtF+eRDMfa1dW7KvZP/vPvR+1ivcjipN1s4nlXnzc2YAqPql5eDzB9wXuK17rfL6ttwz2PBO
+mebr818ZIzcPA4bU/6Aeic5vnsApgfDGsOlZU2oM8AIvXtapzKxCeta2xMCncGKK8H3WV/rnUuAh
+UZWIV8erH6/JswPMJwPscSHVEybk6OFs2V+M2q3zJ8iG/nMQMKTxPxvRGAoLDfdi3Tq1WLKZ+1kR
+67yEMi+PRc3ggmLQhSI0gGoC84ftWATjUSCHyORuLH/rPOnFi3YjRUhny9jJLR4e5+XFuwsZ7mgc
+NT1tcn7XqR5Rq/vUk1d5Up1usQz3udJshjsWxLTB+c+zMBqaYY0wGqvBcJc29yVWWazzEsq8PBY1
+g2XHoEuQv3We9OJF20KBLqc92zyCkE4doJq3t5ADufPiJTpf8XwlS7GT2zycltMc0KQ63WIZ7sm2
+xAz3rKwSw13a3BdbZYnOSyvzMlAM9wJYH26aYrgrKKwilBmssLZRDPcCWB9HEesMZRAV1jbKDFZY
+2yiG+zGHYrink11jF89wl1pKHHl58fLayrlUtCM68Jij8gmT7Tlb8kVOzR34zf5Umz4Z756TTElc
+Ot6d1bGj3x3xft7Lo7zuoK7+zgaNY6nC049Rw100w31xueqF5cXLa0tyKdpIT17ikbDprQ/ZhOyw
+PG16MUlcKt4d5Qd3DgSPCzb+sAn34c7Lx3v39mw4d2Py+l9xWeWG+6KOg5NquaChzK9ASoa7/i19
+444m2kj7T/NLLyVFAtouaa/7QZ3+T/qy35fZ7rHRRjpRkViStlIM98ylpi6eDB8Xrv9uQ2aRYNNT
+/ZTWodU6tBqHJkeAOwCkSOLpFXJA9VC6/Trdfh11mJr66lQy3p0pZ3wn+6wP24xvGUvfL226uZkp
+ZXyn+LI3sGjKX6uoebxG/zd9xe8rLb+wJMwJlmKlOy8Y7o0/aix7u6z89fK6e+uS2yvVcKcOU7U/
+rQMOhB28PJbEcE/NcJ8+f7rtG+1Chrvxv40SS+Ugj7z4YrUlZrgDQPV9NTzHZy1KxruzWhaL5JHp
+DQD5efFCvHvXtm4h3p0jOQAgvHOCBD6LE1NEqCtU8buljf8/hgz3HBnuRcpVzysvXl5bssx9waZ3
+3GkHBMhhsvbeutR4dzltCeUZ8e7EFEFMEa6LXLoDOiFCnVfxPLmEv7+PXcNdIsNdHvLy4pcHzaBm
+05mbTzjxoxvO3UiOkGnx7rLJjHdHY2jzD1oSVfEPX9v3r7//89CvDjJ6RuVKz+0sIqvZcF+SGZwz
+w10e8vLilx9ylGzY1ZgW7y6brPHuuv26zWcct+nszZu+vLntqjYAKNlX4NNuCkFeNn3WAHqJUHh5
+LMkMls5wz0nOXPX88+LltTG6cYQAACAASURBVLV4str0YhnuEojFuwMA8KDyqLAgNnb9mHpMnedp
+u8Uiy3BPvbtkbRju0hnuxcpVzycvXl5bYoY7LHS6mUpm3ulGwL3VhQcIlUvFGBjP193JeHcBsQx3
+aS9eLN49UZWI2WKhjcHJcyc5gmu/okO4raPoHLuGu2iGe/Fy1XPnxctrS3KpaFvE/qRdKJq+YGr6
+gqk5pxvh6XLadaFLsOl1B3Xz8e5H28pquEt78Vnj3QFg4hLn1JenyGGy4pXKql9VLeFd+Irhvp5Y
+H26aYrgrKKwilBmssLZRDPcCWB9HEesMZRAV1jbKDFZY2yiG+zGHYrinU2iGe8409kLb4kq48R1j
+M1+Y4VGeOkDV7qoj7eRStaXlJq51znxphlNz6lG17ZHafOxsQUgPfN4LKI/t05E/rMP6Fia/t0bc
+W1yBEwM8zm/80qb81bZlIKeQLhFbn7WouIb7oo4imHJm/Pqx3md70m4lkCpSwfh3x1QedeOOpvof
+NdBmevCBgXz2+qIVYjB825Dvk7767zc0X9ECLNgf62fL2CVpC4Hxm8Zmz5it/c+6lotaNQc1jl32
+5DVCMQQhffYTs5rvNGovbAUWIs/18caj15YRcF/g6vnZESyE19/Z0HZNOxZbRdNXENK9X/A23trU
++c0u6jCVusq0kR79zsjhpw5lTgDRIskKZbAkhrtUkbirLq8tppzxn+KvfrDG8Kah5L2Shv9sZEoZ
+/6n+xbeVabhzai74sWD5ixX6N/Wag5rqn9TkY2cnhXTitTL8/0o11zfyeob55JyDHzw+4LrE1bWt
+u+6eOsPbBm2fdrWE/AFALiFdVM8XL1obhrt0kUQau4y2sure4e6w8VXjItvKFLcRGiHcRODjftPP
+TGgYjXVE87Gz03qIzOCIh2A2h+DPlYCC8zIn8ND3UG/ClCDHyJpHrMY/yr/EWnSkhXQJw12saG0Y
+7jmKjpIljb3wtgTd273NTe2n8BlcTPcuSlsIi9TeWufYa+/9XU/JX0r8n/fnY2cnhXTkbS3qJThb
+HNQ8kDwAsBo23BXW/91gesGERbCpcyYHbneonV1Uzwo8sygrOYT0wifAGjPcJSg0jV0MJIo03NRI
+WxIH/3Bg378+6HnhCKNniIkFEaXFagsAEuY4r+LLf12Rv52dFNJDf98f6H8v/Pph3sCgThUAsFqW
+U3PGN4yl75dSPZTtvlosiHm/mJd9u2wUV0gveoUr81yGxaSxZ0J9SHV/bgNtpgGFWHXU8ahD98G8
+/1XEttgSdmTXSNVjlopnKnier3za1Pdybz7544KQ3kPEAAXOFo08a8f+qQMAhEUAgC6fO9ZBaRT3
+4XFzfFG9LCpFj1wveoUrsA8Wc9WTyLHOeSDcBBbEnDc4U3Xv4rbFlDGsjiUdc6fq8Ck80872n+x3
+XulkSjJ2KjygLhUSwOI/dKIjamyfDgCwMEZME/6P+YXtwGpY2kSnpTGsLEUX0teG4S5dJJHGDoVY
+58kKaQsds8XCm0LT509zBNdyWWvymQbFaksw3IlJgnAT4zvGrHfbsCnM/ylfmp3NabmBnQ6hwupf
+zL8uCOnx5kDioilQcdotbUgUBS2gcdT0G5PzCqd7q7vk/RL3VheP8RWvLe0txwUhLaRLGO5iRWvG
+cBctknTVQZZ17r7UNf2VafWQ2vhyufk5M+Y7+lut2G2hMbTp6mbnTeMDexwAgE/jaXY2EkdK/1nq
+O8VX8uGCu9YEIR0dIIlfV6h/YUZm54fd8nQ1p+ImLnGy17CaYU3bte1q52IfkVREpIV0CT1frEgx
+3FeS9eGmKYa7gsIqQpnBCmsbxXAvgPVxFLHOUAZRYW2jzGCFtY1iuB9zKIZ7OgVr7Lki1zPhKf7g
+awfSTFNtD9V2cVvySlu0LTq51RM8KcjjfNeZ3Wg4x9eLvB76Pj/r+YYn2hoFAO0+bcM9jflcQkuN
+Qcfe15G31GI9uWPQVwkSQjqP8q5LJtxb3SzF6g7p6m9rSIahLBtLY7hLquVC5Hrls6bG7zWxWtbx
+qD3nRV0kijRvb2m9tE34r+7mOgDQv62fm74ITF7o6f95HxbCa3fVNW9vyX2mM78eNuxoFHqYvErM
+43zp/+obv91k+5GNrqHt9/Rz6tw7MyEGXXtZq+Z79bw1EX3MwZNzS0lI4qsCSSF98jyP83Kn+bmq
+5ptaWC3bt6c3y+X0JWZR++CkdT5869CCggS0XdKedHPRBDJ452CiIqEeVadGrgMPpIM88vJh/2l+
+IbBaFA60R47utAhwfmdce4iqenruOnDo34KeSz3tWzvUw3mfGci7h5oBjdDD8t+VA0DZ74zJcxEc
+yTm/72QpNmdWe/lrFQAQ8nIAwGu42K2jvI4FHocUE3zw5oF8O7+MpArpAFD70zrv6d5IS0QzoOHU
+nOtCl/GN8ponaoSBOvjiAd/HfRW/X9ar4ovaB9fcb227qL3kH9lyP/OIXD/41gGEQ4TI9fwb9X1i
+NrwhXHtHLcTn1sB1uQt4cOy173v/gyP/ddh3en6Zp5I9NLxhSPZQ5VQFTw6mLR1riM2cO5MaaJ4P
+bFOU3jKN/asE8c/HoHd+o6v0n/mGbS4zSSFdcNVThXRhoIx/NDovHd/3hw+ETek/yb/MPVwyw/0o
+hUWu50QNE1dN6P9i0PTPHW9xWi7SHSn9m77i+Qosgnm/Nj10x2DbePv8PltWD4lZwn+0h7gPT+1h
+wpboefUIAGB+rPnSltS4fQni1njgH/sBAPHj1DXtCF1ADPoKIiGkJwcqXhPPOlDLw9KeTSt65Hqo
+KxivjZufNCdvJhMk8bI/lJW8V6I9oq35qRULYjNnzCy+h7U/ruv+4gb1UPqRicqtaj2/rXZHXUGB
+5iq3ijqrU3NtEzqmCr/cy1XnG4O+4uQU0ht2NW46a/NKpecv4Qxeish171e9aYHmWSXxPGeVRA+Z
+MgahEaGHjIFZ0EMaNP0aw5uG+qsb8g80RxgE69ESr5VpLmvhKZY+M9/P2MoiEbmeOlCqSVWWgVoW
+lmoGLyZyXcw657V84MSA/h0DEp//4hYk8cDJgVRJPHmMIVGhdA99n/UJPUxUJRI1iZJ3sx3rZws0
+FzXcJZdatUgI6cJAzXx6JnVTCs/SW06WynCXF7kO4tY5HA00L313wXRHYkjFixWu7a7JiyZ17+km
+L/LwGF/++/KcFebTQ7KfdF/pSvaQx/jJb0wSToLwErSent4ylRpoDiKGezIGnRnCeCOb2OYBnMff
+mFtl6Qz3FUdCSEfjqOWXltHvjJKjpMaumbjcScwQqbH1y8PSGO5yI9dB3DqHo4HmKmf6Q3uqnrJw
+Ks59qYu9liWHyOarW1Tj8+8pSig8HsQBAFBI1MSnLpwUAs21+7SpgeYgZrgvjEHH3tdpL2zDHBoo
+nxtDiQz3FUdaSDe9YGYp1rV1gtNy1CGq7er2uYFaRhTDvQDWh5umGO4KCqsIZQYrrG0Uw70A1sdR
+xDpDGUSFtY0ygxXWNorhfsyhGO7pFJrhzlO889vj3rO9Qgx6zR6r/s18L+QUXGHhNr10W5yaO/Lb
+w4xp/pJbx2WdeT7TmO2ORJ7pUz1iUT86f2GFU3MHfrOfrpw35dIqXHH5XV6Gu4T8HtocGt8+FtwU
+BASow1TdT+qpXvlZnYuawUw5477YNbV1qoAiBMZuHPV9wld/cwPhIqa+Pjl450DHUGcyjKzgtiQr
+FFz1qkct2gHtxBVOx6P2jq92pl5AKXS9AANew1vur9b9VQcAapVaPZb7xxxtpF3bJsJbPFkr5EjO
++pBNuB6LAJKsUFjKk3WpZQOBkR3Ds6fNNt7apHKrPOe5Hbvs3RdsmBMsxXsoyO/VP6vRDmidl4/3
+7entPm8DHsR5gh+9boQc0TTfWCV8Nuz39m88Z5Psk9PLneHOk3zgpEDFS5X6N/XaQ1rrbhtwINy0
+I68tiQpTXXX9W/rGHU20kfaflltgFctwBwAe5Tk1p+3TauwajV2jcWhy6u1wVGPXXNWMZNz7JFRI
+9VNah1br0KZWKJGQvmzIy3BPld/L/lTWfGMLbaR9H/cBAEIjHZd2Nv6oseztsvLXy+vurcszWF+M
+5c5wF2LQ/af6qp6oQsOoYEzn3AHLqzDVpp8+f7rtG+2CTZ/jfhDxDHcAYCkWcGA1LEdxOW/FSyIE
+mvfG6MyiZIWslk17AIxEQvqyIS/DPVV+nzx3svPSLkF+F27fSDWq8w/WF2PZM9wZqNtZ79hrP/zb
+Q/p39bOnz9ruqtXY87g9sPAK5dv04qWcjsOn8eHdQ4CAekhdd1+9/v/yOIgXr5ClWMJLOO60AwLk
+MFl7b918havgF7W8DPc85fdwZ9j5Lad1r62g+1zSWIn8YHOcI7iKFyrREMoD7z17mtUvajeTs0J5
+Nn1WyAGy83Ndm47f3PaldvWwuv/+vmiD/OfwAIBmULPpzM0nnPjRDeduJEfIxVdYdBYTuS4hv4c2
+B3sf6al8xWR+Pv0EQEEs9wzmSrnh24ctP6u2PGax3m3rOqc71hDzbJX/Y0WiwkXa9NKoR9TWW20I
+g/hOy++2vFyQo2TDrsYiVlgUJAx3CXLK74ET/L17ek0vmGvvrUW4RWlkyz2DBWM6eeBLTBMqlype
+vyB3v6BcdYkKF2PT5wOPZPko5DbcC6xwZZEXuS4tv8ctcftuu+nXZtse2yKnLyx/hrtgTI/dMGrb
+XUt4Cd8nZ2ONsaqnUs4jFpjhLlGhbJteLMMdEJi8yIMHCGKCoPX09NYpHudTnW6xDHdBY+domid4
+3kSz7RF0UgWgAgTcW114gFC5VIyB8XzdnVrhapDf5WW4S8vvE5c70Rha/lZ5pHHunAbhJ4gpInsP
+crHcGe5IFGm6unn8xjHHw3YAILxE9UM1Za/PnyEvNFddukJ5Nr1YWzzCMxXM5MWTTBkDANr92rZr
+2jWDuQz3hRp74mJP4mKP+m4rvFTNIzxdTrsudAkV6g7qUitcDfK77Ax3MfmdJ3jh3oIjTxxOtlL5
+qqn+9np5PVQM9wJYH26aYrgrKKwilBmssLZRDPcCWB9HEesMZRAV1jbKDFZY2yiG+zGHYrjPIzsG
+3X2xWxAgqQ8p2121aSFRWZHQ2IuuzM8VpYTCd57RlSqORduiUxdOBk8KAgEbv7QpzSkTI6vhniS4
+OdC3t486oOu4siP1uveKG+6pAfS6/bq6u+vTYuuz9lBCY8+pzBfEIo4i5Aa18ziv/5Oh6drmulvq
+6Bp68L4Bnsy110dg7MbRmS/O1N/c0HZxO3WYGrxzINYcy1EkiWgAPcyHwqNBzHZ7bfP2FiyGJYum
+Lpp0PGlHg5j1NlvbNe3zReIIQe3hV47wJdkvX4c7wv339qc9u3yVxLsLAfSt17U17GxIVCdSY+vF
+eiho7CqPuvnGlsZbmhKmhP3e/rkdp2QovAwWsQ+WG9Re9rt5PZcjubGbxliKxWNSPUnV2AHAuts2
+87mZaGuUdJASRdLdFw2glwyFD/1bcPKyydYtbaohFeR9LiJpuMfuHswspctp++5+617b7KdmeCR9
+qRWPdy9PeVI5R3Ij3xtJxtaL9VDQ2JMeMJpAHLsciYoEOUZKhMLL697iLrLnEdQuoZbHGmLTX53W
+7SvJqYdKaOxFV+ZTQ+ETpoR6VG35/+2da3Tb5BmAX1myfE3jW5wmcdIkpE3SJKXjnG5sjF3Oxn5w
+GeewUQbp6GGwlrIO2CiD7U/HgK4blEvZyqWw0zHoON3Y2MZlK2xsMLYxDoPSQpv7pXEsx0mc2HES
+2Za0H3IU1bY+25Ls2o6e0x89fOjzZ0d1ZPnRowO19lft/BC1nQIOBh7rj1XHDKMGz+P1jtcy39Ua
+YbhzBDf4wwHbv+zu37qDn0+oMOKtzq7hLmahcSFwRUCcrUesUEpjRyvzMlBHE8k11B6tj374wgkA
+IEJE0/eaIc1P9kwQXrzaynxqFH5475DBazB/ZGZMzHznfMVbq1zPuXQR3dRXJwfu7Td4OywnM12o
+KH2UFLh8gvbQLd9fm8bSKppP1LSH/uD5YwBAhIj2O1uW984sVpiksWdQ5nNHhbNpMkLtJEW2Xd3e
+dGez3qvvfbonVpNxF0Zp7Ooq80lR+Np9dUIUnrWwrIG1/dlmfcdq+tBUc38tHsanLs6qgJ2WWFVs
+bMfYmp824nNZfRY8W5AU2bGl85wftOSUrQcJjV2JMp+K0j1YZqh9KYPecstaxsxMfylD0Byhsauu
+zKdG4fEgzv/M+KG4Ky4METMEXU1LzJSZ2U0zTAXT+1DPO2//9523/xs+Lzy3Mfze0f+x5uI61YXF
+MXOf2fFXx7rvtGafrU+rsctT5hEo2oOVhNoTpAuap1rnCI1ddWU+KQrPmtl4dZw/36eb06X24pNO
+LeVkuNvfdHR0dwp/zKfM5j5L27Z23WKxftOUdYBeSmOXp8wjUHQcLCfUToB/q58cJ4lJgrEzE1f5
+OYKrfD2DdY7Q2FVX5tNG4R0vOgBAR+ucR5zUTVTg2oDlHUvg2gkO51zij+o5Gu54GDeHl/8B4PM4
+pwPTsIn/ZVUMhrsQoNdP6eO2uH8zJc7WI1YopbGjlXkZKHg55IXadRCtoye6/XzQ3PK+Ze32deKO
+TlrrHKGxq67MQ7oovMGbOGtWfWg1S7L+GyjmFsY4ZGy9uU0YgtwNd/QLXAyGe1KA3nrMKs7WS60Q
+obGjlXkZaIZ7DpSHm6YZ7hoaRYS2B2uUNprhngPlcRRRZmgvokZpo+3BGqWNZrivODTDfRmU4Q4A
+6jXcOQt3/OUPkiRU80lL69ZW4btAsZDecWlnlmnU9IZ7pvJ7ToY7a2bf/9N7SYvHT1i5b7ZjLKau
+7p0PitxwV/SNxthtp40jpubbq1kz6/322OD+gY7LO/lzyeo23LEFrGXHWo5M/HKgPYsjd41U/qMy
+sftiMNHt9+3wOf/gatizRu/TZ3OmExFqF8rvpn6T78bx/sf72q5oT9xvFYPAlgnqJsr+e4fnnnrL
+lCWj4a5b1LXubONIbjTEAgBbv7hw3zDxWiXGYuhCepHAG+6eA/Uxe9S7w9u3r7fryg28HyzVcEeF
+2tV+ynkx3EHaH5cppLNg/mjp370evLeOmU9YVj+d+IoYIaQjQKxQrOebBky8nu980QnyDHcWeP0S
+n2I5Pbd45xh+zEoeXA1WUF33zgcr0XCHPDTcBWY+F4x0Rdq624G3d1KE9NpH62xHM99hXWqFvJ5v
+O2oT9HzSS4YvCDtfdMo23AXiFwWZjXOWy9djNAZW9XXvvLKCDHeAPDTceQwwftN45Zs24eLQVCF9
+6MeDrWNty+/ZUmTqj88u6flCf1y+4c4/oIGjvztO/M2GL31aUF33zhMr13BPixIhfa4jTDfQ1Yeq
+YemtM0lIr3vAIwjpCmm4e03nxV2GoeXjBIWGO3NumG1cNDyxGkTv++rq3nlixRnuCBQK6VNfmSIn
+SPEZj1QhnZghsn+JUxH3x3k9X+iPKzTcY1+b1FGk7vjy4lXXvfPEijPcESgR0jkzFzo/VPmGDaOX
+j7GShHTeOk8KUORkuPN6/sxFM7yeH10djdZFK96qAGWGO2ti4xeGiL/aMNHdu1TXvfPOCjHcIQ8N
+dwCgV9NxW3zVW2dc65FWSHe+5Mw4IcJwF/R8Y6+RutEn6PmyDXd+8Zw9TvzjjDPfquveqrNyDXfV
+G+4AEK2hAYD0kkn/PVVIJ8eW/x8Zhnuqnp84GSzXcBcWj50+Y/Gq697qoxnu5UR5uGma4a6hUURo
+e7BGaaMZ7jlQHkcRZYb2ImqUNtoerFHaaIb7ikMz3JNJK4kj5PeMXnwqaMNdxoSATMnLmxAhbvND
+4UsnOSOrGzYa9nn0r2S254oExPPidJzvunGqm2IsjPWEtfGeJuFUccFQdBQhmUFH5N2R5XcpeMN9
+3fWt/J81u9cAQMJwlzUhIFLySxM27WoWJsz8joVIky8NGW9vtnylHT9mXnikn1knv1peUJDJ9YnN
+fu82b/Xh1S13rmXMTM+BU/Juia4ERe/Bkhl0hPyO9OIlQRju8iZEpOTPnBCjYegnQ7ydjVqgtLgt
+DEVesQGA8Z6G2GXTbPsC/DMrJ/Psgn5evi0+x1Fn3VN1/KUAx3/zwcxnZlwvuTJOqyKK3oPrHva0
+fr2t4u3kb1ABUPI7aigLeMO94ccNIOhAyiZMk5IXTUh76GwmFMRtXvcWi9vCEGdhAIBZHwEMdL05
+SP1nEcTz4i8FcLzm8F4/9t5f/oexmGHcMPvJ2QKvUNlxcBYf+dLI71kMSZJiuCuZMGNKXpgw830S
+pMVtYWjx9ePE3yvjlwSNP1yDnzJDMekPUiCel3ApAF1HJ10KUMj6fH7PpiHk91y9eJ5Uw13JhOiU
+PD+h83euqsNV2cyGELf5IfIZNzaHcxgX++okZys6jV2KjEJ6057mcy/bmFrqLwx53IMR8nuuXrxA
+quGuaELplLx4wjR3uEgBIW4LQ4b9tcYfNVi/2MWes0B/Q35lvpAgnpf4UgByghRfClBI8rUHI+T3
+jF58Toa7kglFU58hbosnTLv7hi8M+3f6xZ+7EeJ20hAW0GPjBra5iDV2EYjnxV8KMP2FaXGpv/Lf
+2d6LUi0UHQdLSeKAlN8RQ5C74S5zQmRKPnVCYobQB/TChCN7hhkrA4tg+VXifAJC3BaGdKEGLKCP
+fynItiwYHj87N+jMFcTz0tG6mmdrRm8dNY4aTX2m8W1e/bTe9kahz3Mr2oMlJXGE/I704kGG4S5v
+QkRKPt2EzhdcDXc3CBNa/2MNfSYknhAhbgtDoUO9AIAF9Ib7PcQf7VAK32mghXT3kWrGwvi6x1kz
+azlhaf1Wm3ApQMHQDPccKA83TTPcNTSKCG0P1ihtNMM9B8rjKKLM0F5EjdJG24M1ShvNcF9xaIb7
+MvIa7hmHEKTdCuGqy+jFLz+WKAq//pIOcah9oX1h4In+qqfc9Yfrs5lKHDTHj1mMuxvwE2eolfPr
+5qmrfaHzQxzBZYzCFxh5hnvBvHgFRxFItVxSfkcOIUBsJemqY3D6jtHpi6cbdze1bm2zfGgZ3Duw
+2JLF17kYTGzx9/6iRxfG6+9taNmxVgi1xxyx8V3e3sM92S+eD5qTfoPpphbTrmZ2dXT+yX5OuHs9
+BtQ1vpMHP8LniMa9Ta072zJG4QuKPMO9gF58oRvu6CEEiK2kXHWZvXhkFD6wdSLysUjjbU2jd49k
+uXIhaJ44F0FjC48McO4ohAkACJ8X8l3n67i20zhSjMawPMO9kF58oRvu6CEE2WyV5KrL7MWnROFr
+DtTaX038Bqx9qI5jubTVcgTioDnbsIjN67AZAnAAHXhv8AIHPT87FXVHjaeNdY95corC5xtEcl1s
+uE9cObH++g7ecHe95JK3lbwVFrzhjh5CgNwqvasuqxefGoUf3jtk8BoSlzkp+5TLbIjQt4wb93mw
+GQKcwJiYSEek8t829xE3Po8HrpjIKQpfAOQZ7oX04s9Cwz0fSLnqMnrxSVH42n11akXhmU3h+cM9
+5HNV+kNu8WM5jjpWvbvKctJS/1BDTlH4wiDPcC+YF1/ohnu+SOeqy+vFp0bh8SCuJArPE9o0O/9M
+L/krt+Heev4h0j5WTlH4AiDPcC+kF6/oKOIMtVy904uhT4ciGyLuZ9x4KPdP5SJXPctefNJjCVH4
+qiNVwAJrZuPVcdOfsz3dM3vB7FzXXPWz1WLPkA+aOw5X2R+oBC6RgA8GgZ1n8Ql8ctMkeZAEFhgb
+E62Kml+wBIPBnJ941kQiEY7jgsFgNm5adFWUsTLx9+P8krgwR3iJUE0oGAyy8yzux6kLKe4PHHAQ
+XROla+nKh23BYFDeVvIWX+iGO3oIck+uI1x1eb34tFF4x9LpDnG1PF4VF1fLQbrhzgfNq/9ehZ2H
+CS8Ur8zTv1/0bvfSO+mKdyuobh8QUP96vcGeg26RK4wlPo1N2+12nTHzHsxGWcrvm949VfFABW+4
+R1uinmfr7XY7AMR/HRu9dXQVtcrUZ5rcFtBP6+verSPshLyt5C2+0A139BDISK5Lu+qye/GpUXgh
+1L7QOt93qI//++Q1gclrAny1XJgwteGOCJoDQM3TtSzJjl/nZXYypmFTUhT+rCPPcC+kF68Z7jmg
+0E0rEjTDXUOjiND2YI3SRjPcc6A8jiLKDO09WKO00fZgjdJGM9xXHJrhnkwBGu7ox5IaQpffEaAX
+79s5zg+Zjpua7m+2nEpYOKyB/eD5Y7GqZWGv/Yb11uPJ3Za0zLfNn/r5yZpf1gqnlpeHpOV3xFYq
+UuSGu6I9OO6MU1t9ge5A8gAJY7edNo6Ymm+vZs2s99tjg/sHOi7vxOYx1JC8x5Ie4svvHJn4lUJ7
+FkfuGkmU3xEsrbBpl5u/xGNw/8D6L3foFnScnvPuGjMMGxtva2LN7PjN3r4HezdccW7i3CQOrJH1
+/Kyeb4dhgBlOZ/6cF3PEfNeO+69OZ2tgQF3t8273uv5Y1bi3iaRIsWgvuZW6YDBy+3Dws8Hmu84h
+KdK/merf09d5TRevSvKueu3BOvOA2bttrOfAqc7NXUSYkLmVLEqk4S5PmUeU3xFIN9yxGLZ26zp+
+iOM4jIaR+0aEvDun41gDa+m18BphllBbfHMb51ruWDu4eyBpCCG/I7ZSlzI33FHWudoNd4XKPF9+
+b+tuh2zEL+mGOxbHOODSDjEWBghgTAxjZrK/0K3+kQbgII0yj5TfJbdSm3I33AvZcFeizCPL7wgQ
+DfeFzgX/Dr/n0XphiLEw+il9/94+wMA4bGx4cE3lf7K4qlRi8Rnk90J92F4RhjsC1Rvu8kCU3xEg
+Gu6Rj80NPNXveN5Z/dzyB0rToOncSzduOv/jXVduMI4Yex/uWWiSf8Oi4pHfy9xwR5CPhrs8pMrv
+CBAN97lPhAcODjh/7aq9rzZtH9s4amza04zFsZnPzshec5HI78VvuJdSw10eUuV3xGMhGu50DT30
+0JDzsKtmfw3i7gQc1O3LiQAAAOlJREFUluYHMnvBrPdGb5ZXlvOi/eynZvkfEWNiYu6YuS+Hf4Sq
+IK/hXsjye8k03GUr81Lld8RjIRru/h2UblFnf9XODzEkk3DVMaC6fURIT/rIuC3u/xrFEZw4aC4l
+v4uV+ZgrJijzOlrnft7t3e6luilefudwzvWyC72V7B+lFPIa7oUsv5dMw122Mp++/I54LOmGO6fn
+Il2RuC3e93SvMMS76hzGxZwx3xZf3B4HAOtxa+vONtOgSfxYqfI7v/iTT57k/+6/ivJfRQnKPEJ+
+R2ylLprhXlaUh5umGe4aGkWEtgdrlDb/B6SlB5UN6h0fAAAAAElFTkSuQmCC
+">
+</img></div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/17/negative-energey/">
+                            撒点负能量
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/17/house-price/">
+                            kaggle-->预测房价
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">
+                            setup and configure ganglia on CentOS
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">
+                            sshfs to mount remote file system
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
+                            update ssh for red-hat
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="list-group-item"><a href="https://IMYin.github.io/"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+                <ul class="list-group" id="categories">
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/category/ge-ren.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 个人
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/category/ji-zhu-wen-zhang.html">
+                            <i class="fa fa-folder-open fa-lg"></i> 技术文章
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://IMYin.github.io/category/pride_and_prejudiceyi.html">
+                            <i class="fa fa-folder-open fa-lg"></i> Pride_and_Prejudice(译)
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 Yin
+            &middot; <a href="" target="_blank">IMYin</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://IMYin.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://IMYin.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://IMYin.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-86179791-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+</body>
+</html>
