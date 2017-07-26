@@ -1083,14 +1083,13 @@ h6:hover .anchor-link {
 
 .ansi-bold { font-weight: bold; }
 </style>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>在之前<a href="http://imyin.xyz/2016/09/20/Linear%20Regression%20with%20scikit-learn/">线性回归</a>文章那篇文章中，我们所用到的变量都可以用简单的数字（0或1）来表示。但是在处理机器学习的问题时，往往会碰到其他类型的变量，比如分类变量，文本，音频或者视频之类的。将数据序列化往往是机器学习的基础，这篇文章将要介绍如何对数据预处理。</p>
-<h3 id="从分类变量中提取特征值">从分类变量中提取特征值<a class="anchor-link" href="#从分类变量中提取特征值">¶</a></h3><p>用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码</a>表示。<br>
-假如现在又三个城市的名字需要处理，我们试着用程序表示出来。</br></p>
+<h3 id="从分类变量中提取特征值">从分类变量中提取特征值<a class="anchor-link" href="#从分类变量中提取特征值">¶</a></h3><p>用机器学习处理一些分类问题是，它们的变量并不是连续的，往往用<a href="https://en.wikipedia.org/wiki/One-hot">独热编码</a>表示。<br />
+假如现在又三个城市的名字需要处理，我们试着用程序表示出来。</p>
 </div>
 </div>
 </div>
@@ -1121,8 +1120,7 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1197,8 +1195,7 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1235,8 +1232,7 @@ Distance between 1 and 2 documents: [[ 2.64575131]]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1279,8 +1275,7 @@ Distance between 1 and 2 documents: [[ 2.64575131]]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1318,8 +1313,7 @@ Distance between 1 and 2 documents: [[ 2.64575131]]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1353,8 +1347,7 @@ gathering
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1395,8 +1388,7 @@ gathering
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1433,8 +1425,7 @@ gathering
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1495,14 +1486,14 @@ gathering
 <p>$idf("this",D)=log(\frac 22)=0$</p>
 <p>$tfidf("this",d_1)=0.2*0=0$</p>
 <p>$tfidf("this",d_2)=0.14*0=0$</p>
-<hr>
+<hr />
 <p>$tf("example",d_1)=\frac 05=0$</p>
 <p>$tf("example",d_2)=\frac 37\approx 0.429$</p>
 <p>$idf("example",D)=log(\frac 21)=0.301$</p>
 <p>$tfidf("example",d_1)=tf("example",d_1)*idf("example",D)=0*0.301=0$</p>
 <p>$tfidf("example",d_2)=tf("example",d_2)*idf("example",D)=0.429*0.301\approx 0.13$</p>
 <p>例子很简单，现在应该很tfidf如何计算了。在scikit-learn中，TfdfTransfromer类默认返回TF-IDF值，其参数use_idf默认为True。由于TF-IDF加权特征向量经常用来表示文本，所以scikit-learn提供了TfidfVectorizer类讲CountVectorizer和TfdfTransformer类封装在一起。</p>
-</hr></div>
+</div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
@@ -1536,8 +1527,7 @@ gathering
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1573,8 +1563,7 @@ gathering
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1628,6 +1617,11 @@ gathering
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/26/file-tool-for-windows/">
+                            File tool for windows
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/07/17/house-price/">
                             kaggle-->预测房价
                         </a>
@@ -1645,11 +1639,6 @@ gathering
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
                             update ssh for red-hat
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/20/xpdf/">
-                            Install xpdf on ubuntu
                         </a>
                     </li>
                 </ul>

@@ -1108,8 +1108,7 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1117,22 +1116,21 @@ h6:hover .anchor-link {
 <p>好了，今天终于将多个Reduce写完了。我来聊一聊Hadoop中的<strong>DistributedCache</strong>的事情，因为这次开发中用到了，就想起来记一下。</p>
 <p>公司中在处理表与表之间的逻辑时，需要用到一些工参表，那么如果在处理这些表时每次都拷贝一次的话会影响效率。所以如果在job执行之前，我们将这些表缓存各个运行节点中，就会省去很多运行时间，从而提高效率。之所以说是提高效率是因为每个作业的文件只拷贝一次并且为那些没有文档的slave节点缓存文档。</p>
 <p>需要注意的是，这些文件缓存时都是read-only的，所以在作业执行期间，当前应用程序或外部程序不能修改这些缓存文件。我们来看一看官方说明：</p>
-<hr>
+<hr />
 <p>Distribute application-specific large, read-only files efficiently.</p>
 <p>DistributedCache is a facility provided by the Map-Reduce framework to cache files (text, archives, jars etc.) needed by applications.</p>
 <p>Applications specify the files, via urls (hdfs:// or http://) to be cached via the JobConf. The DistributedCache assumes that the files specified via urls are already present on the FileSystem at the path specified by the url and are accessible by every machine in the cluster.</p>
 <p>The framework will copy the necessary files on to the slave node before any tasks for the job are executed on that node. Its efficiency stems from the fact that the files are only copied once per job and the ability to cache archives which are un-archived on the slaves.</p>
 <p>DistributedCache can be used to distribute simple, read-only data/text files and/or more complex types such as archives, jars etc. Archives (zip, tar and tgz/tar.gz files) are un-archived at the slave nodes. Jars may be optionally added to the classpath of the tasks, a rudimentary software distribution mechanism. Files have execution permissions. In older version of Hadoop Map/Reduce users could optionally ask for symlinks to be created in the working directory of the child task. In the current version symlinks are always created. If the URL does not have a fragment the name of the file or directory will be used. If multiple files or directories map to the same link name, the last one added, will be used. All others will not even be downloaded.</p>
 <p>DistributedCache tracks modification timestamps of the cache files. Clearly the cache files should not be modified by the application or externally while the job is executing.</p>
-<hr>
+<hr />
 <p>从上面可以看到，当我们需要缓存文件时，首先需要将文件put至HDFS中，因为它默认的文件链接地址为HDFS中的。缓存文件的类型可以为：read-only data/text files and/or more complex types such as archives, jars etc. Archives (zip, tar and tgz/tar.gz files) are un-archived at the slave nodes.</p>
 <p>并且我们在使用文件时，我们还可以为文件创建一个symlink，当然也无所谓，看需求，你喜欢就好啦。</p>
 <p>来一起看看用法：</p>
-</hr></hr></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1188,8 +1186,7 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1199,8 +1196,7 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1228,8 +1224,7 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1237,8 +1232,7 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1249,8 +1243,7 @@ DistributedCache.addCacheFile(new URI(otherArgs[4]), conf);  //exception</code><
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1305,6 +1298,11 @@ DistributedCache.addCacheFile(new URI(otherArgs[4]), conf);  //exception</code><
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/26/file-tool-for-windows/">
+                            File tool for windows
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/07/17/house-price/">
                             kaggle-->预测房价
                         </a>
@@ -1322,11 +1320,6 @@ DistributedCache.addCacheFile(new URI(otherArgs[4]), conf);  //exception</code><
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
                             update ssh for red-hat
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/20/xpdf/">
-                            Install xpdf on ubuntu
                         </a>
                     </li>
                 </ul>

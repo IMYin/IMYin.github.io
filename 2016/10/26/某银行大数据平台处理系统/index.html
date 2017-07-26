@@ -13,13 +13,13 @@
 
         <meta name="author" content="Yin" />
         <meta name="keywords" content="kafka,flume,python,SMDA,SWDA,数据采集,可视化,数据分析,用户画像" />
-        <meta name="description" content="《富兰克林自传》是我最爱的书目之一 ..." />
+        <meta name="description" content="《富兰克林自传》是我最爱的书目之一 …" />
 
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="某银行大数据平台处理系统"/>
         <meta property="og:url" content="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/"/>
-        <meta property="og:description" content="《富兰克林自传》是我最爱的书目之一 ..."/>
+        <meta property="og:description" content="《富兰克林自传》是我最爱的书目之一 …"/>
         <meta property="article:published_time" content="2016-10-26" />
             <meta property="article:section" content="技术文章" />
             <meta property="article:tag" content="kafka" />
@@ -139,7 +139,7 @@ Yin's Blog            </a>
 <p>我作为一名后台的开发人员，每天都和一堆数据、表、代码打交道。在部署SWDA期间，我做了很长一段时间的测试人员。不过我做的是白盒测试，而不是黑盒测试。所谓的白盒测试，又称为结构测试、透明盒测试、逻辑驱动测试或基于代码的测试。在测试过程中，我需要清楚盒子内部的东西以及里面是如何运作的。比如我在某直销银行web端进行一些界面操作之后，我需要知道在后台是如何接受到数据的，以及接受到的数据会进行如何的处理。</p>
 <h3>架构</h3>
 <p>那么，我先从产品的架构谈起。SWDA这个产品，是通过在某直销银行web端进行事件埋码，当用户在web端进行操作时，一些行为轨迹会被后台悄悄的记录下来，形成JSON字符串。这些JSON字符串会通过Nginx服务将数据以日志的形式记录在后台服务器中的access.log文件中。这些文件被设置为每半个小时进行一次转移，在项目中这个动作被称为切割日志。接下来，是我比较困惑的一个环节，它用到了Flume和Kafka。</p>
-<p><a href="https://flume.apache.org/">Flume</a>，是一个分布式、可靠、和高可用的海量日志采集、聚合和传输的系统。以下是FLUME的架构图：<center><img alt="flume" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/flume架构图.jpg" /></center>
+<p><a href="https://flume.apache.org/">Flume</a>，是一个分布式、可靠、和高可用的海量日志采集、聚合和传输的系统。以下是FLUME的架构图：<center><img alt="flume" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/flume架构图.jpg"></center>
 从上图可以看到几个名词，有Agent、Source、Channel、Sink。</p>
 <ul>
 <li>一个Agent包含Source、Channel、Sink、和其他组件。Flume就是由一个或者多个Agent组成;</li>
@@ -156,23 +156,23 @@ Yin's Blog            </a>
 <li>支持通过Kafka服务器和消费机集群来分区消息;</li>
 <li>支持Hadoop并行数据加载;</li>
 </ul>
-<p>以下是Kafka的架构图：<center><img alt="kafka" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/kafka架构图.jpg" /></center>
+<p>以下是Kafka的架构图：<center><img alt="kafka" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/kafka架构图.jpg"></center>
 Kafka是显式分布式架构（明确的指定数据的来源、走向、目的地），producer、broker（Kafka）和consumer都可以有多个。Kafka的作用类似于缓存，即活跃的数据和离线处理系统之间的缓存。这其中有几个概念：</p>
 <ul>
 <li>message（消息）是通信的基本单位，每个producer可以向一个topic（主题）发布一些消息。如果consumer订阅了这个主题，那么新发布的消息就会广播给这些consumer;</li>
 <li>Kafka是显式分布式的，多个producer、consumer、和broker可以运行在一个大的集群上，作为一个逻辑整体对外提供服务。对于consumer，多个consumer可以组成一个group，这个message只能传输给某个group中的某一个consumer;</li>
 </ul>
 <p>数据从producer推送到broker，接着consumer再从broker上拉取数据（也就是项目经理亮哥所说的数据落地）。</p>
-<p>说到这里，就可以清楚的看到，Flume可以和Kafka进行无接缝结合。Kafka生产的数据，是由Flume的Sink所提供的，通过Flume集群将Agent的日志收集分发到Kafka（供实时计算处理）和HDFS（离线计算处理）。流程图如下：<center><img alt="flow" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/数据流向走向图.jpg" /></center>
+<p>说到这里，就可以清楚的看到，Flume可以和Kafka进行无接缝结合。Kafka生产的数据，是由Flume的Sink所提供的，通过Flume集群将Agent的日志收集分发到Kafka（供实时计算处理）和HDFS（离线计算处理）。流程图如下：<center><img alt="flow" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/数据流向走向图.jpg"></center>
 可以看到，我们使用Flume作为日志收集系统，将收集到的数据输送到Kafka中间件，以供Storm去实时计算（由百分点负责）以及存储到HDFS上为后续的离线数据分析做准备。</p>
 <p>在这里，我想引用一下<a href="http://www.aboutyun.com/thread-8317-1-1.html">美团的日志收集系统</a>的架构，以供和SWDA架构做一下对比。</p>
-<p>美团的日志收集系统负责美团的所有业务日志的收集，并分别给Hadoop平台提供离线数据和Storm平台提供实时数据流。美团的日志收集系统基于Flume设计和搭建而成。目前每天收集和处理约T级别的日志是数据。下图是美团的日志收集系统的整体框架图:<center><img alt="meituan" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/美团日志架构图.jpg" /></center>
+<p>美团的日志收集系统负责美团的所有业务日志的收集，并分别给Hadoop平台提供离线数据和Storm平台提供实时数据流。美团的日志收集系统基于Flume设计和搭建而成。目前每天收集和处理约T级别的日志是数据。下图是美团的日志收集系统的整体框架图:<center><img alt="meituan" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/美团日志架构图.jpg"></center>
 整个系统分为三层：Agent层，Collector层和Store层。其中Agent层每个机器部署一个进程，负责对单机的日志收集工作；Collector层部署在中心服务器上，负责接收Agent层发送的日志，并且将日志根据路由规则写到相应的Store层中；Store层负责提供永久或者临时的日志存储服务，或者将日志流导向其它服务器。</p>
 <p>Agent到Collector试用LoadBalance策略，将所有的日志均衡地发到所有的Collector上，达到负载均衡的目标，同时并处理单个Collector失效的问题。</p>
 <p>Collector层的目标主要有三个：SinkHdfs，SinkKafka和SinkBypass。分别提供离线的数据到Hdfs，和提供实时的日志流到Kafka和Bypass。其中SinkHdfs又根据日志量的带线啊哦分为SinkHdfs_b，SinkHdfs_m和SinkHdfs_s三个Sink，以提高写入到Hdfs的性能。</p>
 <p>对于Store来讲，Hdfs负责离线数据的存储；Kafka存储最新的7天日志，并给Storm系统提供实时日志流（这部分和百分点的架构一样）；Bypass负责给其它服务器和应用提供实时日志流。</p>
 <p>说到这里，就可以很清楚的看到美团的日志收集系统架构和SWDA的日志收集系统架构之间的区别了。SWDA的架构在Kafka之后又多加了一层Flume，这是因为在搭建系统时候数据落地端和数据接受端没有在一个ip段上，所以多了一层Flume，但这无疑浪费了很多的资源。</p>
-<p>下图为产品的总体架构图:<center><img alt="ensemble" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/总体架构图.jpg" /></center>
+<p>下图为产品的总体架构图:<center><img alt="ensemble" src="https://IMYin.github.io/2016/10/26/某银行大数据平台处理系统/icons/总体架构图.jpg"></center>
 根据SWDA的架构图得知，数据从Flume的Sink被输送到HDFS。其实我在实际操作中，发现并不是上图描述的这么流畅。数据从Flume中被输送到本地磁盘中，之后再通过Python脚本把数据导入到<a href="https://hive.apache.org/">Hive</a>表中，有关Python脚本的运行内容，后文我会详细介绍。从Python脚本的内容得知，在数据导入至Hive表的这个过程当中，是非常之罗嗦的，原因嘛，呵呵，实在不想提了。</p>
 <p>Hive是基于Hadoop的一个数据仓库工具，可以将结构化的文件数据映射为一张数据库表，并提供简单的Sql查询功能，可以将Sql语句转换为MapReduce任务进行运行。</p>
 <p>据了解，Hive一共有四种常见的数据导入方式:</p>
@@ -216,6 +216,11 @@ Kafka是显式分布式架构（明确的指定数据的来源、走向、目的
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/26/file-tool-for-windows/">
+                            File tool for windows
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/07/17/house-price/">
                             kaggle-->预测房价
                         </a>
@@ -233,11 +238,6 @@ Kafka是显式分布式架构（明确的指定数据的来源、走向、目的
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
                             update ssh for red-hat
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/20/xpdf/">
-                            Install xpdf on ubuntu
                         </a>
                     </li>
                 </ul>

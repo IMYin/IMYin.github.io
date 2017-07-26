@@ -10222,14 +10222,13 @@ EYFdhV1RirRxVumKtYq75Yq7FXVxV2KtYq6mKuGKt0xVquKqkELTyLCn2nYKPmcCvpby1pDaNp8F
 hyAaNRX3J65WXIDIo5AVLJ18T0wJQstwxU0IPauKsL82anHCrCQmJFG8g/mwUm2G6T56hVTDdSli
 tR8W1Rk6azJfr95p+sWhieVQSOSDpxbt9+IYnd5i6lCVbqNjk2tbhVsioocVQ7KVNMCrcVdTFXYq
 7CrsVdirsVdir//Z
-">
-</img></div>
+" />
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -10313,8 +10312,7 @@ tR8W1Rk6azJfr95p+sWhieVQSOSDpxbt9+IYnd5i6lCVbqNjk2tbhVsioocVQ7KVNMCrcVdTFXYq
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -10392,8 +10390,7 @@ tR8W1Rk6azJfr95p+sWhieVQSOSDpxbt9+IYnd5i6lCVbqNjk2tbhVsioocVQ7KVNMCrcVdTFXYq
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -10984,57 +10981,54 @@ thfA0QsAieclg2j0T7Oi20RAEREAREQBERAEREAREQBERACoi1yF9yuzTW+cbKhrRFtx5v8Am2+j
 0REQgREQBERAEREAREQBERAEREAREQERqKNklJTB9HJVgVcDg2N2CwiQEP8AY31j4BSrERAekREA
 REQBERAEREAREQBERAYPRRdsiYy6XZzKSSF0krHOlc7ImPDaMtHZgcvaERASqIiAIiIAiIgCIiAI
 iID/2Q==
-">
-</img></div>
+" />
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>照着上图，可以清楚地理解二次排序的工作原理：</p>
-<p>在map阶段，使用job.setInputFormatClass定义的InputFormat将输入的数据集分割成小数据块splites，同时InputFormat提供一个RecordReder的实现。本例子中使用的是TextInputFormat，他提供的RecordReder会将文本的字节偏移量作为key，这一行的文本作为value。这就是自定义Map的输入是$<longwritable, text="">$的原因。然后调用自定义Map的map方法，将一个个$<longwritable, text="">$对输入给Map的map方法。注意输出应该符合自定义Map中定义的输出$<intpair, intwritable="">$。最终是生成一个List$<intpair, intwritable="">$。在map阶段的最后，会先调用<strong>job.setPartitionerClass</strong>对这个List进行分区，每个分区映射到一个reducer。每个分区内又调用job.setSortComparatorClass设置的key比较函数类排序。可以看到，这本身就是一个二次排序。 如果没有通过<strong>job.setSortComparatorClass</strong>设置key比较函数类，则使用key的实现的compareTo方法。 在第一个例子中，使用了IntPair实现的compareTo方法，而在下一个例子中，专门定义了key比较函数类。</intpair,></intpair,></longwritable,></longwritable,></p>
+<p>在map阶段，使用job.setInputFormatClass定义的InputFormat将输入的数据集分割成小数据块splites，同时InputFormat提供一个RecordReder的实现。本例子中使用的是TextInputFormat，他提供的RecordReder会将文本的字节偏移量作为key，这一行的文本作为value。这就是自定义Map的输入是$<longwritable, text>$的原因。然后调用自定义Map的map方法，将一个个$<longwritable, text>$对输入给Map的map方法。注意输出应该符合自定义Map中定义的输出$<intpair, intwritable>$。最终是生成一个List$<intpair, intwritable>$。在map阶段的最后，会先调用<strong>job.setPartitionerClass</strong>对这个List进行分区，每个分区映射到一个reducer。每个分区内又调用job.setSortComparatorClass设置的key比较函数类排序。可以看到，这本身就是一个二次排序。 如果没有通过<strong>job.setSortComparatorClass</strong>设置key比较函数类，则使用key的实现的compareTo方法。 在第一个例子中，使用了IntPair实现的compareTo方法，而在下一个例子中，专门定义了key比较函数类。</p>
 <p>在reduce阶段，reducer接收到所有映射到这个reducer的map输出后，也是会调用<strong>job.setSortComparatorClass</strong>设置的key比较函数类对所有数据对排序。然后开始构造一个key对应的value迭代器。这时就要用到分组，使用<strong>jobjob.setGroupingComparatorClass</strong>设置的分组函数类。只要这个比较器比较的两个key相同，他们就属于同一个组，它们的value放在一个value迭代器，而这个迭代器的key使用属于同一个组的所有key的第一个key。最后就是进入Reducer的reduce方法，reduce方法的输入是所有的（key和它的value迭代器）。同样注意输入与输出的类型必须与自定义的Reducer中声明的一致。</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>具体步骤：</strong></p>
-<h3 id="1-自定义key。">1 自定义key。<a class="anchor-link" href="#1-自定义key。">¶</a></h3><p>在mr中，所有的key是需要被比较和排序的，并且是二次，先根据partitione，再根据大小。而本例中也是要比较两次。先按照第一字段排序，然后再对第一字段相同的按照第二字段排序。根据这一点，我们可以构造一个复合类IntPair，他有两个字段，先利用分区对第一字段排序，再利用分区内的比较对第二字段排序。<br>
-所有自定义的key应该实现接口WritableComparable，因为是可序列的并且可比较的。并重载方法<br>
-//反序列化，从流中的二进制转换成IntPair<br>
-public void readFields(DataInput in) throws IOException</br></br></br></p>
-<p>//序列化，将IntPair转化成使用流传送的二进制<br>
-public void write(DataOutput out)</br></p>
-<p>//key的比较<br>
-public int compareTo(IntPair o)</br></p>
-<p>另外新定义的类应该重写的两个方法<br>
-//The hashCode() method is used by the HashPartitioner (the default partitioner in MapReduce)<br>
-public int hashCode()<br>
-public boolean equals(Object right)</br></br></br></p>
+<h3 id="1-自定义key。">1 自定义key。<a class="anchor-link" href="#1-自定义key。">¶</a></h3><p>在mr中，所有的key是需要被比较和排序的，并且是二次，先根据partitione，再根据大小。而本例中也是要比较两次。先按照第一字段排序，然后再对第一字段相同的按照第二字段排序。根据这一点，我们可以构造一个复合类IntPair，他有两个字段，先利用分区对第一字段排序，再利用分区内的比较对第二字段排序。<br />
+所有自定义的key应该实现接口WritableComparable，因为是可序列的并且可比较的。并重载方法<br />
+//反序列化，从流中的二进制转换成IntPair<br />
+public void readFields(DataInput in) throws IOException</p>
+<p>//序列化，将IntPair转化成使用流传送的二进制<br />
+public void write(DataOutput out)</p>
+<p>//key的比较<br />
+public int compareTo(IntPair o)</p>
+<p>另外新定义的类应该重写的两个方法<br />
+//The hashCode() method is used by the HashPartitioner (the default partitioner in MapReduce)<br />
+public int hashCode()<br />
+public boolean equals(Object right)</p>
 <h3 id="2-由于key是自定义的，所以还需要自定义一下类：">2 由于key是自定义的，所以还需要自定义一下类：<a class="anchor-link" href="#2-由于key是自定义的，所以还需要自定义一下类：">¶</a></h3><h4 id="2.1-分区函数类。这是key的第一次比较。">2.1 分区函数类。这是key的第一次比较。<a class="anchor-link" href="#2.1-分区函数类。这是key的第一次比较。">¶</a></h4><p>public static class FirstPartitioner extends Partitioner<intpair,intwritable></p>
 <p>在job中设置使用setPartitionerClasss</p>
-<h4 id="2.2-key比较函数类。这是key的第二次比较。这是一个比较器，需要继承WritableComparator。">2.2 key比较函数类。这是key的第二次比较。这是一个比较器，需要继承WritableComparator。<a class="anchor-link" href="#2.2-key比较函数类。这是key的第二次比较。这是一个比较器，需要继承WritableComparator。">¶</a></h4><p>public static class KeyComparator extends WritableComparator<br>
-必须有一个构造函数，并且重载 public int compare(WritableComparable w1, WritableComparable w2)<br>
-另一种方法是 实现接口RawComparator。<br>
-在job中设置使用setSortComparatorClass。</br></br></br></p>
-<h4 id="2.3-分组函数类。在reduce阶段，构造一个key对应的value迭代器的时候，只要first相同就属于同一个组，放在一个value迭代器。这是一个比较器，需要继承WritableComparator。">2.3 分组函数类。在reduce阶段，构造一个key对应的value迭代器的时候，只要first相同就属于同一个组，放在一个value迭代器。这是一个比较器，需要继承WritableComparator。<a class="anchor-link" href="#2.3-分组函数类。在reduce阶段，构造一个key对应的value迭代器的时候，只要first相同就属于同一个组，放在一个value迭代器。这是一个比较器，需要继承WritableComparator。">¶</a></h4><p>public static class GroupingComparator extends WritableComparator<br>
-同key比较函数类，必须有一个构造函数，并且重载 public int compare(WritableComparable w1, WritableComparable w2)<br>
-同key比较函数类，分组函数类另一种方法是实现接口RawComparator。<br>
-在job中设置使用setGroupingComparatorClass。</br></br></br></p>
+<h4 id="2.2-key比较函数类。这是key的第二次比较。这是一个比较器，需要继承WritableComparator。">2.2 key比较函数类。这是key的第二次比较。这是一个比较器，需要继承WritableComparator。<a class="anchor-link" href="#2.2-key比较函数类。这是key的第二次比较。这是一个比较器，需要继承WritableComparator。">¶</a></h4><p>public static class KeyComparator extends WritableComparator<br />
+必须有一个构造函数，并且重载 public int compare(WritableComparable w1, WritableComparable w2)<br />
+另一种方法是 实现接口RawComparator。<br />
+在job中设置使用setSortComparatorClass。</p>
+<h4 id="2.3-分组函数类。在reduce阶段，构造一个key对应的value迭代器的时候，只要first相同就属于同一个组，放在一个value迭代器。这是一个比较器，需要继承WritableComparator。">2.3 分组函数类。在reduce阶段，构造一个key对应的value迭代器的时候，只要first相同就属于同一个组，放在一个value迭代器。这是一个比较器，需要继承WritableComparator。<a class="anchor-link" href="#2.3-分组函数类。在reduce阶段，构造一个key对应的value迭代器的时候，只要first相同就属于同一个组，放在一个value迭代器。这是一个比较器，需要继承WritableComparator。">¶</a></h4><p>public static class GroupingComparator extends WritableComparator<br />
+同key比较函数类，必须有一个构造函数，并且重载 public int compare(WritableComparable w1, WritableComparable w2)<br />
+同key比较函数类，分组函数类另一种方法是实现接口RawComparator。<br />
+在job中设置使用setGroupingComparatorClass。</p>
 <p>另外注意的是，如果reduce的输入与输出不是同一种类型，则不要定义Combiner也使用reduce，因为Combiner的输出是reduce的输入。除非重新定义一个Combiner。</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11114,8 +11108,7 @@ public class UeMrKey implements WritableComparable<uemrkey> {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11138,8 +11131,7 @@ public class UeMrComparator extends WritableComparator {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11166,8 +11158,7 @@ public class UeMrGroupingComparator implements RawComparator<uemrkey> {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11186,8 +11177,7 @@ public class UeMrPartitioner extends Partitioner<uemrkey, intwritable> {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11219,8 +11209,7 @@ public class UeMrSortMap extends Mapper<longwritable, text, uemrkey, text> {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11247,8 +11236,7 @@ public class UeMrParams {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11280,8 +11268,7 @@ public class UeMrModel {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11310,13 +11297,13 @@ public class UeMrSortJob extends Configured implements Tool {
     @Override
     public int run(String[] args) throws Exception {
         Configuration conf = getConf();
-//        String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
+//      String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs();
         UeMrParams params = new UeMrParams();
 
-//        if (otherArgs.length != 2) {
-//            System.err.println("Usage: ueMrSort <in> <out>");
-//            System.exit(2);
-//        }
+//      if (otherArgs.length != 2) {
+//          System.err.println("Usage: ueMrSort <in> <out>");
+//          System.exit(2);
+//      }
         Job job = new Job(conf, "UeMrSortJob");
         job.setJarByClass(UeMrSortJob.class);
         job.setMapperClass(UeMrSortMap.class);
@@ -11351,8 +11338,7 @@ public class UeMrSortJob extends Configured implements Tool {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11923,14 +11909,13 @@ QFhGjsZ44sY4+5/to5f7lRLF9IYJAKQqyf5nO5WkAIH/Sh8b5cQOEVRInJgAACo+NWE0t8QOAIhz
 jkBYbo7GeAINKm7zcj4udH4oeG4AAHQdOutzVipJAQVAw9iXRxWLAgDcOOe+x2NonnLIzSexA+Kc
 IxCWmyOmozsKIc45AuGgIH91DzvEOUcgLA0ST4cZ4pwjEJYKGdwRCIRVChGqEAiEVQqJJwKBsEoh
 8UQgEFYpJJ4IBMIq5f8D25W//BUtxMgAAAAASUVORK5CYII=
-">
-</img></div>
+" />
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11938,8 +11923,7 @@ IxCWmyOmozsKIc45AuGgIH91DzvEOUcgLA0ST4cZ4pwjEJYKGdwRCIRVChGqEAiEVQqJJwKBsEoh
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11991,6 +11975,11 @@ IxCWmyOmozsKIc45AuGgIH91DzvEOUcgLA0ST4cZ4pwjEJYKGdwRCIRVChGqEAiEVQqJJwKBsEoh
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/26/file-tool-for-windows/">
+                            File tool for windows
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/07/17/house-price/">
                             kaggle-->预测房价
                         </a>
@@ -12008,11 +11997,6 @@ IxCWmyOmozsKIc45AuGgIH91DzvEOUcgLA0ST4cZ4pwjEJYKGdwRCIRVChGqEAiEVQqJJwKBsEoh
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
                             update ssh for red-hat
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/20/xpdf/">
-                            Install xpdf on ubuntu
                         </a>
                     </li>
                 </ul>

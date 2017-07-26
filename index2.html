@@ -67,10 +67,18 @@ Yin's Blog            </a>
     <div class="row">
         <div class="col-sm-9">
             <article>
+                <h2><a href="https://IMYin.github.io/2016/12/11/work-record/">工作回忆录1（20161130-20161209）</a></h2>
+                <div class="summary">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/12/11/work-record/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
                 <h2><a href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">Scraping with __doPostBack</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -95,8 +103,7 @@ Yin's Blog            </a>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">Scipy ---> Integration</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -108,8 +115,7 @@ Yin's Blog            </a>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/11/28/Interpolation-with-scipy/">Scipy ---> Interpolation</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -121,8 +127,7 @@ Yin's Blog            </a>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/11/27/Optimization-and-Minization-with-scipy/">Scipy ---> Optimization and Minimization</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -134,8 +139,7 @@ Yin's Blog            </a>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/11/27/math-in-numpy/">Numpy ---> Math</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -147,8 +151,7 @@ Yin's Blog            </a>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">Numpy ---> Read and Write</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -160,8 +163,7 @@ Yin's Blog            </a>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/11/27/boolean statements of python/">Numpy ---> Boolean Statements and Numpy Arrays</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -182,54 +184,12 @@ Yin's Blog            </a>
             <article>
                 <h2><a href="https://IMYin.github.io/2016/11/26/numpy-array/">Numpy ---> Numpy Array</a></h2>
                 <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="NumPy-Arrays">NumPy Arrays<a class="anchor-link" href="#NumPy-Arrays">¶</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/26/numpy-array/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/11/25/hive-tech/">Hive技巧(1)</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>最近实在太忙，能写篇博客都是硬挤出来的时间，今天废话就不出了，到此为止。</p>
-<p>今天要记录的内容是用Hive处理一个表，由于我们这张表的字段多达上百个，所以我自己改编了一下：</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>现在有这样两张表：</p>
-<pre><code>CREATE TABLE event(
-id STRING,
-event STRING,
-start INT
-)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY ','
-STORED AS TEXTFILE;
-
-CREATE TABLE event_fillback(
-id STRING,
-event STRING,
-start INT,
-etype INT
-)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY ','
-STORED AS TEXTFILE;</code>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/25/hive-tech/">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -249,6 +209,11 @@ STORED AS TEXTFILE;</code>
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
+                        <a href="https://IMYin.github.io/2017/07/26/file-tool-for-windows/">
+                            File tool for windows
+                        </a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/07/17/house-price/">
                             kaggle-->预测房价
                         </a>
@@ -266,11 +231,6 @@ STORED AS TEXTFILE;</code>
                     <li class="list-group-item">
                         <a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">
                             update ssh for red-hat
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="https://IMYin.github.io/2017/01/20/xpdf/">
-                            Install xpdf on ubuntu
                         </a>
                     </li>
                 </ul>
