@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>intergration - Yin's Blog</title>
+    <title>Search - Yin's Blog
+</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -10,8 +11,7 @@
 
 
 
-    <meta name="author" content="Yin" />
-    <meta name="keywords" content="intergration" />
+        <meta name="author" content="Yin" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="Yin's Blog" />
@@ -67,19 +67,7 @@ Yin's Blog            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <article>
-                <h2><a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">Scipy ---> Integration</a></h2>
-                <div class="summary">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Intergration">Intergration<a class="anchor-link" href="#Intergration">¶</a></h3><p>Integration is a crucial tool in math and science, as differentiation and integration are the two key components of calculus. Given a curve from a function or a dataset, we can calculate the area below it. In the traditional classroom setting we would integrate a function analytically, but data in the research setting is rarely given in this form, and we need to <u>approximate</u>
-                    <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">more ...</a>
-                </div>
-            </article>
-            <hr/>
-
+<div id="tipue_search_content"></div>
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -91,7 +79,11 @@ Yin's Blog            </a>
 <li class="list-group-item">
   <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
   <ul class="list-group" id="recentposts">
-    <li class="list-group-item"><a href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">Scipy ---> Integration</a></li>
+    <li class="list-group-item"><a href="https://IMYin.github.io/2017/07/26/file-tool-for-windows/">File tool for windows</a></li>
+    <li class="list-group-item"><a href="https://IMYin.github.io/2017/07/17/house-price/">kaggle-->预测房价</a></li>
+    <li class="list-group-item"><a href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">setup and configure ganglia on CentOS</a></li>
+    <li class="list-group-item"><a href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">sshfs to mount remote file system</a></li>
+    <li class="list-group-item"><a href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">update ssh for red-hat</a></li>
   </ul>
 </li>
 <!-- End Sidebar/Recent Posts -->
@@ -122,7 +114,7 @@ Yin's Blog            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 Yin
+         <div class="col-xs-10">&copy; 2017 Yin
             &middot; <a href="" target="_blank">IMYin</a>         </div>
          <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
       </div>
@@ -155,5 +147,17 @@ Yin's Blog            </a>
     <!-- End Google Analytics Code -->
 
 
+    <script type="text/javascript" src="https://IMYin.github.io/theme/tipuesearch/tipuesearch_set.js"></script>
+    <script type="text/javascript" src="https://IMYin.github.io/theme/tipuesearch/tipuesearch.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      $('#tipue_search_input').tipuesearch({
+        'mode' : 'json',
+        'show': 10,
+        'newWindow': false,
+        'contentLocation': 'tipuesearch_content.json'
+      });
+    });
+    </script>
 </body>
 </html>
