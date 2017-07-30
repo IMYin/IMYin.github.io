@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
+    <link href="https://IMYin.github.io/images/lan_mei.png" rel="icon">
 
 <link rel="canonical" href="https://IMYin.github.io">
         <meta name="author" content="Yin" />
@@ -80,22 +81,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>这几天在做自己的项目，其中有一项任务是爬虫。但是中途发现了一个比较棘手的问题，当我想爬取第二页的内容时，发现点进去之后网站的url不会发生改变。并且要想爬去第二页的内容也必须要触发点击事件之后才可以进入网页，在源码中显示的是</p>
-<pre><code>href="javascript:__doPostBack('pagerQuestion','2')"
-
-</code></pre>
-<p>之后我在源码中看到了这样的代码：</p>
-<pre><code>function __doPostBack(eventTarget, eventArgument) {
-    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
-        theForm.__EVENTTARGET.value = eventTarget;
-        theForm.__EVENTARGUMENT.value = eventArgument;
-        theForm.submit();
-    }
-}
-
-</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/12/04/Scraping-with-__doPostBack/">more ...</a>
                 </div>
             </article>
@@ -105,9 +90,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Intergration">Intergration<a class="anchor-link" href="#Intergration">¶</a></h3><p>Integration is a crucial tool in math and science, as differentiation and integration are the two key components of calculus. Given a curve from a function or a dataset, we can calculate the area below it. In the traditional classroom setting we would integrate a function analytically, but data in the research setting is rarely given in this form, and we need to <u>approximate</u>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/29/integration-with-scipy/">more ...</a>
                 </div>
             </article>
@@ -117,9 +99,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Data that contains information usually has a functional form, and as analysts we want to model it. Given a set of sample data, obtaining the intermediate values between the points is useful to understand and predict what the data will do in the non-sampled domain. Scipy offers well over a dozen different functions for interpolation, <u>ranging</u>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/28/Interpolation-with-scipy/">more ...</a>
                 </div>
             </article>
@@ -129,9 +108,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>With Numpy we can achieve fast solutions with simple code. Where does Scipy come into the picture? It's a package that utilizes Numpy arrays and manipulations to take on standard problems that scientists and engineers commonly face: <u>integration</u>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/Optimization-and-Minization-with-scipy/">more ...</a>
                 </div>
             </article>
@@ -141,9 +117,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Math">Math<a class="anchor-link" href="#Math">¶</a></h3><p>Python comes with its own math module that works on Python <u>native</u>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/math-in-numpy/">more ...</a>
                 </div>
             </article>
@@ -153,9 +126,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Reading-and-Write">Reading and Write<a class="anchor-link" href="#Reading-and-Write">¶</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/read and wirte in numpy/">more ...</a>
                 </div>
             </article>
@@ -165,9 +135,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Boolean-Statements-and-Numpy-Arrays">Boolean Statements and Numpy Arrays<a class="anchor-link" href="#Boolean-Statements-and-Numpy-Arrays">¶</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/27/boolean statements of python/">more ...</a>
                 </div>
             </article>
@@ -186,9 +153,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="NumPy-Arrays">NumPy Arrays<a class="anchor-link" href="#NumPy-Arrays">¶</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/26/numpy-array/">more ...</a>
                 </div>
             </article>
@@ -235,6 +199,44 @@ Yin's Blog            </a>
   </ul>
 </li>
 <!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://IMYin.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group " id="tags">
+    <li class="list-group-item tag-1">
+      <a href="https://IMYin.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hadoop.html">hadoop</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/numpy.html">numpy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/mapreduce.html">mapreduce</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scikit-learn.html">scikit-learn</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scipy.html">scipy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hive.html">hive</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/kaggle.html">kaggle</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/requests.html">requests</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/scrapy.html">scrapy</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
   </ul>
 </section>
 <!-- End Sidebar -->            </aside>

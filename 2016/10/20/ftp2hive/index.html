@@ -8,18 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
+    <link href="https://IMYin.github.io/images/lan_mei.png" rel="icon">
 
 <link rel="canonical" href="https://IMYin.github.io/2016/10/20/ftp2hive/">
 
         <meta name="author" content="Yin" />
         <meta name="keywords" content="shell,hive,ftp,hadoop" />
-        <meta name="description" content="今天聊一聊我们公司辽宁项目中是怎样做数据处理的。 先来看一下处理数据的架构，非常之简单： 当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。 先简单说一下我们这个loooooooooow架构： FTP共享平台 $\Downarrow$ 4台交换机 $\Downarrow$ 17台规模的Hadoop集群其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 代码如下：" />
+        <meta name="description" content="" />
 
         <meta property="og:site_name" content="Yin's Blog" />
         <meta property="og:type" content="article"/>
         <meta property="og:title" content="FTP数据入库Hive(shell实现)"/>
         <meta property="og:url" content="https://IMYin.github.io/2016/10/20/ftp2hive/"/>
-        <meta property="og:description" content="今天聊一聊我们公司辽宁项目中是怎样做数据处理的。 先来看一下处理数据的架构，非常之简单： 当然今天不是来讲架构的，而想记录一下我之前用shell写的数据处理脚本。 先简单说一下我们这个loooooooooow架构： FTP共享平台 $\Downarrow$ 4台交换机 $\Downarrow$ 17台规模的Hadoop集群其中交换机与FTP共享平台之间是用的万兆光纤传输，每个文件有380m左右大小，每小时有将近200个文件需要处理，也就是一天大概处理1.8T的数据量，需要插入10张表中。 为了实现在处理数据时可以并发处理，我针对每一张表都写了两个脚本，其中一个放在交换机中，另一个放在Hadoop集群中（最好放在Datanode节点中）。 代码如下："/>
+        <meta property="og:description" content=""/>
         <meta property="article:published_time" content="2016-10-20" />
             <meta property="article:section" content="技术文章" />
             <meta property="article:tag" content="shell" />
@@ -1318,6 +1319,44 @@ echo "load data completed..."</code></pre>
   </ul>
 </li>
 <!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://IMYin.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group " id="tags">
+    <li class="list-group-item tag-1">
+      <a href="https://IMYin.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hadoop.html">hadoop</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/numpy.html">numpy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/mapreduce.html">mapreduce</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scikit-learn.html">scikit-learn</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scipy.html">scipy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hive.html">hive</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/kaggle.html">kaggle</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/requests.html">requests</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/scrapy.html">scrapy</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
   </ul>
 </section>
 <!-- End Sidebar -->            </aside>

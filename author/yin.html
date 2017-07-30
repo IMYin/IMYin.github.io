@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
+    <link href="https://IMYin.github.io/images/lan_mei.png" rel="icon">
 
 
         <meta name="author" content="Yin" />
@@ -71,9 +72,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="file-tool">file tool<a class="anchor-link" href="#file-tool">¶</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/07/26/file-tool-for-windows/">more ...</a>
                 </div>
             </article>
@@ -83,9 +81,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="House-Prices:-Advanced-Regression-Techniques">House Prices: Advanced Regression Techniques<a class="anchor-link" href="#House-Prices:-Advanced-Regression-Techniques">¶</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/07/17/house-price/">more ...</a>
                 </div>
             </article>
@@ -95,31 +90,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="今天介绍一下如何在CentOS服务器中部署Ganglia">今天介绍一下如何在CentOS服务器中部署Ganglia<a class="anchor-link" href="#今天介绍一下如何在CentOS服务器中部署Ganglia">¶</a></h3><p>至于什么是ganglia，就不在这里装逼赘述了，给个<a href="http://ganglia.sourceforge.net/">官网地址</a></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="预装软件">预装软件<a class="anchor-link" href="#预装软件">¶</a></h3><p>安装ganglia需要不少预装软件，最好自己在本地配置一个yum源，以方便安装。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="配置yum源">配置yum源<a class="anchor-link" href="#配置yum源">¶</a></h4><p>将光盘镜像中的文件放置<code>/mnt/cdrom</code>下。</p>
-<pre><code>ls /mnt/cdrom
-
-CentOS_BuildTag  GPL       Packages                  RPM-GPG-KEY-CentOS-6           RPM-GPG-KEY-CentOS-Testing-6
-EFI              images    RELEASE-NOTES-en-US.html  RPM-GPG-KEY-CentOS-Debug-6     TRANS.TBL
-EULA             isolinux  repodata                  RPM-GPG-KEY-CentOS-Security-6
-</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/03/23/ganglia-on-CentOS/">more ...</a>
                 </div>
             </article>
@@ -129,10 +99,6 @@ EULA             isolinux  repodata                  RPM-GPG-KEY-CentOS-Security
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="通过sshfs来将远程目录挂载到本地">通过sshfs来将远程目录挂载到本地<a class="anchor-link" href="#通过sshfs来将远程目录挂载到本地">¶</a></h3><p>sshfs，就是可以把ssh连接到的主机资源，映射到本机的文件系统当中，然后用户可以像操作本地文件一样操作，而实际的文件改动将通过ssh传输到远程主机当中。类似于mount了一个windows共享目录，或者另外一台linux主机的samba共享，或者是nfs共享，只是“共享协议”变成了ssh通道罢了</p>
-<p>ubuntu源中已经包含了sshfs了，以及所需的fuse包，直接apt安装就可以了，一共是三个包：“<strong>fuse-utils libfuse2 sshfs</strong>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/03/22/sshfs-to-mount-remote-file-system/">more ...</a>
                 </div>
             </article>
@@ -142,10 +108,6 @@ EULA             isolinux  repodata                  RPM-GPG-KEY-CentOS-Security
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="升级ssh步骤">升级ssh步骤<a class="anchor-link" href="#升级ssh步骤">¶</a></h2><p>如果ssh升级失败，远程连接将无法连接，所以要有一个预备方案，安装telnet，目的是ssh安装失败之后，依然可以使用telnet远程连接。</p>
-<h3 id="安装telnet">安装telnet<a class="anchor-link" href="#安装telnet">¶</a></h3><p>安装telnet需要用到两个依赖包：<a href="http://www.zlib.net/">zlib</a>, <a href="http://www.linuxfromscratch.org/blfs/view/svn/server/xinetd.html">xinetd</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/03/10/update-ssh-for-red-hat/">more ...</a>
                 </div>
             </article>
@@ -155,9 +117,6 @@ EULA             isolinux  repodata                  RPM-GPG-KEY-CentOS-Security
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="xpdf">xpdf<a class="anchor-link" href="#xpdf">¶</a></h3><p>本来想用<a href="http://www.unixuser.org/~euske/python/pdfminer/">PDFMiner</a>来处理PDF文档，但是在其官网上看到了这句话：<code>PDFMiner is about 20 times slower than other C/C++-based counterparts such as XPdf.</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/01/20/xpdf/">more ...</a>
                 </div>
             </article>
@@ -167,14 +126,6 @@ EULA             isolinux  repodata                  RPM-GPG-KEY-CentOS-Security
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>最近想通过python的<strong>urllib</strong>库来下载一些文件，但是结果不如愿，因为下载下来的文件并不是想要的，看看原因发现，网页在过程中发生了重定向(状态码为<em>302</em>)</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/01/16/python-requests-cannot-get-response-location/">more ...</a>
                 </div>
             </article>
@@ -184,23 +135,6 @@ EULA             isolinux  repodata                  RPM-GPG-KEY-CentOS-Security
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>背景：</strong>想要执行一个shell脚本，做个定时任务，但是在shell中用了<strong>if</strong>语句却不生效，但是手动执行这个shell就生效。</p>
-<p>shell:</p>
-<pre><code>export PYTHON_HOME="/home/imyin/anaconda2/bin/python"
-
-my_path="$(cd "$(dirname "$0")"; pwd)"
-cd ${my_path}
-
-TODAY_DATE=`date +%Y-%m-%d`
-trade_date=`cat ${my_path}/trade_date.csv`
-
-if [[ ${trade_date} == *${TODAY_DATE}* ]]; then
-echo "Yes..."
-else
-echo "No..."
-fi</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/01/09/shell-if-no-work-in-cron/">more ...</a>
                 </div>
             </article>
@@ -210,13 +144,6 @@ fi</code>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>写了一个定时任务，通过pyhton的matplotlib画出图形保存在本地，但是定时任务并不生效。</p>
-<p><a href="http://liguxk.blog.51cto.com/129038/152912">系统版本</a>：</p>
-<pre><code>Linux IMYin 4.4.0-57-generic #78-Ubuntu SMP Fri Dec 9 23:50:32 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Ubuntu 16.04.1 LTS
-</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2017/01/09/matplotlib-with-cron/">more ...</a>
                 </div>
             </article>
@@ -272,6 +199,44 @@ Ubuntu 16.04.1 LTS
   </ul>
 </li>
 <!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://IMYin.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group " id="tags">
+    <li class="list-group-item tag-1">
+      <a href="https://IMYin.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hadoop.html">hadoop</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/numpy.html">numpy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/mapreduce.html">mapreduce</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scikit-learn.html">scikit-learn</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scipy.html">scipy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hive.html">hive</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/kaggle.html">kaggle</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/requests.html">requests</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/scrapy.html">scrapy</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
   </ul>
 </section>
 <!-- End Sidebar -->            </aside>

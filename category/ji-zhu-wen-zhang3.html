@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
+    <link href="https://IMYin.github.io/images/lan_mei.png" rel="icon">
 
 
     <meta name="author" content="Yin" />
@@ -74,16 +75,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>精气神挺足，继续！</p>
-<p>这篇文章中我将套用别人的例子记录一下我所了解的匿名函数---->lambda.当然想了解更多的话，在网上你可以找到更多的例子。</p>
-<h3 id="lambda表达式">lambda表达式<a class="anchor-link" href="#lambda表达式">¶</a></h3><p>当我们需要写一个函数，而这个函数又并不被多个地方调用，或者只被一个地方所调用时，我们不需要在费心思为其命名、浪费篇幅定义方法，我们可以使用匿名函数来完成我们想要的操作。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/18/lambda-in-python/">more ...</a>
                 </div>
             </article>
@@ -102,11 +93,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>近期实在比较忙，公司的业务很臃肿，理解起来比较抽象，在开发的时候也是费了不少心思。</p>
-<p>我们公司现在需要部分业务从原来的Oracle中迁移到Hadoop中，表与表之间的处理逻辑需要用SparkSQL或者MapReduce来完成，所以中间会遇到很多问题，一方面得由我这个外人重新读一遍很久之前的开发文档，一方面还需要读Oracle中的存储过程。但是在开发过程中，会发现存储过程有些地方会与文档中产生分歧，这时又得询问公司的业务人员，业务人员看了之后需要重新开始回忆，在回忆过程中难免出现部分差池。之后产品部门又和业务人员进行讨论，我在旁边听得云里雾里的.....</p>
-<p>反正挺忙的，而且并非是一些难问题，而是一些复杂的琐碎问题，并且大数据的项目仅由两个人来开发，啧啧啧，受宠若惊。还好本人脑子不算太笨，目前已经将最冗余的业务逻辑部分开发完成，就剩下MapReduce需要写了，So easy!哈哈，接下来又有时间来研究自己最喜欢的数据挖掘了！</p>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/16/send-mail-with-python/">more ...</a>
                 </div>
             </article>
@@ -116,10 +102,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>这两天一直忙公司的事情，都没有太多的时间来做自己的研究了。今天利用这点空闲时间来说一些模型缓存的问题。</p>
-<h3 id="Model-persistence">Model persistence<a class="anchor-link" href="#Model-persistence">¶</a>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/16/mpdel-persistence/">more ...</a>
                 </div>
             </article>
@@ -129,25 +111,6 @@ Yin's Blog            </a>
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>为了培养出一个良好的习惯，我在这里记录一下我个人在做机器学习时的整个流程，<strong>包括拿到数据起始，到预测结果之后。</strong></p>
-<p><a href="http://www.kaggle.com/">Kaggle</a>是一个非常好的机器学习的平台，上面有很多数据可供个人研究。还是从一个比较简单的例子中做起：<a href="https://www.kaggle.com/c/titanic">Titanic</a>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="数据分析">数据分析<a class="anchor-link" href="#数据分析">¶</a></h2><p>俗话说万事开头难，在我刚拿到数据的时候确实有些茫然。我想起一个脑际急转弯，说人在早上起床时第一件事是什么？答案是“睁眼”。ok，在这里做的就是看题目中的介绍：</p>
-<pre><code>Competition Description
-
-The sinking of the RMS Titanic is one of the most infamous shipwrecks in history.  On April 15, 1912, during her maiden voyage, the Titanic sank after colliding with an iceberg, killing 1502 out of 2224 passengers and crew. This sensational tragedy shocked the international community and led to better safety regulations for ships.
-
-One of the reasons that the shipwreck led to such loss of life was that there were not enough lifeboats for the passengers and crew. Although there was some element of luck involved in surviving the sinking, some groups of people were more likely to survive than others, such as women, children, and the upper-class.
-
-In this challenge, we ask you to complete the analysis of what sorts of people were likely to survive. In particular, we ask you to apply the tools of machine learning to predict which passengers survived the tragedy.</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/13/basic-process-of-ML/">more ...</a>
                 </div>
             </article>
@@ -157,26 +120,6 @@ In this challenge, we ask you to complete the analysis of what sorts of people w
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>这篇文章我会介绍如何在Python中操作Mysql。</p>
-<p>我之所以会用到Mysql，是因为之前我爬虫的时候会用一些网上免费的代理ip(并没什么卵用)，构建一个自己的代理ip池。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>安装Mysql。在Ubuntu上安装Mysql非常简单，可以参考<a href="http://wiki.ubuntu.org.cn/MySQL%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97">这里</a>，也可以在<a href="http://dev.mysql.com/doc/">官网</a>上寻找指南.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<pre><code>sudo apt-get install mysql-server</code>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/10/python-mysql/">more ...</a>
                 </div>
             </article>
@@ -195,15 +138,6 @@ In this challenge, we ask you to complete the analysis of what sorts of people w
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>当我们想对好几个dict合并时，在python中可以有好几种方法实现。</p>
-<p>假如现在我们有这几个dict:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/08/dict-merge-in-python/">more ...</a>
                 </div>
             </article>
@@ -222,17 +156,6 @@ In this challenge, we ask you to complete the analysis of what sorts of people w
                 <div class="summary">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>今天又看了李航博士写的有关感知机的文章，觉得讲解得非常细腻，通俗易懂，也让我醍醐灌顶。在这里自己再转述一遍，以让自己能够更加深刻的理解和记忆,所以路过的同学如果看到有写得不全的地方，还望见谅。</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="感知机定义">感知机定义<a class="anchor-link" href="#感知机定义">¶</a></h3><p>要知道的是，感知机是二类分类的线性分类模型。其输入为$X\subseteq R^n$，输出为$Y=\{+1,-1\}$。$R^n$表示特征空间。</p>
                     <a class="btn btn-default btn-xs" href="https://IMYin.github.io/2016/11/04/perceptron-note/">more ...</a>
                 </div>
             </article>
@@ -279,6 +202,44 @@ In this challenge, we ask you to complete the analysis of what sorts of people w
   </ul>
 </li>
 <!-- End Sidebar/Categories -->
+
+<!-- Sidebar/Tag Cloud -->
+<li class="list-group-item">
+  <a href="https://IMYin.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+  <ul class="list-group " id="tags">
+    <li class="list-group-item tag-1">
+      <a href="https://IMYin.github.io/tag/python.html">python</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hadoop.html">hadoop</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/numpy.html">numpy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/mapreduce.html">mapreduce</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scikit-learn.html">scikit-learn</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/scipy.html">scipy</a>
+    </li>
+    <li class="list-group-item tag-2">
+      <a href="https://IMYin.github.io/tag/hive.html">hive</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/kaggle.html">kaggle</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/requests.html">requests</a>
+    </li>
+    <li class="list-group-item tag-3">
+      <a href="https://IMYin.github.io/tag/scrapy.html">scrapy</a>
+    </li>
+  </ul>
+</li>
+<!-- End Sidebar/Tag Cloud -->
   </ul>
 </section>
 <!-- End Sidebar -->            </aside>
