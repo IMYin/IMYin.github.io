@@ -5,21 +5,21 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://IMYin.github.io/</loc>
-<lastmod>2017-08-02T22:55:04-00:00</lastmod>
+<lastmod>2017-12-29T14:08:48-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://IMYin.github.io/archives.html</loc>
-<lastmod>2017-08-02T22:55:04-00:00</lastmod>
+<lastmod>2017-12-29T14:08:48-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://IMYin.github.io/categories.html</loc>
-<lastmod>2017-08-02T22:55:04-00:00</lastmod>
+<lastmod>2017-12-29T14:08:48-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -27,6 +27,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://IMYin.github.io/pages/about-me.html</loc>
 <lastmod>2016-08-20T22:15:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/2017/12/29/face-reconnition_system/</loc>
+<lastmod>2017-12-29T13:00:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -446,7 +453,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://IMYin.github.io/category/ji-zhu-wen-zhang.html</loc>
-<lastmod>2017-08-02T15:00:00+08:06</lastmod>
+<lastmod>2017-12-29T13:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -454,6 +461,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://IMYin.github.io/category/pride_and_prejudiceyi.html</loc>
 <lastmod>2016-11-26T18:15:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/matplotlib.html</loc>
+<lastmod>2017-12-29T13:00:00+08:06</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://IMYin.github.io/tag/python.html</loc>
+<lastmod>2017-12-29T13:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -474,13 +495,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://IMYin.github.io/tag/ji-qi-xue-xi.html</loc>
-<lastmod>2017-08-02T15:00:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>https://IMYin.github.io/tag/python.html</loc>
 <lastmod>2017-08-02T15:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -622,13 +636,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://IMYin.github.io/tag/shengbang.html</loc>
 <lastmod>2017-01-09T23:11:00+08:06</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>https://IMYin.github.io/tag/matplotlib.html</loc>
-<lastmod>2017-01-09T11:11:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1307,7 +1314,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://IMYin.github.io/author/yin.html</loc>
-<lastmod>2017-08-02T15:00:00+08:06</lastmod>
+<lastmod>2017-12-29T13:00:00+08:06</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
